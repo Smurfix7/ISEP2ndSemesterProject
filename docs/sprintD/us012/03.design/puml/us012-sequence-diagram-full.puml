@@ -1,0 +1,370 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Administrator" as Admin
+participant ":ImportLegacyFileUI" as UI
+participant ":ImportLegacyFileController" as Controller
+participant ":Repositories" as Repository
+participant "repositories\n:Repositories" as Repositories
+participant ":ImportLegacyFile" as ImportLegacyFile
+
+participant "purchaseOrder\n:PurchaseOrder" as PurchaseOrder
+participant "owner\n:Owner" as Owner
+participant "land\n:Property" as Property
+participant "house\n:House" as House
+participant "apartment\n:Building" as Building
+participant "address\n:Address" as Address
+participant "propertyRepository\n:PropertyRepository" as PropertyRepository
+participant "purchaseOrderRepository\n:PurchaseOrderRepository" as PurchaseOrderRepository
+participant "ownerRepository\n:OwnerRepository" as OwnerRepository
+
+activate Admin
+
+        Admin -> UI : asks to import information from a legacy system
+        activate UI
+
+            UI -> Controller** : create()
+
+            UI -> UI : requestsFilePath()
+
+        UI --> Admin : requests file path
+            deactivate UI
+
+    Admin -> UI : types file path and submits data
+    activate UI
+
+            UI -> Controller : importLegacyFile(filePath)
+            activate Controller
+
+                Controller -> Repository : getInstance()
+                activate Repository
+
+                Repository --> Controller: repositories
+                    deactivate Repository
+
+                Controller -> Repositories : getPropertyRepository()
+                activate Repositories
+
+                Repositories --> Controller: propertyRepository
+                    deactivate Repositories
+
+                Controller -> Repositories : getPurchaseOrderRepository()
+                activate Repositories
+
+                Repositories --> Controller: purchaseOrderRepository
+                    deactivate Repositories
+
+                Controller -> Repositories : getOwnerRepository()
+                activate Repositories
+
+                Repositories --> Controller: ownerRepository
+                    deactivate Repositories
+
+                Controller -> ImportLegacyFile : importLegacyFile(filePath)
+                activate ImportLegacyFile
+
+                    ImportLegacyFile -> ImportLegacyFile : readLegacyFile(legacyFile)
+                    activate ImportLegacyFile
+
+                        ImportLegacyFile -> ImportLegacyFile : fillPropertyInfoList(propertyInfo)
+
+            loop while (legacyFileInput.hasNextLine())
+
+                            ImportLegacyFile -> ImportLegacyFile : getPropertyType(propertyInfo)
+                            activate ImportLegacyFile
+
+                                ImportLegacyFile --> ImportLegacyFile : type
+                                deactivate ImportLegacyFile
+
+                alt if (type == "land")
+
+                    ImportLegacyFile -> ImportLegacyFile : readLandInputFromLegacyFile()
+                    activate ImportLegacyFile
+
+                        ImportLegacyFile -> Property** : create(propertyType, areaOfProperty, distanceFromCentre, address)
+                        activate Property
+
+                            alt if (propertyLocation == 5)
+
+                            Property -> Address** : create(street, city, district, state, zipCode)
+                            activate Address
+
+                                Address --> Property : address
+                                    deactivate Address
+
+                            else if (propertyLocation == 4)
+
+                            Property -> Address** : create(street, city, state, zipCode)
+                            activate Address
+
+                                Address --> Property : address
+                                    deactivate Address
+
+                            end
+
+                        Property --> ImportLegacyFile : land
+                            deactivate Property
+
+                        ImportLegacyFile --> Controller : land
+
+                        ImportLegacyFile -> PurchaseOrder** : create(announcement, orderAmount)
+                        activate PurchaseOrder
+
+                        PurchaseOrder --> ImportLegacyFile : purchaseOrder
+                            deactivate PurchaseOrder
+
+                        ImportLegacyFile --> Controller : purchaseOrder
+
+                        ImportLegacyFile -> Owner** : create(name, taxNumber, emailAddress, telephoneNumber, role, passportCard)
+                        activate Owner
+
+                        Owner --> ImportLegacyFile : owner
+                            deactivate Owner
+
+                        ImportLegacyFile --> Controller : owner
+                            deactivate ImportLegacyFile
+
+                Controller -> PropertyRepository : addLand(land)
+                activate PropertyRepository
+
+                    PropertyRepository -> PropertyRepository : addProperty(land)
+                    activate PropertyRepository
+
+                        PropertyRepository -> PropertyRepository : validateProperty(property)
+                            activate PropertyRepository
+
+                        PropertyRepository --> PropertyRepository : true/false
+                            deactivate PropertyRepository
+
+                Controller -> PurchaseOrderRepository : addPurchaseOrder(purchaseOrder)
+                    deactivate PropertyRepository
+                deactivate PropertyRepository
+                activate PurchaseOrderRepository
+
+                    PurchaseOrderRepository -> PurchaseOrderRepository : addPurchaseOrder(purchaseOrder)
+                    activate PurchaseOrderRepository
+
+                        PurchaseOrderRepository -> PurchaseOrderRepository : validatePurchaseOrder(purchaseOrder)
+                            activate PurchaseOrderRepository
+
+                        PurchaseOrderRepository --> PurchaseOrderRepository : true/false
+                            deactivate PurchaseOrderRepository
+
+                Controller -> OwnerRepository : addOwner(owner)
+                    deactivate PurchaseOrderRepository
+                deactivate PurchaseOrderRepository
+                activate OwnerRepository
+
+                    OwnerRepository -> OwnerRepository : addOwner(owner)
+                    activate OwnerRepository
+
+                        OwnerRepository -> OwnerRepository : validateOwner(owner)
+                        activate OwnerRepository
+
+                        OwnerRepository --> OwnerRepository : true/false
+                            deactivate OwnerRepository
+
+
+                else if (type == "house")
+
+                    ImportLegacyFile -> ImportLegacyFile : readHouseInputFromLegacyFile()
+                            deactivate OwnerRepository
+                        deactivate OwnerRepository
+                    activate ImportLegacyFile
+
+                        ImportLegacyFile -> House** : create(propertyType, areaOfProperty, distanceFromCentre, address, bedrooms,\n bathrooms, parkingSpaces, basement, loft, sunExposure, equipment)
+                        activate House
+
+                            alt if (propertyLocation == 5)
+
+                            House -> Address** : create(street, city, district, state, zipCode)
+                            activate Address
+
+                                Address --> House : address
+                                    deactivate Address
+
+                            else if (propertyLocation == 4)
+
+                            House -> Address** : create(street, city, state, zipCode)
+                            activate Address
+
+                                Address --> House : address
+                                    deactivate Address
+
+                            end
+
+                        House --> ImportLegacyFile : house
+                            deactivate House
+
+                    ImportLegacyFile --> Controller : house
+
+                        ImportLegacyFile -> PurchaseOrder** : create(announcement, orderAmount)
+                        activate PurchaseOrder
+
+                        PurchaseOrder --> ImportLegacyFile : purchaseOrder
+                            deactivate PurchaseOrder
+
+                    ImportLegacyFile --> Controller : purchaseOrder
+
+                        ImportLegacyFile -> Owner** : create(propertyType, areaOfProperty, distanceFromCentre, address)
+                        activate Owner
+
+                        Owner --> ImportLegacyFile : owner
+                            deactivate Owner
+
+                    ImportLegacyFile --> Controller : owner
+                             deactivate ImportLegacyFile
+
+                Controller -> PropertyRepository : addHouse(house)
+                activate PropertyRepository
+
+                    PropertyRepository -> PropertyRepository : addProperty(house)
+                    activate PropertyRepository
+
+                        PropertyRepository -> PropertyRepository : validateProperty(property)
+                            activate PropertyRepository
+
+                        PropertyRepository --> PropertyRepository : true/false
+                            deactivate PropertyRepository
+
+                Controller -> PurchaseOrderRepository : addPurchaseOrder(purchaseOrder)
+                    deactivate PropertyRepository
+                deactivate PropertyRepository
+                activate PurchaseOrderRepository
+
+                    PurchaseOrderRepository -> PurchaseOrderRepository : addPurchaseOrder(purchaseOrder)
+                    activate PurchaseOrderRepository
+
+                        PurchaseOrderRepository -> PurchaseOrderRepository : validatePurchaseOrder(purchaseOrder)
+                            activate PurchaseOrderRepository
+
+                        PurchaseOrderRepository --> PurchaseOrderRepository : true/false
+                            deactivate PurchaseOrderRepository
+
+                Controller -> OwnerRepository : addOwner(owner)
+                    deactivate PurchaseOrderRepository
+                deactivate PurchaseOrderRepository
+                activate OwnerRepository
+
+                    OwnerRepository -> OwnerRepository : addOwner(owner)
+                    activate OwnerRepository
+
+                        OwnerRepository -> OwnerRepository : validateOwner(owner)
+                        activate OwnerRepository
+
+                        OwnerRepository --> OwnerRepository : true/false
+                            deactivate OwnerRepository
+
+
+
+                else if (type == "apartment")
+
+                    ImportLegacyFile -> ImportLegacyFile : readApartmentInputFromLegacyFile()
+                        deactivate OwnerRepository
+                    deactivate OwnerRepository
+                    activate ImportLegacyFile
+
+                        ImportLegacyFile -> Building** : create(propertyType, areaOfProperty, distanceFromCentre, address, bedrooms,\nbathrooms, parkingSpaces, equipment)
+                        activate Building
+
+                            alt if (propertyLocation == 5)
+
+                            Building -> Address** : create(street, city, district, state, zipCode)
+                            activate Address
+
+                                Address --> Building : address
+                                    deactivate Address
+
+                            else if (propertyLocation == 4)
+
+                            Building -> Address** : create(street, city, state, zipCode)
+                            activate Address
+
+                                Address --> Building : address
+                                    deactivate Address
+
+                            end
+
+                        Building --> ImportLegacyFile : apartment
+                            deactivate Building
+
+                    ImportLegacyFile --> Controller : apartment
+
+                        ImportLegacyFile -> PurchaseOrder** : create(create(announcement, orderAmount))
+                        activate PurchaseOrder
+
+                        PurchaseOrder --> ImportLegacyFile : purchaseOrder
+                            deactivate PurchaseOrder
+
+                    ImportLegacyFile --> Controller : purchaseOrder
+
+                        ImportLegacyFile -> Owner** : create(propertyType, areaOfProperty, distanceFromCentre, address)
+                        activate Owner
+
+                        Owner --> ImportLegacyFile : owner
+                            deactivate Owner
+
+                    ImportLegacyFile --> Controller : owner
+                              deactivate ImportLegacyFile
+
+                Controller -> PropertyRepository : addApartment(apartment)
+                activate PropertyRepository
+
+                    PropertyRepository -> PropertyRepository : addProperty(apartment)
+                    activate PropertyRepository
+
+                        PropertyRepository -> PropertyRepository : validateProperty(property)
+                            activate PropertyRepository
+
+                        PropertyRepository --> PropertyRepository : true/false
+                            deactivate PropertyRepository
+
+                Controller -> PurchaseOrderRepository : addPurchaseOrder(purchaseOrder)
+                    deactivate PropertyRepository
+                deactivate PropertyRepository
+                activate PurchaseOrderRepository
+
+                    PurchaseOrderRepository -> PurchaseOrderRepository : addPurchaseOrder(purchaseOrder)
+                    activate PurchaseOrderRepository
+
+                        PurchaseOrderRepository -> PurchaseOrderRepository : validatePurchaseOrder(purchaseOrder)
+                            activate PurchaseOrderRepository
+
+                        PurchaseOrderRepository --> PurchaseOrderRepository : true/false
+                            deactivate PurchaseOrderRepository
+
+                Controller -> OwnerRepository : addOwner(owner)
+                    deactivate PurchaseOrderRepository
+                deactivate PurchaseOrderRepository
+                activate OwnerRepository
+
+                    OwnerRepository -> OwnerRepository : addOwner(owner)
+                    activate OwnerRepository
+
+                        OwnerRepository -> OwnerRepository : validateOwner(owner)
+                        activate OwnerRepository
+
+                        OwnerRepository --> OwnerRepository : true/false
+                            deactivate OwnerRepository
+
+                end
+            end
+
+                ImportLegacyFile --> Controller : legacyFile
+                        deactivate OwnerRepository
+                    deactivate OwnerRepository
+                    deactivate ImportLegacyFile
+
+            Controller --> UI : legacyFile
+
+    UI --> Admin : displays operation success
+        deactivate UI
+
+deactivate Admin
+
+@enduml

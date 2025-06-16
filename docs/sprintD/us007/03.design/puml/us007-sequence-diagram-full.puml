@@ -1,0 +1,100 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Unregisted User" as Client
+participant ":MainMenuUI" as LoginUI
+participant ":UserRegisterUI" as RegisterUI
+participant ":UserRegisterController" as RegisterCTRL
+participant ":User" as User
+participant ":Repositories" as Repositories
+participant "repositories\n:Repositories" as repositories
+participant "user:\nAuthenticationRepository" as AuthenticationRepository
+participant ":Person" as Person
+participant "person:\nPersonRepository" as PersonRepository
+
+
+activate Client
+
+    Client -> LoginUI : selects register button
+    activate LoginUI
+        LoginUI -> RegisterUI : changeUI
+    deactivate LoginUI
+    activate RegisterUI
+        RegisterUI -> RegisterCTRL** : create
+        RegisterUI --> Client : shows UserRegisterUI
+        RegisterUI --> Client : requests data
+    deactivate RegisterUI
+
+    Client -> RegisterUI : provides information
+    activate RegisterUI
+        RegisterUI -> RegisterUI : keepAllData(name, passportNumber, emailAdress,\ntaxNumber, telephoneNumber, password, street,\ncity, district, state, zip code, role)
+        RegisterUI -> RegisterCTRL : createUser(name, emailAdress, password)
+        activate RegisterCTRL
+            RegisterCTRL -> User : User(name, emailAdress, password)
+            activate User
+                User --> RegisterCTRL : user
+            deactivate User
+
+            RegisterCTRL -> Repositories : getInstance()
+            activate Repositories
+                Repositories --> RegisterCTRL : repositories
+            deactivate Repositories
+
+            RegisterCTRL -> repositories : getAuthenticationRepository()
+            activate repositories
+                repositories --> RegisterCTRL : getAuthenticationRepository
+            deactivate repositories
+
+            RegisterCTRL -> AuthenticationRepository : validateUser(user)
+            activate AuthenticationRepository
+                AuthenticationRepository --> RegisterCTRL : validateUser
+            deactivate AuthenticationRepository
+
+        alt validation was a sucess
+                RegisterCTRL -> AuthenticationRepository : addUser(User)
+                activate AuthenticationRepository
+                    AuthenticationRepository --> RegisterCTRL : addUser
+                deactivate AuthenticationRepository
+                RegisterCTRL --> RegisterUI : createUser
+        deactivate RegisterCTRL
+
+                RegisterUI -> RegisterCTRL : createPerson(name, passportNumber, emailAdress,\ntaxNumber, telephoneNumber, address, role)
+
+        activate RegisterCTRL
+                RegisterCTRL -> Person : Person(name, passportNumber, emailAdress,\ntaxNumber, telephoneNumber, address, role)
+                activate Person
+                    Person --> RegisterCTRL : person
+                deactivate Person
+
+                 RegisterCTRL -> Repositories : getInstance()
+                    activate Repositories
+                        Repositories --> RegisterCTRL : repositories
+                    deactivate Repositories
+
+                 RegisterCTRL -> repositories : getPersonRepository()
+                    activate repositories
+                        repositories --> RegisterCTRL : getPersonRepository
+                    deactivate repositories
+
+                 RegisterCTRL -> PersonRepository : addPerson(person)
+                 activate PersonRepository
+                    PersonRepository --> RegisterCTRL : addPerson
+                 deactivate PersonRepository
+
+                 RegisterCTRL --> RegisterUI : createPerson
+        deactivate RegisterCTRL
+        end alt
+
+        RegisterUI --> Client : shows opperation result (successful/unsuccessful)
+    deactivate RegisterUI
+
+    deactivate RegisterUI
+
+deactivate Client
+
+@enduml

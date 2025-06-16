@@ -1,0 +1,111 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+actor "Network Manager" as Actor
+participant ":NetworkManagerUI" as NetworkManagerUI
+participant ":NetworkManagingUI" as NetworkManagingUI
+participant ":NetworkManagingController" as NetworkManagingCTRL
+participant ":Repositories" as Repositories
+participant "repositories:Repositories" as repositories
+participant "purchaseOrderRepository:PurchaseOrderRepository" as PurchaseOrderRepository
+participant ":Network" as Network
+participant ":Agency" as Agency
+
+
+activate Actor
+
+    Actor -> NetworkManagerUI : asks to analyse the deals made by the agencies
+
+    activate NetworkManagerUI
+
+        NetworkManagerUI -> NetworkManagingUI : changeUI()
+
+    deactivate NetworkManagerUI
+
+        activate NetworkManagingUI
+
+            NetworkManagingUI -> NetworkManagingCTRL** : create
+            NetworkManagingUI -> NetworkManagingCTRL : getAllAgenciesPurchaseDeals()
+
+            activate NetworkManagingCTRL
+
+                NetworkManagingCTRL -> Repositories : getInstance()
+
+                activate Repositories
+
+                    Repositories --> NetworkManagingCTRL : repositories
+
+                deactivate Repositories
+
+                NetworkManagingCTRL -> repositories : getPurchaseOrderRepository()
+
+                activate repositories
+
+                    repositories --> NetworkManagingCTRL : purchaseOrderRepository
+
+                deactivate repositories
+
+                NetworkManagingCTRL -> purchaseOrderRepository : getPurchaseOrdersAccepted()
+
+                activate purchaseOrderRepository
+
+                    purchaseOrderRepository --> NetworkManagingCTRL : PurchaseOrdersAccepted
+
+                deactivate purchaseOrderRepository
+
+                NetworkManagingCTRL --> NetworkManagingUI : getAllAgenciesPurchaseDeals
+
+            deactivate NetworkManagingCTRL
+
+             alt there are no purchase deals
+
+                NetworkManagingUI --> Actor : informs network manager that there are no purchase deals
+
+             end
+             alt there is atleast one purchase deal
+
+                NetworkManagingUI -> NetworkManagingCTRL : copyAllContents(agenciesAndPurchaseDeals, l1)
+
+                activate NetworkManagingCTRL
+
+                    NetworkManagingCTRL --> NetworkManagingUI : copyAllContents
+
+                deactivate NetworkManagingCTRL
+
+                NetworkManagingUI -> NetworkManagingCTRL : copyAllContents(agenciesAndPurchaseDeals, l2)
+
+                activate NetworkManagingCTRL
+
+                    NetworkManagingCTRL --> NetworkManagingUI : copyAllContents
+
+                deactivate NetworkManagingCTRL
+
+                NetworkManagingUI -> NetworkManagingCTRL : testForEveryNumber(l1, l2, agenciesAndPurchaseDeals, answers)
+
+                activate NetworkManagingCTRL
+
+                    NetworkManagingCTRL --> NetworkManagingUI : testForEveryNumber
+
+                deactivate NetworkManagingCTRL
+
+                NetworkManagingUI -> NetworkManagingCTRL : organizeList(l1, l2, answers.get(0))
+
+                activate NetworkManagingCTRL
+
+                    NetworkManagingCTRL --> NetworkManagingUI : organizeList
+
+                deactivate NetworkManagingCTRL
+
+             NetworkManagingUI --> Actor : shows network manager the 2 sublists and their diference
+
+             end
+
+        deactivate NetworkManagingUI
+
+
+deactivate Actor
+@enduml

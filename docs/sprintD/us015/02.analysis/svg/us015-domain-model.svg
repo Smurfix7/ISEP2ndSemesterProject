@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="us-ascii" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css"
+     height="782px" preserveAspectRatio="none" style="width:615px;height:782px;background:#FFFFFF;" version="1.1"
+     viewBox="0 0 615 782" width="615px" zoomAndPan="magnify">
+    <defs>
+        <filter height="300%" id="f4ytww02zz0ey" width="300%" x="-1" y="-1">
+            <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
+            <feColorMatrix in="blurOut" result="blurOut2" type="matrix"
+                           values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+            <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
+            <feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/>
+        </filter>
+    </defs>
+    <g>
+        <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+              textLength="156" x="222.5" y="25.1074">Domain Model - US015
+        </text><!--class Person-->
+        <g id="elem_Person">
+            <rect
+                    fill="#F1F1F1" filter="url(#f4ytww02zz0ey)" height="111.1055" id="Person" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="124" x="194.5" y="190.1211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45" x="234"
+                  y="210.2285">Person
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="195.5" x2="317.5" y1="218.7422" y2="218.7422"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="35"
+                  x="200.5" y="237.8496">name
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67"
+                  x="200.5" y="256.4707">taxNumber
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85"
+                  x="200.5" y="275.0918">emailAddress
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112"
+                  x="200.5" y="293.7129">telephoneNumber
+            </text>
+        </g><!--class Client-->
+        <g id="elem_Client">
+            <rect
+                    fill="#F1F1F1" filter="url(#f4ytww02zz0ey)" height="36.6211" id="Client" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="42" x="366.5" y="543.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36"
+                  x="369.5" y="563.7285">Client
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="367.5" x2="407.5" y1="572.2422" y2="572.2422"/>
+        </g><!--class Employee-->
+        <g id="elem_Employee">
+            <rect
+                    fill="#F1F1F1" filter="url(#f4ytww02zz0ey)" height="36.6211" id="Employee" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="68" x="222.5" y="408.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="62"
+                  x="225.5" y="428.7285">Employee
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="223.5" x2="289.5" y1="437.2422" y2="437.2422"/>
+        </g><!--class Agent-->
+        <g id="elem_Agent">
+            <rect
+                    fill="#F1F1F1" filter="url(#f4ytww02zz0ey)" height="36.6211" id="Agent" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="43" x="48" y="408.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="37" x="51"
+                  y="428.7285">Agent
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="49" x2="90" y1="437.2422" y2="437.2422"/>
+        </g><!--class Role-->
+        <g id="elem_Role">
+            <rect
+                    fill="#F1F1F1" filter="url(#f4ytww02zz0ey)" height="73.8633" id="Role" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="81" x="7" y="208.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="29" x="33"
+                  y="228.7285">Role
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="87" y1="237.2422" y2="237.2422"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="11" x="13"
+                  y="256.3496">id
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="69" x="13"
+                  y="274.9707">description
+            </text>
+        </g><!--class Address-->
+        <g id="elem_Address">
+            <rect
+                    fill="#F1F1F1" filter="url(#f4ytww02zz0ey)" height="129.7266" id="Address" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="63" x="457" y="180.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="52"
+                  x="462.5" y="200.7285">Address
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="458" x2="519" y1="209.2422" y2="209.2422"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36" x="463"
+                  y="228.3496">street
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="21" x="463"
+                  y="246.9707">city
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="463"
+                  y="265.5918">district
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="31" x="463"
+                  y="284.2129">state
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="51" x="463"
+                  y="302.834">zipCode
+            </text>
+        </g><!--class Agency-->
+        <g id="elem_Agency">
+            <rect
+                    fill="#F1F1F1" filter="url(#f4ytww02zz0ey)" height="111.1055" id="Agency" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="175" x="428" y="371.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="492"
+                  y="391.7285">Agency
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="429" x2="602" y1="400.2422" y2="400.2422"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="11" x="434"
+                  y="419.3496">id
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="434"
+                  y="437.9707">agencyName
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="434"
+                  y="456.5918">emailAddress
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="163" x="434"
+                  y="475.2129">contactTelephoneNumber
+            </text>
+        </g><!--class VisitRequest-->
+        <g id="elem_VisitRequest">
+            <rect
+                    fill="#F1F1F1" filter="url(#f4ytww02zz0ey)" height="111.1055" id="VisitRequest" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="175" x="141" y="659.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="189"
+                  y="679.7285">VisitRequest
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="142" x2="315" y1="688.2422" y2="688.2422"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="163" x="147"
+                  y="707.3496">contactTelephoneNumber
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="35" x="147"
+                  y="725.9707">name
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="28" x="147"
+                  y="744.5918">date
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="147"
+                  y="763.2129">timeSlot
+            </text>
+        </g><!--class PassportCard-->
+        <g id="elem_PassportCard">
+            <rect
+                    fill="#F1F1F1" filter="url(#f4ytww02zz0ey)" height="55.2422" id="PassportCard" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="116" x="198.5" y="46.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="213"
+                  y="66.7285">PassportCard
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="199.5" x2="313.5" y1="75.2422" y2="75.2422"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104"
+                  x="204.5" y="94.3496">passportNumber
+            </text>
+        </g><!--reverse link Role to Person-->
+        <g id="link_Role_Person">
+            <path
+                    d="M93.34,245.6211 C123,245.6211 161.98,245.6211 194.4,245.6211 " fill="none"
+                    id="Role-backto-Person" style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#181818" points="88.29,245.6211,97.29,249.6211,93.29,245.6211,97.29,241.6211,88.29,245.6211"
+                     style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#000000" points="105.25,233.2666,114.2951,236.2055,114.2951,230.3277,105.25,233.2666"
+                     style="stroke:#000000;stroke-width:1.0;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="57"
+                  x="119.25" y="238.6494">has a role
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20"
+                  x="96.0672" y="260.9837">1..*
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5"
+                  x="181.5269" y="241.6248">*
+            </text>
+        </g><!--link Person to Address-->
+        <g id="link_Person_Address">
+            <path
+                    d="M318.67,245.6211 C361.14,245.6211 415.99,245.6211 451.69,245.6211 " fill="none"
+                    id="Person-to-Address" style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#181818"
+                     points="456.81,245.6211,447.81,241.6211,451.81,245.6211,447.81,249.6211,456.81,245.6211"
+                     style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#000000" points="345.75,233.2666,336.7049,230.3277,336.7049,236.2055,345.75,233.2666"
+                     style="stroke:#000000;stroke-width:1.0;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="89"
+                  x="349.75" y="238.6494">has an address
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5"
+                  x="326.5517" y="241.6248">*
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="22"
+                  x="426.939" y="261.2686">0..1
+            </text>
+        </g><!--reverse link PassportCard to Person-->
+        <g id="link_PassportCard_Person">
+            <path
+                    d="M256.5,107.1011 C256.5,130.3911 256.5,162.4911 256.5,189.8311 " fill="none"
+                    id="PassportCard-backto-Person" style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#181818" points="256.5,101.9811,252.5,110.9811,256.5,106.9811,260.5,110.9811,256.5,101.9811"
+                     style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#000000" points="261.5,136.2666,258.5611,145.3117,264.4389,145.3117,261.5,136.2666"
+                     style="stroke:#000000;stroke-width:1.0;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="115"
+                  x="270.5" y="146.6494">has a passport card
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7"
+                  x="242.6094" y="123.9685">1
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5"
+                  x="245.3453" y="179.0354">*
+            </text>
+        </g><!--reverse link Person to Employee-->
+        <g id="link_Person_Employee">
+            <path
+                    d="M256.5,321.8411 C256.5,353.6711 256.5,388.0111 256.5,408.2611 " fill="none"
+                    id="Person-backto-Employee" style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="none" points="249.5,321.4511,256.5,301.4511,263.5,321.4511,249.5,321.4511"
+                     style="stroke:#181818;stroke-width:1.0;"/>
+        </g><!--link Employee to Agency-->
+        <g id="link_Employee_Agency">
+            <path
+                    d="M290.63,427.1211 C324.09,427.1211 376.62,427.1211 422.49,427.1211 " fill="none"
+                    id="Employee-to-Agency" style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#181818"
+                     points="427.77,427.1211,418.77,423.1211,422.77,427.1211,418.77,431.1211,427.77,427.1211"
+                     style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#000000" points="317.75,414.7666,308.7049,411.8277,308.7049,417.7055,317.75,414.7666"
+                     style="stroke:#000000;stroke-width:1.0;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="88"
+                  x="321.75" y="420.1494">is in an agency
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5"
+                  x="298.6428" y="422.3633">*
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7"
+                  x="412.9299" y="423.4269">1
+            </text>
+        </g><!--reverse link Agent to Employee-->
+        <g id="link_Agent_Employee">
+            <path
+                    d="M96.45,427.1211 C129.7,427.1211 186.29,427.1211 222.5,427.1211 " fill="none"
+                    id="Agent-backto-Employee" style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#181818"
+                     points="91.32,427.1211,100.32,431.1211,96.32,427.1211,100.32,423.1211,91.32,427.1211"
+                     style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#000000" points="108.25,414.7666,117.2951,417.7055,117.2951,411.8277,108.25,414.7666"
+                     style="stroke:#000000;stroke-width:1.0;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="82"
+                  x="122.25" y="420.1494">represented in
+            </text>
+        </g><!--link Agent to VisitRequest-->
+        <g id="link_Agent_VisitRequest">
+            <path
+                    d="M67.84,445.6711 C65.84,475.2311 65.14,536.0611 87.5,580.6211 C102.62,610.7511 127.44,637.7111 152.08,659.3811 "
+                    fill="none" id="Agent-VisitRequest" style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#000000" points="94.3336,566.9183,93.7508,557.4256,88.2824,559.5811,94.3336,566.9183"
+                     style="stroke:#000000;stroke-width:1.0;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="247"
+                  x="101.5" y="567.6494">wants to accept or decline the visit request
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5"
+                  x="56.045" y="467.4014">*
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20"
+                  x="121.0074" y="648.1906">0..*
+            </text>
+        </g><!--link Client to VisitRequest-->
+        <g id="link_Client_VisitRequest">
+            <path
+                    d="M368.95,580.7411 C349.58,599.1311 318.16,628.9711 289.95,655.7711 " fill="none"
+                    id="Client-to-VisitRequest" style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#181818"
+                     points="286.17,659.3611,295.452,656.0681,289.7971,655.9196,289.9456,650.2647,286.17,659.3611"
+                     style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#000000" points="336.8745,623.7099,345.457,619.6119,341.4092,615.35,336.8745,623.7099"
+                     style="stroke:#000000;stroke-width:1.0;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="133"
+                  x="349.5" y="625.6494">wants to request a visit
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5"
+                  x="353.5073" y="599.3166">*
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7"
+                  x="515.3324" y="648.168">1
+            </text>
+        </g><!--SRC=[VLF1Rjim3BthAmWV2oH83hq4WO4Wss675KMpxQxAN4nKbZI9MPTk-_VHikp46p8TREc9V7fyej8BkQ2Zxg3ppfis-Ww1umbLcdQ2DY_wY0S-MuI8XhKxskk0rEh6lv8x3fbNEyRgb7RCaPvFZ1-CTmTwGrWfrLA3O2WQOShp3hdrJLAAYUMSTxxJvE2ZRz320ZuVLkjxfJ8VF69Cti5F1JASxZ1FMFzuE7NF6FCA9TtkcYPYIiCsMWojTrY2VeziUqleMDWkqFikM7z65732TiSXQWAUlCMYWPhyQp2PI879kwkyGKE9J1mHEKyDyNb88q79S0dGFDJpHc4lrSyLcFFyI9snXz63VweMnraR_dIh-2-KY9_msmaJ5-ORAJElcr4aKuS7w_d2-2YVu2FlTMmAOoZGvV1oWzLT1Ok5nQzSGxLUBcMPNTr0gnDeYFsYdaT7EhPz-6gvN5UJkoN3WIx09GjkZCns2lNV4S8wgs4KCrO1faSd_kslnKAwtqrDerIvg4gOjaDvMVlKLHlO0YMGzku5vs0rRMP9GxDjvBK5gKRcsFJXjPhTL-z1ha9ohgiGR2JOmgjsd80zQ6CmCFWeVMeiENddBSBtdb3EoOogl8Ngjc7rRKF_DyIAcVGDr1TbvNJnEAjHVm00]-->
+    </g>
+</svg>

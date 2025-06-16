@@ -1,0 +1,45 @@
+# Integrating Project for the 2nd Semester of LEI-ISEP 2021-22
+
+# 1. Team Members
+
+The team consists of students identified in the following table.
+
+| Student Number | Name             |
+|----------------|------------------|
+| **1220976**    | Ricardo Dias     |
+| **1220962**    | Alfredo Ferreira |
+| **1220738**    | Afonso Santos    |
+| **1221190**    | Rodrigo Oliveira |
+
+# 2. Task Distribution ###
+
+Throughout the project's development period, the distribution of _tasks / requirements / features_ by the team members
+was carried out as described in the following table.
+
+**Keep this table must always up-to-date.**
+
+| Task                        | [Sprint A](sprintA/Readme.md)                                                              | [Sprint B](sprintB/Readme.md)                                                              | [Sprint C](sprintC/Readme.md)                                                              | [Sprint D](sprintD/Readme.md)                                                              |
+|-----------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| Glossary                    | [all](sprintA/global-artifacts/01.requirements-engineering/glossary.md)                    | [all](sprintB/global-artifacts/01.requirements-engineering/glossary.md)                    | [all](sprintC/global-artifacts/01.requirements-engineering/glossary.md)                    | [all](sprintD/global-artifacts/01.requirements-engineering/glossary.md)                    |
+| Use Case Diagram (UCD)      | [all](sprintA/global-artifacts/01.requirements-engineering/use-case-diagram.md)            | [all](sprintB/global-artifacts/01.requirements-engineering/use-case-diagram.md)            | [all](sprintC/global-artifacts/01.requirements-engineering/use-case-diagram.md)            | [all](sprintD/global-artifacts/01.requirements-engineering/use-case-diagram.md)            |
+| Supplementary Specification | [all](sprintA/global-artifacts/01.requirements-engineering/supplementary-specification.md) | [all](sprintB/global-artifacts/01.requirements-engineering/supplementary-specification.md) | [all](sprintC/global-artifacts/01.requirements-engineering/supplementary-specification.md) | [all](sprintD/global-artifacts/01.requirements-engineering/supplementary-specification.md) |
+| Domain Model                | [all](sprintA/global-artifacts/02.analysis/Readme.md)                                      | [all](sprintB/global-artifacts/02.analysis/Readme.md)                                      | [all](sprintC/global-artifacts/02.analysis/Readme.md)                                      | [all](sprintD/global-artifacts/02.analysis/Readme.md)                                      |
+| US 001 (SDP Activities)     | [1220976](sprintA/us001/Readme.md)                                                         | [1220976](sprintB/us001/Readme.md)                                                         | [1220976](sprintC/us001/Readme.md)                                                         | [1220976](sprintD/us001/Readme.md)                                                         |
+| US 002 (SDP Activities)     | [1220962](sprintA/us002/Readme.md)                                                         | [1220962](sprintB/us002/Readme.md)                                                         | [1220962](sprintC/us002/Readme.md)                                                         | [1220962](sprintD/us002/Readme.md)                                                         |
+| US 003 (SDP Activities)     | [1221190](sprintA/us003/Readme.md)                                                         | [1221190](sprintB/us003/Readme.md)                                                         | [1221190](sprintC/us003/Readme.md)                                                         | [1221190](sprintD/us003/Readme.md)                                                         |
+| US 004 (SDP Activities)     | [1220738](sprintA/us004/Readme.md)                                                         | [1220738](sprintB/us004/Readme.md)                                                         | [1220738](sprintC/us004/Readme.md)                                                         | [1220738](sprintD/us004/Readme.md)                                                         |
+| US 007 (SDP Activities)     |                                                                                            | [all](sprintB/us007/Readme.md)                                                             | [all](sprintC/us007/Readme.md)                                                             | [all](sprintD/us007/Readme.md)                                                             |
+| US 008 (SDP Activities)     |                                                                                            |                                                                                            | [1220962](sprintC/us008/Readme.md)                                                         | [1220962](sprintD/us008/Readme.md)                                                         |
+| US 009 (SDP Activities)     |                                                                                            |                                                                                            | [1220738](sprintC/us009/Readme.md)                                                         | [1220738](sprintD/us009/Readme.md)                                                         |
+| US 010 (SDP Activities)     |                                                                                            |                                                                                            | [1220976](sprintC/us010/Readme.md)                                                         | [1220976](sprintD/us010/Readme.md)                                                         |
+| US 011 (SDP Activities)     |                                                                                            |                                                                                            | [all](sprintC/us011/Readme.md)                                                             | [all](sprintD/us011/Readme.md)                                                             |
+| US 012 (SDP Activities)     |                                                                                            |                                                                                            | [1221190](sprintC/us012/Readme.md)                                                         | [1221190](sprintD/us012/Readme.md)                                                         |
+| US 015 (SDP Activities)     |                                                                                            |                                                                                            |                                                                                            | [1221190](sprintD/us015/Readme.md)                                                         |
+| US 016 (SDP Activities)     |                                                                                            |                                                                                            |                                                                                            | [1221190](sprintD/us016/Readme.md)                                                         |
+| US 017 (SDP Activities)     |                                                                                            |                                                                                            |                                                                                            | [all](sprintD/us017/Readme.md)                                                             |
+| US 018 (SDP Activities)     |                                                                                            |                                                                                            |                                                                                            | [all](sprintD/us018/Readme.md)                                                             |
+| US 019 (SDP Activities)     |                                                                                            |                                                                                            |                                                                                            | [all](sprintD/us019/Readme.md)                                                             |
+
+
+
+

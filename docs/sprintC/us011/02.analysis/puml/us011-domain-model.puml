@@ -1,0 +1,50 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model - US011
+
+'class Platform {
+'  -description
+'}
+
+class Role {
+    id
+    description
+}
+
+
+
+class Agent{
+    name
+    emailAddress
+    password
+}
+
+
+class PurchaseOrderTBARepository {
+}
+
+class Email {
+    emailAddress
+}
+class PurchaseOrderARepository{
+}
+
+
+Role <|-- Agent
+Agent --> PurchaseOrderTBARepository : > approves/declines offers
+PurchaseOrderTBARepository --> PurchaseOrderARepository : > sends accepted offers to
+PurchaseOrderTBARepository --> PurchaseOrderTBARepository : > deletes denied purchase orders
+PurchaseOrderTBARepository --> System : > gets updated order list
+PurchaseOrderARepository --> System :> gets updated accepted order list
+System --> Email : > sends an email to the user that created the order
+@enduml

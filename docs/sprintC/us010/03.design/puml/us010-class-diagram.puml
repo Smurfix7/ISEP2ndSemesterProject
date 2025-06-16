@@ -1,0 +1,89 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class CreatePurchaseOrderUI {
+}
+
+class CreatePurchaseOrderController {
+    ---
+    +checkAnnouncement(announcementNumber)
+    +createPurchaseOrder(userEmail, propertyID, orderAmount, acceptance)
+    +checkPurchaseOrderExists(purchaseOrder)
+    +checkUserPurchaseOrderExists(userEmail, id)
+    +getPurchaseOrder(userEmail, id)
+    +getCopyAnnouncementsList()
+}
+class PurchaseOrder{
+    -String userEmail
+    -int propertyID
+    -double orderAmount
+    -int acceptance
+    ---
+    +PurchaseOrder(userEmail, propertyID, orderAmount, acceptance)
+    +getUser
+    +getAnnouncementID
+    +getOrderAmount
+    +getAcceptance
+    +setUser
+    +setAnnouncementID
+    +setOrderAmount
+    +setAcceptance
+}
+
+class Repositories {
+    ---
+    - Repositories()
+    +getInstance() : Repositories
+    +getPurchaseOrderRepository()
+    +getAnnouncementRepository()
+    +getAuthenticationRepository()
+}
+
+class AnnouncementRepository{
+    ---
+    +getAnnouncement
+}
+
+class PurchaseOrderTBARepository {
+    ---
+    +addPurchaseOrder(purchaseOrder)
+    +checkExistingOrder(purchaseOrder)
+}
+
+class AuthenticationRepository {
+    ---
+    +getCurrentUserSession()
+}
+
+'class User {
+'    -String name
+'    -String emailAddress
+'    -String password
+'    ---
+'    +User(name, emailAddress, password)
+'    +getName
+'    +getEmailAddress
+'    +getPassword
+'}
+
+CreatePurchaseOrderUI ..right> CreatePurchaseOrderController
+CreatePurchaseOrderController ..> AuthenticationRepository
+CreatePurchaseOrderController ..> PurchaseOrder
+CreatePurchaseOrderController ..right> Repositories
+CreatePurchaseOrderController ..> AnnouncementRepository
+CreatePurchaseOrderController ..> PurchaseOrderTBARepository
+
+Repositories -> Repositories : getInstance()
+Repositories --> AnnouncementRepository
+Repositories --> PurchaseOrderTBARepository
+
+
+@enduml

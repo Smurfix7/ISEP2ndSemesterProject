@@ -1,0 +1,61 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Agent" as Agent
+participant ":System" as System
+
+activate Agent
+
+    Agent -> System : asks to receive the list of announcement requests
+    activate System
+
+
+
+    loop while input does not equal to "0"
+            System --> Agent : shows the list of properties and asks to select one
+deactivate System
+    Agent -> System : selects a property
+activate System
+
+            System --> Agent : asks for acceptance
+            deactivate System
+
+            Agent --> System : inputs acceptance
+            activate System
+    alt if acceptance is equal to "0"
+
+            System --> Agent : asks for justification
+            deactivate System
+            Agent --> System : inputs requested data
+            activate System
+
+
+    else acceptance is equal to "1"
+
+            System --> Agent : displays and asks for comission type
+            deactivate System
+            Agent --> System : inputs requested data
+            activate System
+
+            System --> Agent : displays and asks for comission value
+            deactivate System
+            Agent --> System : inputs requested data
+            activate System
+            deactivate System
+
+
+
+    end
+
+    end loop
+
+    deactivate System
+
+
+@enduml

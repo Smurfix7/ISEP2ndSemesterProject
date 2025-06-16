@@ -1,0 +1,126 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "NetworkManager" as Client
+participant ":ListingDealsUI" as UI
+participant ":ListingDealsController" as Controller
+participant ":Repositories" as Repositories
+participant "repositories\n:Repositories" as repositories
+participant "purchaseOrderAcceptedRepository\n:PurchaseOrderRepository" as PurchaseOrderRepository
+participant ":PurchaseOrder" as PurchaseOrder
+participant "announcements:\nAnnouncements" as Announcements
+participant ":Property" as Property
+
+
+activate Client
+
+    Client -> UI : asks to list all the deals
+    activate UI
+        UI -> Controller** : creates
+        loop everytime the list needs to be displayed
+        UI -> Controller : getPurchaseOrdersAccepted()
+        activate Controller
+            Controller -> Repositories : getInstance()
+            activate Repositories
+                Repositories --> Controller : repositories
+            deactivate Repositories
+
+            Controller -> PurchaseOrderRepository : getPurchaseOrdersAccepted()
+            activate PurchaseOrderRepository
+                PurchaseOrderRepository --> Controller : purchaseOrdersAccepted
+            deactivate PurchaseOrderRepository
+            Controller --> UI : purchaseOrdersAccepted
+        deactivate Controller
+
+        UI -> Controller : getProperty()
+        activate Controller
+            Controller -> PurchaseOrderRepository : getAnnouncement(annoucement)
+            activate PurchaseOrderRepository
+                PurchaseOrderRepository -> PurchaseOrder : getAnnouncement(annoucement))
+                activate PurchaseOrder
+                    PurchaseOrder -> Announcements : getAnnouncement(annoucement)
+                    activate Announcements
+                        Announcements -> Property : getProperty()
+                        activate Property
+                            Property --> Announcements : property
+                        deactivate Property
+                        Announcements --> PurchaseOrder : property
+                    deactivate Announcements
+                    PurchaseOrder --> PurchaseOrderRepository : property
+                deactivate PurchaseOrder
+                PurchaseOrderRepository --> Controller : property
+            deactivate PurchaseOrderRepository
+            Controller --> UI : property
+            end loop
+        deactivate Controller
+        UI --> Client : shows the list
+        UI --> Client : requests to select the sorting algorithm
+    deactivate UI
+
+    Client -> UI : selects the intended algorithm
+    activate UI
+        UI --> Client : requests sorting direction (ascending/descending)
+    deactivate UI
+
+    Client -> UI : selects the sorting direction (ascending/descending)
+    activate UI
+        alt if selectedAlgorithm==1
+        UI -> Controller : sortListBubble(sortingDirection)
+        activate Controller
+            Controller -> PurchaseOrderRepository : sortDealsListBubble(sortingDirection)
+            activate PurchaseOrderRepository
+                loop for every purchaseOrder while sorting
+                PurchaseOrderRepository --> PurchaseOrder : getAreaOfProperty()
+                activate PurchaseOrder
+                    PurchaseOrder -> Announcements : getAnnouncement(annoucement)
+                    activate Announcements
+                        Announcements -> Property : getAreaOfProperty()
+                        activate Property
+                            Property --> Announcements : areaOfProperty
+                        deactivate Property
+                    Announcements --> PurchaseOrder : areaOfProperty
+                    deactivate Announcements
+                PurchaseOrder --> PurchaseOrderRepository : areaOfProperty
+                deactivate PurchaseOrder
+                end loop
+                PurchaseOrderRepository --> Controller : sortDealsListBubble
+            deactivate PurchaseOrderRepository
+            Controller --> UI : sortListBubble
+        deactivate Controller
+
+        else if selectedAlgorithm==2
+        UI -> Controller : sortListSelection(sortingDirection)
+        activate Controller
+            Controller -> PurchaseOrderRepository : sortDealsListSelection(sortingDirection)
+             activate PurchaseOrderRepository
+                loop for every purchaseOrder while sorting
+                PurchaseOrderRepository --> PurchaseOrder : getAreaOfProperty()
+                activate PurchaseOrder
+                    PurchaseOrder -> Announcements : getAnnouncement(annoucement)
+                    activate Announcements
+                        Announcements -> Property : getAreaOfProperty()
+                        activate Property
+                            Property --> Announcements : areaOfProperty
+                        deactivate Property
+                        Announcements --> PurchaseOrder : areaOfProperty
+                    deactivate Announcements
+                PurchaseOrder --> PurchaseOrderRepository : areaOfProperty
+                deactivate PurchaseOrder
+                end loop
+                PurchaseOrderRepository --> Controller : sortDealsListSelection
+             deactivate PurchaseOrderRepository
+            Controller --> UI : sortListSelection
+        deactivate Controller
+        end alt
+        UI -> UI : displayList **loop**
+        UI --> Client : shows the list sorted by the algorithm
+    deactivate UI
+
+deactivate Client
+
+@enduml

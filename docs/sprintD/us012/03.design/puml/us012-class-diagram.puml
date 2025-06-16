@@ -1,0 +1,173 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class Employee {
+    -Agency agency
+    --
+    +Employee(name, taxNumber, emailAddress,\ncontactTelephoneNumber, address,\nrole, passportNumber, agency)
+    +setAgency()
+    +getAgency()
+}
+
+class Role {
+    -String id
+    -String description
+    --
+    +Role(id, description)
+    +setID
+    +setDescription
+    +getID
+    +getDescription
+}
+
+class Address{
+    -String street
+    -String city
+    -String district
+    -String state
+    -String zipCode
+    --
+    +Address(street, city, district, state, zipCode)
+    +Address(street, city, district, state, zipCode)
+    +setStreet()
+    +setCity()
+    +setDistrict()
+    +setState()
+    +setZipCode()
+    +getStreet()
+    +getCity()
+    +getDistrict()
+    +getState()
+    +getZipCode()
+}
+
+class PassportCard{
+    -String passportNumber
+    --
+    +PassportCard(passportNumber)
+    +getPassportNumber()
+    +setPassportNumber()
+}
+
+class Person{
+    -String name
+    -String emailAddress
+    -Integer taxNumber
+    -Integer telephoneNumber
+    --
+    +Person(name, passportNumber, emailAdress,\ntaxNumber, contactTelephoneNumber, adress,\nrole, agency)
+    +setName()
+    +setEmailAddress()
+    +setTaxNumber()
+    +setTelephoneNumber()
+    +getName()
+    +getEmailAddress()
+    +getTaxNumber()
+    +getTelephoneNumber()
+}
+
+class Repositories {
+    - Repositories()
+    --
+    + getInstance() : Repositories
+    + getLegacyFilesRepository()
+    + getOwnerRepository()
+    + getAnnouncementsRepository()
+}
+
+class OwnerRepository {
+    -List<Owner> owners
+    __
+    +addOwner(owner)
+}
+
+class PurchaseOrderRepository {
+    +List<PurchaseOrder> purchaseOrders
+    +List<PurchaseOrder> purchaseOrdersAccepted
+    +List<PurchaseOrder> purchaseOrdersRequested
+    --
+    +addPurchaseOrder(purchaseOrder)
+    }
+
+class ImportLegacyFile {
+    -List<String> propertyInfoList
+    --
+    +importLegacyFile(String filePath)
+    +readLegacyFile(File legacyFile)
+    +getPropertyType(String propertyInfo)
+    +fillPropertyInfoList(String propertyInfo)
+    +readLandInputFromLegacyFile()
+    +readHouseInputFromLegacyFile()
+    +readApartmentInputFromLegacyFile()
+}
+
+class ImportLegacyFileController {
+    +sendFilePath(legacyFile)
+    +addPurchaseOrder(purchaseOrder)
+    +addLand(land)
+    +addHouse(house)
+    +addApartment(apartment)
+    +addOwner(owner)
+}
+
+class ImportLegacyFileUI {
+    --
+    +requestsFilePath()
+}
+
+class Owner {
+    -Integer ownerID
+    -Integer cont
+    --
+    +Owner(name, taxNumber, emailAddress,\ntelephoneNumber, role, passportCard)
+}
+
+class ImportLegacyFile {
+}
+
+class PropertyRepository {
+    +List<Property> properties
+    --
+    +addProperty(property)
+    +validateProperty(property)
+}
+
+class User {
+    -String name
+    -String emailAddress
+    -String password
+    -String telephoneNumber
+    --
+    +User(String name, String emailAddress,\nString password, String telephoneNumber)
+    +setName
+    +setEmailAddress
+    +setPassword
+    +setTelephoneNumber
+    +getName
+    +getEmailAddress
+    +getPassword
+    +getTelephoneNumber
+}
+
+ImportLegacyFile <.left ImportLegacyFileController
+Employee --up|> User
+Owner -|> Person
+Person <|-right Employee
+Person *.. Role : role
+Person *.-up Address : address
+Person *.. PassportCard : passportNumber
+ImportLegacyFileUI -down.> ImportLegacyFileController
+ImportLegacyFileController -down.> Repositories
+Repositories -down.> PropertyRepository
+Repositories -left.> PurchaseOrderRepository
+Repositories -right.> OwnerRepository
+Employee .> ImportLegacyFileController
+@enduml

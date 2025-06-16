@@ -1,0 +1,34 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Network Manager" as Manager
+participant ":System" as System
+
+activate Manager
+
+    Manager -> System : asks to list all the deals
+    activate System
+    System --> Manager : shows the list
+    loop allows to repeat the process
+    System --> Manager : requests to select the sorting algorithm
+    deactivate System
+
+    Manager -> System : selects the intended algorithm
+    activate System
+    System --> Manager : requests sorting direction\n (ascending/descending)
+    deactivate System
+
+    Manager -> System : selects the sorting direction\n (ascending/descending)
+    activate System
+    System --> Manager : shows the list sorted by the algorithm
+    deactivate System
+    end loop
+
+deactivate Manager
+@enduml

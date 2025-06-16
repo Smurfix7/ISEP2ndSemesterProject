@@ -1,0 +1,85 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model - US002
+
+class OwnerCellphone {
+    name
+    citizensCardNumber
+    taxNumber
+    address
+    telephoneNumber
+    propertyType
+    typeOfTransaction
+    value
+}
+class Location{
+    street
+    city
+    district
+    state
+    zipCode
+}
+
+class Equipment{
+    name
+}
+
+class Photos{
+    photoID
+    photoPNG
+}
+class Property {
+    areaOfProperty
+    distanceFromCentre
+}
+
+class Buildings {
+    bedrooms
+    bathrooms
+    parkingSpaces
+    availableEquipment
+}
+
+class House{
+    basement
+    loft
+    sunExposure
+}
+
+class Agent{
+    comissionType
+    comissionAmount
+    role
+}
+
+class Lease{
+
+    duration
+}
+
+
+
+OwnerCellphone "1" -- Property : if selling >
+OwnerCellphone "1" -- Lease : if leasing >
+Lease "1" -- Property
+Property "1" -- Agent : if Land >
+Property "1" -- Buildings : if House or Apartment >
+Buildings "1" -- Agent : if Apartment >
+Buildings "1" -- House : if House >
+House "1" -- Agent : if House
+Agent "1"-- System : >
+System "1" - Announcements : publishes announcement >
+Equipment "1" -- Buildings : extends >
+Photos "1" -- Property : extends >
+Location "1" -- Property : extends >
+@enduml

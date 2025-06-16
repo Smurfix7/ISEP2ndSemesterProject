@@ -1,0 +1,94 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US002 - System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Agent" as Agent
+participant ":System" as System
+
+activate Agent
+
+    Agent -> System : asks to create a new announcement
+    activate System
+
+        System --> Agent : shows property type list and asks to select one
+    deactivate System
+
+    Agent -> System : selects property type
+    activate System
+
+    System --> Agent : shows list of agents and asks to select one
+            deactivate System
+
+            Agent -> System : selects agent
+                activate System
+
+        System --> Agent : requests data(property size, distance from centre, street name, city name, state name, zip code)
+    deactivate System
+
+    Agent -> System : inputs requested data
+        activate System
+
+                loop while agent has photos to input
+
+
+                            System --> Agent : requests photoURI
+                        deactivate System
+                Agent -> System : inputs requested data
+                activate System
+        end
+
+
+            activate System
+
+alt if the property type is "Apartment" or "House"
+
+
+loop while agent has equipment to input
+    System --> Agent : requests Equipment
+                            deactivate System
+                    Agent -> System : inputs requested data(equipment name)
+                    activate System
+end
+
+
+                System --> Agent : requests data(bedrooms, bathrooms, parking spaces)
+            deactivate System
+
+       Agent -> System : inputs requested data
+           activate System
+
+
+
+           alt if the property type is "House"
+
+           System --> Agent : requests data(basement, loft, sun exposure)
+                      deactivate System
+
+
+                  Agent -> System : inputs requested data
+                      activate System
+
+           end alt
+end alt
+
+               System --> Agent : requests data(transaction type, monetary value, commission data, commission value)
+           deactivate System
+
+       Agent -> System : inputs requested data
+           activate System
+
+                       System --> Agent : shows owner list and asks to select one
+                       deactivate System
+
+                       Agent -> System  : selects owner
+                       activate System
+
+       System --> Agent : display operation status message
+    deactivate System
+
+@enduml

@@ -1,0 +1,91 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Administrator" as Admin
+participant ":ImportLegacyFileUI" as UI
+participant ":ImportLegacyFileController" as Controller
+participant ":Repositories" as Repository
+participant "repositories\n:Repositories" as Repositories
+participant "legacyFileRepository\n:LegacyFileRepository" as LegacyFileRepository
+participant "ownerRepository\n:OwnerRepository" as OwnerRepository
+participant "announcementRepository\n:AnnouncementRepository" as AnnouncementRepository
+
+
+activate Admin
+
+        Admin -> UI : asks to import information from a legacy system
+
+        activate UI
+
+        UI -> Controller** : create
+
+            UI --> Admin : requests file path
+        deactivate UI
+
+    Admin -> UI : types file path and submits data
+    activate UI
+
+            UI -> UI : readFileCSV(filePath)
+
+            UI -> Controller : importLegacyFile(filePath);
+            activate Controller
+
+                Controller -> Repository : getInstance()
+                activate Repository
+
+                    Repository --> Controller: repositories
+                deactivate Repository
+
+
+                                Controller -> Repositories : getOwnerRepository()
+                                activate Repositories
+
+                                Repositories --> Controller: ownerRepository
+                                deactivate Repositories
+
+                                Controller -> OwnerRepository : addOwner(name, passportNumber, taxNumber, emailAddress, contactTelephoneNumber)
+                                activate OwnerRepository
+
+                                OwnerRepository --> Controller : owner
+                                deactivate OwnerRepository
+
+
+                                Controller -> Repositories : getAnnouncementRepository()
+                                activate Repositories
+
+                                Repositories --> Controller: announcementRepository
+                                deactivate Repositories
+
+                                Controller -> AnnouncementRepository : addProperty(propertyType, agent, areaOfProperty, distanceFromCentre, acceptanceDate, requestDate, street, city, district, state, zipCode, photoURI, transactionType, monetaryValue)
+                                activate AnnouncementRepository
+
+                                AnnouncementRepository --> Controller : property
+                                deactivate AnnouncementRepository
+
+
+                                Controller -> Repositories : getLegacyFileRepository()
+                                activate Repositories
+
+                                Repositories --> Controller: legacyFileRepository
+                                deactivate Repositories
+
+                                Controller -> LegacyFileRepository : addLegacyFile(legacyFile)
+                                activate LegacyFileRepository
+
+                                LegacyFileRepository --> Controller : legacyFile
+                                deactivate LegacyFileRepository
+
+                                Controller --> UI : legacyFile
+                                deactivate Controller
+
+                UI --> Admin : displays operation success
+                deactivate UI
+
+deactivate Admin
+
+@enduml

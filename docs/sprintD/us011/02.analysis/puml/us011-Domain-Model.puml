@@ -1,0 +1,147 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model - US011
+
+'class Platform {
+'  -description
+'}
+
+class Employee {
+    name
+    position = agent
+    emailAddress
+    telephoneNumber
+}
+
+class PurchaseOrder{
+    userEmail
+    orderAmount
+    acceptance
+    purchaseOrderID
+}
+
+class PurchaseOrderRepository{
+}
+
+class Person {
+    name
+    taxNumber
+    emailAddress
+    telephoneNumber
+}
+
+class PassportCard {
+    passportCardNumber
+}
+
+class Address{
+    street
+    city
+    district
+    state
+    zipCode
+}
+
+
+
+class Property {
+    propertyType
+    areaOfProperty
+    distanceFromCentre
+    dateOfAcceptance
+    dateOfRequest
+
+}
+
+class Building extends Property {
+    bedrooms
+    bathrooms
+    parkingSpaces
+    availableEquipment
+    equipment
+}
+
+class House extends Building{
+    basement
+    loft
+    sunExposure
+}
+
+class Equipment{
+
+    centralHeating
+    airConditioning
+}
+
+class Commission {
+    commissionType
+    commissionValue
+}
+
+class Photo {
+    photoURI
+    photoID
+    photoList
+}
+
+class Transaction {
+    transactionType
+    monetaryValue
+}
+
+class Request{
+    id
+    requestDate
+}
+
+
+class Agency{
+    agencyID
+    name
+    email
+    telephoneNumber
+}
+
+class Announcement{
+    id
+    acceptanceDate
+}
+
+class PurchaseOrder{
+    userEmail;
+    orderAmount;
+    acceptance;
+    purchaseOrderID;
+}
+
+PurchaseOrder "1...*" - "1" Announcement : > has Announcement
+Agency "1" - "..*" Announcement : > wants to publish
+Announcement "1" - Request : > of a
+Property "1" -- "1" Address : stores
+StoreManager -- Agency : manages >
+Agency "1" -- "1" Employee  : < is in an agency
+Property "1" -- "1" Transaction : has a transaction type >
+Property "1" -- "..*" Photo : has photos >
+Announcement "1" -left- "1" Commission : has a commission >
+Building "1" -- "..*" Equipment : has equipment >
+PassportCard "1" -- "1" Person : has a passport card <
+Address "1" -- "1" Person : has address <
+Request "1" - "1" Property : > listing of a
+Person "1" -left- "..*" Request : < has an owner
+Person -- Employee
+Employee "1" -- "..*" Request : acts as agent assigned to >
+
+Address "1" -- "1" Property : has address <
+
+
+@enduml

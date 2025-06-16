@@ -1,0 +1,222 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+actor Owner as Owner
+participant ":CreateListingUI" as UI
+participant ":CreateListingController" as CTRL
+participant ":TypeOfTransaction" as TOT
+participant ":Repositories" as REP
+participant ":AgentRepository" as AGENTREP
+participant ":propertyTypeRepository"
+participant ":Property" as PROPERTY
+participant ":Land" as LAND
+participant ":Building" as BUILDING
+participant ":Apartment" as APARTMENT
+participant ":House" as HOUSE
+participant ":PropertyRepository" as PROPREP
+
+
+
+activate Owner
+
+
+
+                    Owner -> UI : asks to create new listing
+
+
+                activate UI
+                    UI -> CTRL : CreateListingController()
+                activate CTRL
+                    UI -> CTRL : getAgentList()
+                    CTRL -> REP : getAgentList()
+                activate REP
+                    REP -> AGENTREP : getAgentList()
+                activate AGENTREP
+                    AGENTREP --> REP : agentList
+                deactivate AGENTREP
+                    REP --> CTRL : agentList
+                deactivate REP
+                    CTRL --> UI : agentList
+                deactivate CTRL
+                    UI --> Owner : shows the list of agents and asks to choose one
+                deactivate UI
+
+                Owner -> UI : selects an agent from the list
+                activate UI
+                    UI -> UI : keepAgent()
+                    UI -> CTRL : getPropertyTypes()
+                activate CTRL
+                    CTRL -> REP : getPropertyTypes()
+                activate REP
+                    REP ->  ":propertyTypeRepository" : getPropertyTypes()
+                activate ":propertyTypeRepository"
+                    ":propertyTypeRepository" --> REP : propertyTypes
+                deactivate ":propertyTypeRepository"
+                    REP --> CTRL : propertyTypes
+                deactivate REP
+
+
+                CTRL --> UI : propertyTypes
+                deactivate CTRL
+
+                UI --> Owner : shows property types and asks to choose one
+                deactivate UI
+                Owner -> UI : selects a property type
+                activate UI
+                UI -> UI : keepPropertyType()
+                UI --> Owner : requests Data
+                deactivate UI
+
+deactivate Owner
+
+         alt if propertyType is LAND
+                    Owner -> UI : inputs requested data(area, distanceFromCentre, photoURI, street, city)
+                    activate Owner
+                    deactivate Owner
+                    activate UI
+                    UI -> CTRL : createLand(area, distanceFromCentre, photoURI, street, city, \n district, state, zipCode)
+                    deactivate UI
+                    activate CTRL
+
+                    ref over CTRL, CTRL
+                        get photos
+                    end
+
+                    ref over CTRL
+                        get address
+                    end
+                        CTRL -> LAND :createLand(photoList, area, distanceFromCentre,address)
+                    deactivate CTRL
+                    deactivate UI
+
+
+                    activate LAND
+                    LAND -> PROPERTY :super
+                    deactivate LAND
+                    activate PROPERTY
+
+
+                    deactivate PROPERTY
+                    PROPERTY -> CTRL : getPropertyDetails(property)
+
+                    deactivate PROPERTY
+                    activate CTRL
+
+
+                    CTRL -> PROPREP : propertyDetails
+                    deactivate CTRL
+
+
+                end
+
+                alt if propertyType is APARTMENT
+                     Owner -> UI : inputs requested data(area, distanceFromCentre, equipmentList,typeOfTransaction, photoURI, street, city, \n district, state, zipCode, type of transaction, value of transaction, comission)
+                     activate Owner
+                     deactivate Owner
+
+                     activate UI
+                     UI -> CTRL : createApartment(area, distanceFromCentre, equipmentList, photoURI, street, city, \n district, state, zipCode, transactionType, monetaryValue, \n comissionType, comissionValue, bedrooms, bathrooms, parkingSpaces)
+
+                     deactivate UI
+                     ref over CTRL, CTRL
+                                     get photos
+                                 end
+
+                                 ref over CTRL
+                                     get address
+                                 end
+                     ref over CTRL, CTRL
+                        getEquipmentList
+                     end
+                     activate CTRL
+                     CTRL -> APARTMENT :createApartment(area, distanceFromCentre, equipmentList, photoList, address, type of transaction, value of transaction, \n type of comission, comission amount, propertyType, bedrooms, bathrooms, parkingSpaces)
+                     deactivate CTRL
+                     deactivate UI
+
+
+                     activate APARTMENT
+                     APARTMENT -> BUILDING :super
+                     deactivate APARTMENT
+                     activate BUILDING
+
+                     BUILDING -> PROPERTY : super
+                     deactivate BUILDING
+
+                     activate PROPERTY
+
+
+                     deactivate PROPERTY
+                     PROPERTY -> CTRL : getPropertyDetails(property)
+
+                     deactivate PROPERTY
+                     activate CTRL
+
+
+                     CTRL -> PROPREP : propertyDetails
+
+                     deactivate CTRL
+                end
+
+                alt if propertyType is HOUSE
+                             Owner -> UI : inputs requested data(area, distanceFromCentre, equipmentList, photoURI, street, city, \n district, state, zipCode, type of transaction, value of transaction, comission)
+                             activate Owner
+                             deactivate Owner
+
+                             activate UI
+                             UI -> CTRL : createHouse(area, distanceFromCentre, equipmentList, photoURI, street, city, \n district, state, zipCode, type of transaction, value of transaction, comission)
+                             deactivate UI
+                             ref over CTRL, CTRL
+                                             get photos
+                                         end
+
+                                         ref over CTRL
+                                             get address
+                                         end
+                             ref over CTRL, CTRL
+                                             getEquipmentList
+                                          end
+                             activate CTRL
+                             CTRL -> HOUSE :createHouse(area, distanceFromCentre, equipmentList, photoList, address,comission, \n propertyType, bedrooms, bathrooms, parkingSpaces, \n basement, loft, sunExposure)
+                             deactivate CTRL
+                             deactivate UI
+
+
+                             activate HOUSE
+                             HOUSE -> BUILDING :super
+                             deactivate HOUSE
+                             activate BUILDING
+                             BUILDING -> PROPERTY : super
+                             deactivate BUILDING
+
+                             activate PROPERTY
+
+
+                             deactivate PROPERTY
+                             PROPERTY -> CTRL : getPropertyDetails(property)
+
+                             deactivate PROPERTY
+                             activate CTRL
+
+
+                             CTRL -> PROPREP : propertyDetails
+
+                             deactivate CTRL
+                        end
+
+
+        activate PROPREP
+            PROPREP --> CTRL : propertyDetails
+        deactivate PROPREP
+        activate CTRL
+            CTRL --> UI : propertyDetails
+        deactivate CTRL
+        activate UI
+            UI --> Owner : displays success message
+
+
+
+
+@enduml

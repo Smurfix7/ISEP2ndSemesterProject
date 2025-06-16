@@ -1,0 +1,47 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US018 - System Sequence Diagram (SSD)
+
+
+participant "Store Manager" as actor
+participant "System" as System
+
+activate actor
+
+actor -> System : asks to analyse deals
+activate System
+System --> actor : shows available regression models \n  and asks to select one
+deactivate System
+actor -> System : selects a regression model
+activate System
+
+alt if simple-linear regression is chosen
+System --> actor : displays regression parameters \n and asks to select one
+deactivate System
+actor -> System : selects regression parameter
+activate System
+end
+
+System --> actor : shows regression analysis report and asks if user\n wants to make a custom prediction
+alt if option == "Y"
+    alt if RegressionModelOption == "SimpleLinear"
+    System --> actor : requests data
+            deactivate System
+            actor -> System : inputs requested data(parameter)
+            activate System
+
+    else if RegressionModelOption == "MultiLinear"
+             System --> actor : requests data
+                     deactivate System
+                     actor -> System : inputs requested data(parameter1, parameter2,\n parameter3, parameter4, parameter5)
+                     activate System
+    end
+                System --> actor : displays prediction
+
+end
+deactivate System
+
+@enduml

@@ -1,0 +1,185 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class Property{
+    -Double areaOfProperty
+    -Double distanceFromCentre
+    -String acceptanceDate
+    -String requestDate
+
+    -setAreaOfProperty()
+    -setDistanceFromCentre()
+    -setAcceptanceDate()
+    -setRequestDate()
+    +getAreaOfProperty()
+    +getDistanceFromCentre()
+    +getAcceptanceDate()
+    +getRequestDate()
+
+}
+
+class TypeOfTransaction{
+    -String transactionType
+    -Double monetaryValue
+
+    -setTransactionType()
+    -setMonetaryValue()
+    +getTransactionType()
+    +getMonetaryValue()
+
+}
+
+class Address{
+    -String street
+    -String city
+    -String district
+    -String state
+    -String zipCode
+
+    -setStreet()
+    -setCity()
+    -setDistrict()
+    -setState()
+    -setZipCode()
+    +getStreet()
+    +getCity()
+    +getDistrict()
+    +getState()
+    +getZipCode()
+}
+
+class PropertyTypeRepository{
+      -Static String Land
+      -Static String Apartment
+      -Static String House
+}
+
+class Photo{
+    -Integer photoID
+    -String pathToPNG
+
+    +setPhotoData()
+}
+
+class Building{
+    -Integer bedrooms
+    -Integer bathrooms
+    -Integer parkingSpaces
+
+    -setBedrooms()
+    -setBathrooms()
+    -setParkingSpaces()
+    +getBedrooms()
+    +getBathrooms()
+    +getParkingSpaces()
+}
+
+class Equipment{
+    -String name
+
+    -setEquipmentName()
+    +getEquipmentName()
+}
+
+class House{
+    -Boolean basement
+    -Boolean loft
+    -String sunExposure
+
+    -setBasement()
+    -setLoft()
+    -setSunExposure()
+    +getBasement()
+    +getLoft()
+    +getSunExposure()
+}
+
+class CreateListingController{
+    + createLand(agent,area, distanceFromCentre, pathToPNG, street, city, district, state, zipCode, transactionType, monetaryValue, propertyType)
+    + createApartment(agent,area, distanceFromCentre, pathToPNG, street, city, district, state, zipCode, transactionType, monetaryValue, bedrooms, bathrooms, parkingSpaces, propertyType)
+    + createHouse(agent,area, distance from centre, url of the photo, street, city, district, state, zipCode, type of transaction, value of transaction, bedrooms, bathrooms, parkingSpaces, basement, loft, sunExposure, propertyType)
+
+}
+class PropertyRepository{
+
+    + addProperty(property, stateOfAcceptance)
+}
+
+class Role {
+    -String id
+    -String description
+    ---
+    +Role(id, description)
+    +getID
+    +getDescription
+}
+
+class Land{}
+class Apartment{}
+class Person{
+    -String name
+    -Integer taxNumber
+    -String emailAddress
+    -Integer telephoneNumber
+
+    +getTelephoneNumber()
+    +getEmailAddress()
+    +getTaxNumber()
+    +getName()
+    -setTelephoneNumber()
+    -setEmailAddress()
+    -setTaxNumber()
+    -setName()
+}
+class CreateListingUI{
+    +keepPropertyTypes()
+    +keepAgent()
+}
+class Repositories {
+    -Repositories()
+    +getInstance()
+    +getAgentRepository()
+    +getPropertyTypeRepository()
+    +getPropertyRepository()
+}
+class AgentRepository{
+    +getAgentList()
+}
+class PassportCard{
+    -Integer passportNumber
+
+    +getPassportNumber()
+    -setPassportNumber()
+}
+CreateListingController ..> Repositories
+Property <|-- Land
+Person .> CreateListingUI
+CreateListingUI ..> CreateListingController
+CreateListingController ...> Property
+TypeOfTransaction "typeOfTransaction" --* Property
+Address --* "address" Person
+Address --* "address" Property
+PassportCard --* "passport" Person
+Equipment --* "equipment" Building
+Photo --* "photo" Property
+Property <|-- Building
+Building <|-- House
+Repositories ..> PropertyRepository
+Repositories ..> AgentRepository
+Repositories ..> PropertyTypeRepository
+Building <|-- Apartment
+Person <-- "role "Role
+
+
+
+
+
+@enduml

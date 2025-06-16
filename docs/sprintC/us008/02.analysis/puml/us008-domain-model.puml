@@ -1,0 +1,104 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model - US008
+
+'class Platform {
+'  -description
+'}
+
+class Agent {
+
+}
+
+
+
+
+class Person {
+    name
+    taxNumber
+    emailAddress
+    telephoneNumber
+}
+
+class PassportCard {
+    passportNumber
+}
+
+class Address{
+    street
+    city
+    district
+    state
+    zipCode
+}
+class User {
+    name
+    emailAddress
+    password
+}
+
+class Role {
+    id
+    description
+}
+
+class Employee {
+}
+
+class Property{
+    areaOfProperty
+    distanceFromCentre
+    dateOfAcceptance
+    dateOfRequest
+    comissionDetails
+    typeOfTransaction
+}
+
+class Building {
+    bedrooms
+    bathrooms
+    parkingSpaces
+    availableEquipment
+}
+
+class House{
+    basement
+    loft
+    sunExposure
+}
+
+class Owner{}
+
+class Apartment{}
+
+class Land{}
+
+Property --> Owner : has
+Owner --> Person : is a
+Land --> Property : is a
+Apartment --> Building
+House --> Building : is a
+Building --* Property : is a
+Agent -> Employee : is a
+Person --up> Role : has
+Person --up Address : has
+Person <--up PassportCard : has
+Person -right|> User : is a
+Employee --up|> Person : is a
+Agent <- Property : has
+
+
+
+
+
+@enduml

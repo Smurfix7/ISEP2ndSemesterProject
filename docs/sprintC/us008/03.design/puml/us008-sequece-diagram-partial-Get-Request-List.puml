@@ -1,0 +1,60 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+participant "ApprovePropertyController" as controller
+participant "PropertyRequestRepository" as requestRepository
+participant "requests \n:ArrayList<String>" as requests
+participant "assembler \n :StringBuilder" as assembler
+
+
+autonumber 5.1
+
+-> controller : displayRequestList(email)
+group Get Display List
+activate controller
+controller -> requestRepository : getRequestListByEmail(email)
+activate requestRepository
+requestRepository -> requests** : create()
+
+
+requestRepository -> requestRepository : getNumberOfRequests()
+activate requestRepository
+
+loop for each member of announcementRequests
+    requestRepository -> requestRepository : announcementRequests.get(i)
+    activate requestRepository
+    requestRepository --> requestRepository : requestObject.getAgent().getEmailAddress()
+    deactivate requestRepository
+
+    alt email.equals(requestObject.getAgent().getEmailAddress())
+        requestRepository -> requests : requests.add((idx+1) + "|" + announcementRequests.get(i).toString())
+        activate requests
+        deactivate requests
+    end
+end
+
+requestRepository --> controller : requests
+deactivate requestRepository
+deactivate requestRepository
+end
+
+activate controller
+
+controller -> assembler** : new StringBuilder()
+activate assembler
+
+loop for each item in requests
+    assembler -> assembler : append(line)
+    activate assembler
+    assembler -> assembler : append(System.lineSeparator())
+    deactivate assembler
+end
+
+controller --> controller : requests = assembler.toString()
+deactivate assembler
+
+<-- controller : requests
+deactivate controller
+
+@enduml

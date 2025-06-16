@@ -1,0 +1,117 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model - US004
+
+class Person {
+    name
+    taxNumber
+    emailAddress
+    telephoneNumber
+}
+
+class Owner {
+}
+
+class PassportCard {
+    passportCardNumber
+}
+
+class Address{
+    street
+    city
+    district
+    state
+    zipCode
+}
+
+class Apartment{
+}
+
+class Land{
+}
+
+class Property {
+    areaOfProperty
+    distanceFromCentre
+}
+
+class Building {
+    bedrooms
+    bathrooms
+    parkingSpaces
+    availableEquipment
+    equipment
+}
+
+class House{
+    basement
+    loft
+    sunExposure
+}
+
+class Equipment{
+
+    centralHeating
+    airConditioning
+}
+
+class Photo {
+    photoURI
+    photoID
+    photoList
+}
+
+class TypeOfTransaction {
+    transactionType
+    monetaryValue
+}
+class Agency{
+    agencyID
+    name
+    email
+    telephoneNumber
+}
+class Request{
+    requestDate
+}
+
+
+Request "1" -- "1" Property : > has property
+Request "1" -- "1" Employee : > has agent
+Request "1" -- "1" TypeOfTransaction : > has type of transaction
+
+Property"1" -- "1...30"Photo : has photos >
+Property"1" <|-- "1"Land : < is a
+Property"1" <|-up- "1" Building : is a <
+
+Agency"1" -- "1"Address : has address >
+Agency "1" -- "1" Employee  : < is stored in
+
+Building"1" -- "0...2"Equipment : has equipment >
+
+PassportCard"1" -- "1" Person : has a passport card <
+
+Address"1" -- "1" Person : has address <
+Address"1" -- "1" Property : has address <
+
+Owner "1" -left- "1" Property : < has an owner
+
+Person"1" <|-- "1"Owner : is a
+Person"1" <|-- "1"Employee : is a
+
+Building"1" <|-- "1"House : is a
+
+Apartment"1" --|> "1"Building: is a
+
+@enduml

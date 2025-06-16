@@ -1,0 +1,71 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing true
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model - US015
+
+class Person {
+    name
+    taxNumber
+    emailAddress
+    telephoneNumber
+}
+
+class Client {
+
+}
+
+class Employee {
+}
+
+class Agent {
+}
+
+class Role {
+    id
+    description
+}
+
+class Address {
+    street
+    city
+    district
+    state
+    zipCode
+}
+
+class Agency {
+    id
+    agencyName
+    emailAddress
+    contactTelephoneNumber
+}
+
+class VisitRequest {
+    contactTelephoneNumber
+    name
+    date
+    timeSlot
+}
+
+class PassportCard {
+    passportNumber
+}
+
+Person "*" --left> "1..*" Role : has a role >
+Person "*" --right> "0..1" Address : has an address >
+Person "                        *" --up> "              1" PassportCard : has a passport card >
+Person <|--down Employee
+
+Agency "1" <--left "*" Employee : < is in an agency
+Employee -up> Agent : represented in >
+VisitRequest "0..*" ---up "          *" Agent : < wants to accept or decline the visit request
+Client "                     *" --> "                                                    1" VisitRequest : > wants to request a visit
+
+@enduml

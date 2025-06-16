@@ -1,0 +1,83 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model - US004
+
+class OwnerSite {
+    name
+    citizensCardNumber
+    taxNumber
+    address
+    emailAddress
+    telephoneNumber
+    propertyType
+    agency
+    agent
+    typeOfTransaction
+    value
+}
+class Property {
+    areaOfProperty
+    locationOfProperty
+    distanceFromCentre
+    propertyPrice
+    photosOfProperty
+}
+
+class Buildings {
+    bedrooms
+    bathrooms
+    parkingSpaces
+    availableEquipment
+}
+
+class House{
+    basement
+    loft
+    sunExposure
+}
+
+class Location{
+    street
+    city
+    district
+    state
+    zipCode
+}
+
+class Equipment{
+    name
+}
+
+class Photos{
+    photoID
+    photoPNG
+}
+
+class Lease{
+    duration
+}
+
+
+OwnerSite "1" -- Lease : if leasing >
+Lease "1" -- Property
+OwnerSite "1" -- System : provides attributes >
+Property "1" -- System : if Land >
+Property "1" -- Buildings : if House or Apartment >
+Buildings "1" -- System : if Apartment >
+Buildings "1" -- House : if House >
+House "1" -- System : if House
+Equipment "1" -- Property : extends >
+Photos "1" -- Property : extends >
+Location "1" -- Property : extends >
+
+@enduml

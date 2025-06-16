@@ -1,0 +1,320 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+
+class ListingDealsUI {
+
+}
+
+class PurchaseOrderRepository{
+    - purchaseOrdersAccepted : List<PurchaseOrder>
+    ---
+    +getPurchaseOrdersAccepted()
+}
+
+class ListingDealsController {
+    ---
+    +getPurchaseOrdersAccepted()
+    +getProperty(propertyID)
+    +sortListBubble(sortingDirection)
+    +sortSelection(sortingDirection)
+}
+
+class Repositories {
+    ---
+    - Repositories()
+    +getInstance() : Repositories
+    +getPurchaseOrderRepository()
+
+}
+
+class PurchaseOrder{
+    - userEmail : String
+    - announcement : Announcements
+    - orderAmount : double
+    - acceptance : int
+    ---
+'    +PurchaseOrder(userEmail, propertyID, orderAmount, acceptance)
+'    +getUser
+'    +getOrderAmount
+'    +getAcceptance
+    +getAreaOfProperty
+'    +setUser
+'    +setAnnouncementID
+'    +setOrderAmount
+'    +setAcceptance
+    +toString(): String
+}
+
+class Announcements {
+    -List<Property> announcements
+    ---
+    +getAnnouncement(announcement)
+}
+
+class Property {
+    - propertyType: String
+    - owner: Owner
+    - commission: CommissionDetails
+    - agent: Agent
+    - areaOfProperty: double
+    - distanceFromCentre: double
+    - acceptanceDate: String
+    - requestDate: String
+    - address: Address
+    - photos: ArrayList<Photo>
+    - photo: Photo
+    - typeOfTransaction: TypeOfTransaction
+    - propertyID: int
+    ---
+'    + setCommissionDetails(commission: CommissionDetails): void
+'    + setPropertyType(propertyType: String): void
+'    + setAgent(agent: Agent): void
+'    + getAgent(): Agent
+'    + getDistanceFromCentre(): double
+'    + setDistanceFromCentre(distanceFromCentre: double): void
+'    + getAreaOfProperty(): double
+'    + setAreaOfProperty(areaOfProperty: double): void
+'    + getAcceptanceDate(): String
+'    + setAcceptanceDate(acceptanceDate: String): void
+'    + getRequestDate(): String
+'    + setRequestDate(requestDate: String): void
+'    + getAddress(): Address
+'    + getPropertyID(): int
+'    + getPropertyType(): String
+'    + setAddress(address: Address): void
+'    + getPhoto(): Photo
+'    + setPhoto(photoURI: String): void
+'    + getTypeOfTransaction(): TypeOfTransaction
+'    + setTypeOfTransaction(transactionType: String, monetaryValue: double): void
+'    + IsListed(property: Property): boolean
+    + toString(): String
+'    + setAddres(street: String, city: String, state: String, zipCode: String): void
+}
+
+class CommissionDetails {
+  - commissionType: String
+  - commissionValue: Double
+  --
+  + toString(): String
+'  + getCommissionValue(): Double
+'  + getCommissionType(): String
+}
+
+class TypeOfTransaction {
+  - transactionType: String
+  - monetaryValue: double
+  --
+'  + getTransactionType(): String
+'  + setTransactionType(transactionType: String): void
+'  + getMonetaryValue(): double
+'  + setMonetaryValue(monetaryValue: double): void
+  + toString(): String
+}
+
+class Address {
+  - street: String
+  - city: String
+  - state: String
+  - zipCode: String
+  --
+'  + getStreet(): String
+'  + setStreet(street: String): void
+'  + getCity(): String
+'  + setCity(city: String): void
+'  + getState(): String
+'  + setState(state: String): void
+'  + getZipCode(): String
+'  + setZipCode(zipCode: String): void
+  + toString(): String
+'  + equals(address2: Address): boolean
+}
+
+class Photo {
+  - photoID: int
+  - photoURI: String
+  --
+'  + getPhotoID(): int
+'  + setPhotoID(photoID: int): void
+'  + getPhotoURI(): String
+'  + setPhotoURI(photoURI: String): void
+  + toString(): String
+}
+
+class Building {
+  - bedrooms: int
+  - bathrooms: int
+  - parkingSpaces: int
+  - equipment: Equipment
+  --
+'  + getBathrooms(): int
+'  + setBathrooms(bathrooms: int): void
+'  + getBedrooms(): int
+'  + setBedrooms(bedrooms: int): void
+'  + getParkingSpaces(): int
+'  + setParkingSpaces(parkingSpaces: int): void
+  + toString(): String
+}
+
+class Equipment {
+    - airConditioning: String
+    - centralHeating: String
+    ---
+'    + getAirConditioning(): String
+'    + getCentralHeating(): String
+'    + setAirConditioning(airConditioning: String): void
+'    + setCentralHeating(centralHeating: String): void
+    + toString(): String
+}
+
+class House {
+  - basement: boolean
+  - loft: boolean
+  - sunExposure: String
+  --
+'  + setBasement(basement: boolean): void
+'  + getBasement(): boolean
+'  + setLoft(loft: boolean): void
+'  + getLoft(): boolean
+'  + getSunExposure(): String
+'  + setSunExposure(sunExposure: String): void
+  + toString(): String
+}
+
+
+
+class Owner{
+    - name : String
+    - taxNumber : Integer
+    - emailAddress : String
+    - telephoneNumber : String
+    ---
+'    +getTelephoneNumber()
+'    +getEmailAddress()
+'    +getTaxNumber()
+'    +getName()
+'    -setTelephoneNumber()
+'    -setEmailAddress()
+'    -setTaxNumber()
+'    -setName()
+    +toString(): String
+}
+
+class Land{}
+
+class PassportCard{
+    passportNumber
+
+    +getPassportNumber()
+    -setPassportNumber()
+}
+
+class Apartment{}
+
+class Agency {
+    - agencyID: String
+    - agencyName: String
+    - emailAddress: String
+    - contactTelephoneNumber: String
+    - address: Address
+    - purchaseOrdersAccepted : List<PurchaseOrder>
+'    + getAgencyID(): String
+'    + setAgencyID(agencyID: String): void
+'    + getAgencyName(): String
+'    + setAgencyName(agencyName: String): void
+'    + getEmailAddress(): String
+'    + setEmailAddress(emailAddress: String): void
+'    + getContactTelephoneNumber(): String
+'    + setContactTelephoneNumber(contactTelephoneNumber: String): void
+'    + getAddress(): Address
+'    + setAddress(address: Address): void
+    +getPurchaseOrdersAccepted()
+    +sortListBubble(sortingDirection)
+    +sortSelection(sortingDirection)
+    + toString(): String
+}
+
+class Employee {
+    - email: String
+    - name: String
+    - position: String
+    - phone: String
+    ---
+'    + Employee(email: String)
+'    + equals(o: Object): boolean
+'    + hashCode(): int
+'    + hasEmail(email: String): boolean
+'    + clone(): Employee
+    + toString(): String
+}
+
+
+class Person {
+    - name: String
+    - taxNumber: String
+    - emailAddress: String
+    - telephoneNumber: String
+    - address: Address
+    - role: Role
+    - passportCard: PassportCard
+'    + getName(): String
+'    + setName(name: String): void
+'    + getTaxNumber(): String
+'    + setTaxNumber(taxNumber: String): void
+'    + getEmailAddress(): String
+'    + setEmailAddress(emailAddress: String): void
+'    + getTelephoneNumber(): String
+'    + setTelephoneNumber(telephoneNumber: String): void
+'    + getAddress(): Address
+'    + setAddress(address: Address): void
+'    + getRole(): Role
+'    + setRole(role: Role): void
+'    + getPassportCard(): PassportCard
+'    + setPassportCard(passportCard: PassportCard): void
+    + toString(): String
+}
+
+
+ListingDealsUI .> ListingDealsController
+
+ListingDealsController ..> PurchaseOrder
+ListingDealsController .> Repositories :repositories
+ListingDealsController ..> PurchaseOrderRepository
+
+PurchaseOrderRepository .> PurchaseOrder
+
+PurchaseOrder .> Announcements
+
+Repositories --> PurchaseOrderRepository
+Repositories -> Repositories : getInstance()
+
+
+Employee --|> Person
+Person <|- Owner
+Employee "1" -> "1" Agency : stores >
+
+Property "1" -> "1" Person : stores >
+Announcements "1" -down-> "*" Property
+Property <|-- Land
+TypeOfTransaction "1"  --|> "1" Property
+Property "1" --> "1" Owner : stores >
+Property "1" --> "1" Address : stores >
+Person "1" --> "1" Address : stores >
+Property "1" --> "1" CommissionDetails : stores >
+Equipment "1" <-- "1" Building : stores <
+Photo "1" <- "1" Property : stores <
+Person "1" --> "1" PassportCard : stores >
+Property <|-- Building
+Building <|-- House
+Building <|-- Apartment
+
+
+@enduml

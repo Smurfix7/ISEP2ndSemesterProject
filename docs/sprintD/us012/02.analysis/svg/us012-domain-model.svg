@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="us-ascii" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css"
+     height="471px" preserveAspectRatio="none" style="width:527px;height:471px;background:#FFFFFF;" version="1.1"
+     viewBox="0 0 527 471" width="527px" zoomAndPan="magnify">
+    <defs/>
+    <g>
+        <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+              textLength="156" x="178.5" y="25.1074">Domain Model - US012
+        </text><!--class Person-->
+        <g id="elem_Person">
+            <rect
+                    fill="#F1F1F1" height="111.1055" id="Person" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="124" x="194.5" y="190.1211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="45" x="234"
+                  y="210.2285">Person
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="195.5" x2="317.5" y1="218.7422" y2="218.7422"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="35"
+                  x="200.5" y="237.8496">name
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67"
+                  x="200.5" y="256.4707">taxNumber
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85"
+                  x="200.5" y="275.0918">emailAddress
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="112"
+                  x="200.5" y="293.7129">telephoneNumber
+            </text>
+        </g><!--class PassportCard-->
+        <g id="elem_PassportCard">
+            <rect
+                    fill="#F1F1F1" height="55.2422" id="PassportCard" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="116" x="198.5" y="46.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="213"
+                  y="66.7285">PassportCard
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="199.5" x2="313.5" y1="75.2422" y2="75.2422"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="104"
+                  x="204.5" y="94.3496">passportNumber
+            </text>
+        </g><!--class Employee-->
+        <g id="elem_Employee">
+            <rect
+                    fill="#F1F1F1" height="36.6211" id="Employee" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="68" x="222.5" y="399.1211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="62"
+                  x="225.5" y="419.2285">Employee
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="223.5" x2="289.5" y1="427.7422" y2="427.7422"/>
+        </g><!--class User-->
+        <g id="elem_User">
+            <rect
+                    fill="#F1F1F1" height="92.4844" id="User" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;"
+                    width="97" x="90" y="371.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="29" x="124"
+                  y="391.7285">User
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="91" x2="186" y1="400.2422" y2="400.2422"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="35" x="96"
+                  y="419.3496">name
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="96"
+                  y="437.9707">emailAddress
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="60" x="96"
+                  y="456.5918">password
+            </text>
+        </g><!--class Address-->
+        <g id="elem_Address">
+            <rect
+                    fill="#F1F1F1" height="129.7266" id="Address" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="63" x="457" y="180.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="52"
+                  x="462.5" y="200.7285">Address
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="458" x2="519" y1="209.2422" y2="209.2422"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36" x="463"
+                  y="228.3496">street
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="21" x="463"
+                  y="246.9707">city
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="41" x="463"
+                  y="265.5918">district
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="31" x="463"
+                  y="284.2129">state
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="51" x="463"
+                  y="302.834">zipCode
+            </text>
+        </g><!--class Role-->
+        <g id="elem_Role">
+            <rect
+                    fill="#F1F1F1" height="73.8633" id="Role" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;"
+                    width="81" x="7" y="208.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="29" x="33"
+                  y="228.7285">Role
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="87" y1="237.2422" y2="237.2422"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="11" x="13"
+                  y="256.3496">id
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="69" x="13"
+                  y="274.9707">description
+            </text>
+        </g><!--class Administrator-->
+        <g id="elem_Administrator">
+            <rect
+                    fill="#F1F1F1" height="36.6211" id="Administrator" rx="2.5" ry="2.5"
+                    style="stroke:#181818;stroke-width:0.5;" width="89" x="422" y="399.1211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="83" x="425"
+                  y="419.2285">Administrator
+            </text>
+            <line style="stroke:#181818;stroke-width:0.5;" x1="423" x2="510" y1="427.7422" y2="427.7422"/>
+        </g><!--link Role to Person-->
+        <g id="link_Role_Person">
+            <path
+                    d="M88.29,245.6211 C118.47,245.6211 160.1,245.6211 194.4,245.6211 " fill="none" id="Role-Person"
+                    style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#000000" points="105.25,233.2666,114.2951,236.2055,114.2951,230.3277,105.25,233.2666"
+                     style="stroke:#000000;stroke-width:1.0;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="57"
+                  x="119.25" y="238.6494">has a role
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="20"
+                  x="96.0672" y="260.9837">1..*
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5"
+                  x="181.5269" y="241.6248">*
+            </text>
+        </g><!--link Person to Address-->
+        <g id="link_Person_Address">
+            <path
+                    d="M318.67,245.6211 C363.23,245.6211 421.41,245.6211 456.81,245.6211 " fill="none"
+                    id="Person-Address" style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#000000" points="345.75,233.2666,336.7049,230.3277,336.7049,236.2055,345.75,233.2666"
+                     style="stroke:#000000;stroke-width:1.0;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="89"
+                  x="349.75" y="238.6494">has an address
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5"
+                  x="326.5517" y="241.6248">*
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="22"
+                  x="426.939" y="261.2686">0..1
+            </text>
+        </g><!--reverse link PassportCard to Person-->
+        <g id="link_PassportCard_Person">
+            <path
+                    d="M256.5,107.1011 C256.5,130.3911 256.5,162.4911 256.5,189.8311 " fill="none"
+                    id="PassportCard-backto-Person" style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#181818" points="256.5,101.9811,252.5,110.9811,256.5,106.9811,260.5,110.9811,256.5,101.9811"
+                     style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#000000" points="261.5,136.2666,258.5611,145.3117,264.4389,145.3117,261.5,136.2666"
+                     style="stroke:#000000;stroke-width:1.0;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="115"
+                  x="270.5" y="146.6494">has a passport card
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="7"
+                  x="242.6094" y="123.9685">1
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="5"
+                  x="245.3453" y="179.0354">*
+            </text>
+        </g><!--reverse link User to Employee-->
+        <g id="link_User_Employee">
+            <path
+                    d="M207.38,417.6211 C212.41,417.6211 217.44,417.6211 222.47,417.6211 " fill="none"
+                    id="User-backto-Employee" style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="none" points="207.36,424.6211,187.36,417.6211,207.36,410.6211,207.36,424.6211"
+                     style="stroke:#181818;stroke-width:1.0;"/>
+        </g><!--reverse link Person to Employee-->
+        <g id="link_Person_Employee">
+            <path
+                    d="M256.5,321.3711 C256.5,350.1911 256.5,380.6211 256.5,399.1111 " fill="none"
+                    id="Person-backto-Employee" style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="none" points="249.5,321.3411,256.5,301.3411,263.5,321.3411,249.5,321.3411"
+                     style="stroke:#181818;stroke-width:1.0;"/>
+        </g><!--link Employee to Administrator-->
+        <g id="link_Employee_Administrator">
+            <path
+                    d="M290.71,417.6211 C326.39,417.6211 382.48,417.6211 421.68,417.6211 " fill="none"
+                    id="Employee-Administrator" style="stroke:#181818;stroke-width:1.0;"/>
+            <polygon fill="#000000" points="307.75,405.2666,316.7951,408.2055,316.7951,402.3277,307.75,405.2666"
+                     style="stroke:#000000;stroke-width:1.0;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="82"
+                  x="321.75" y="410.6494">represented in
+            </text>
+        </g><!--SRC=[TLBBJYCn4BpxArfpGLefKR973YCXbWC74Dg83p1sasdXbzeTiM6NVyVZSIOFj3vOxN9LkUnsVgEGD6iFFePe1euUGNY7AiyxIPitlSMDx1q2en4TjkwKa0Tjupk5BRngbr6fAuUl0XA1QJi8M1fL58Cw4HcdSxuHONhP2TwR63RqWR1IQY2BO8XDEQJM7cM8DYib92N2h-Wr1NY85Xqiu7cpMlzKglh14tAE0VugA2DeZxKG_UTnvr-GwmgBtDrOovZpj8qEqn03DjBdx5Qc55bkDTlccHfqIRtpoSKzOg7Ds7D6lepoxV3Hy3so7MLDrxOdPHP6b5eQadqjB1MKZ3I2bidxWz9jUPHZWD_HOGj0Tb9YDaofDkFpU9wdC5fgYJnTeBrZzwE3nQ9sirilbsLLBQzXq1aqyBZepybJoxlLShdk3ZSv20Be1Xn5y9zHpNQflsGKrxEs7B8S6WDcH7irDwJ6_zVNRfoWnRk0Kmfr_WBJXMVgTVdqgQJ686YX_BnUVG40]-->
+    </g>
+</svg>

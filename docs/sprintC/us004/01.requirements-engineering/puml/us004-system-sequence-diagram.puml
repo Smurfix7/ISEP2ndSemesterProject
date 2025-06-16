@@ -1,0 +1,63 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Owner" as User
+participant ":System" as System
+
+activate User
+
+    User -> System : asks to create a new property listing
+    activate System
+
+        System --> User : shows the list of agents and asks to choose one
+    deactivate System
+
+    User -> System : chooses an agent
+    activate System
+
+        System --> User : shows types of property and asks to choose one
+    deactivate System
+
+    alt property type choosen is land
+    User -> System : types requested data (land)
+    activate System
+
+        System --> User : requests data about the property
+    deactivate System
+
+    User -> System : submits data (type of transaction, value of transaction, the area in m2, the location, the distance from the city centre, the requested price, one or more photographs)
+    end
+
+    alt property type choosen is apartment
+        User -> System : types requested data (apartment)
+        activate System
+
+            System --> User : requests data about the property
+        deactivate System
+
+        User -> System : submits data (type of transaction, value of transaction, the area in m2, the location, the distance from the city centre, the requested price, one or more photographs, the number of bedrooms, the number of bathrooms, the number of parking spaces, the available equipment (such as central heating and/or air conditioning))
+    end
+
+    alt property type choosen is house
+            User -> System : types requested data (house)
+            activate System
+
+                System --> User : requests data about the property
+            deactivate System
+
+            User -> System : submits data (type of transaction, value of transaction, the area in m2, the location, the distance from the city centre, the requested price, one or more photographs, the number of bedrooms, the number of bathrooms, the number of parking spaces, the available equipment (such as central heating and/or air conditioning), the existence of a basement, an inhabitable loft, the sun exposure)
+    end
+
+    activate System
+
+        System --> User : displays sucess message
+    deactivate System
+
+@enduml
+

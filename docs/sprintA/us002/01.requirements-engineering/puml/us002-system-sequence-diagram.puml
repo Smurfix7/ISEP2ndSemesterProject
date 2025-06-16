@@ -1,0 +1,43 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title Agent Sequence Diagram (SSD) - Alternative One
+
+autonumber
+
+actor "Client" as Client
+participant ":Agent" as Agent
+participant ":System" as System
+
+activate Client
+
+    Client -> Agent : client asks to list a property
+    activate Agent
+
+        Agent --> Client : agent requests the property and it's characteristics type
+    deactivate Agent
+
+    Client -> Agent : the client gives all the relevant information to that property
+
+    activate Agent
+
+    alt "if the property is a House or Apartment"
+    Client -> Agent : extra information is supplied
+    deactivate Client
+    end alt
+
+    Agent --> System : the agent registers the property for sale
+    deactivate Agent
+
+    Agent <- System : the system requests which agent the property will be assigned to
+    activate Agent
+
+        Agent --> System : inputs the comission type and amount
+    deactivate Agent
+
+    System -> System : the system publishes the property for sale
+
+
+@enduml

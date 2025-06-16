@@ -1,0 +1,204 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor Agent as AGENT
+participant PurchaseOrderUI as UI
+participant PurchaseOrderController as CTRL
+participant Repositories as REP
+participant PurchaseRepository as PREP
+participant PurchaseOrderTBARepository as TBAREP
+participant PurchaseOrderARepository as AREP
+participant Email as EMAIL
+
+activate AGENT
+
+    AGENT -> UI : asks to display list of purchase requests
+
+    activate UI
+
+        UI -> CTRL : PurchaseOrderController()
+
+        activate CTRL
+
+        UI -> CTRL : getPurchaseOrdersTBA()
+
+            CTRL -> REP : getPurchaseOrdersTBA()
+
+            activate REP
+
+                REP -> PREP : getPurchaseOrdersTBA()
+
+                activate PREP
+
+                    PREP -> TBAREP : getPurchaseOrdersTBA()
+
+                    activate TBAREP
+
+                        TBAREP --> PREP : purchaseOrderTBA
+
+                    deactivate TBAREP
+
+                    PREP --> REP : purchaseOrderTBA
+
+                deactivate PREP
+
+                REP --> CTRL : purchaseOrderTBA
+
+            deactivate REP
+
+            CTRL --> UI : purchaseOrderTBA
+
+        deactivate CTRL
+
+        UI --> AGENT : shows the agent the list of all purchase orders TBA (To Be Accepted)
+
+    deactivate UI
+
+    AGENT -> UI : chooses a purchase order
+
+    activate UI
+
+        UI --> UI : keepPurchaseOrder()
+        UI --> AGENT : asks if they want to accept or decline
+
+    deactivate UI
+
+    loop until the agent exits or all orders are taken care off
+
+    alt if agent wants to decline
+
+    AGENT -> UI : declines the purchase order
+
+    activate UI
+
+        UI -> CTRL : removePurchaseOrder()
+
+        activate CTRL
+
+            CTRL -> REP : removePurchaseOrder()
+
+            activate REP
+
+                REP -> PREP : removePurchaseOrder()
+
+                activate PREP
+
+                    PREP -> TBAREP : removePurchaseOrder()
+
+                    activate TBAREP
+
+                        TBAREP --> PREP : informing user
+
+                    deactivate TBAREP
+
+                    PREP --> REP : informing user
+
+                deactivate PREP
+
+                REP --> CTRL : informing user
+
+            deactivate REP
+
+            CTRL -> EMAIL : sendEmail()
+
+            activate EMAIL
+
+                EMAIL --> CTRL : sendEmail
+
+            deactivate EMAIL
+
+            CTRL --> UI : sendEmail
+
+        deactivate CTRL
+
+        UI --> AGENT : informs agent of successful deletion\n of purchase order and that the user has been informed
+
+    deactivate UI
+
+    end
+
+    alt if agent wants to accept
+
+        AGENT -> UI : accepts the purchase order
+
+        activate UI
+
+            UI -> CTRL : addPurchaseOrderA()
+
+            activate CTRL
+
+                CTRL -> REP : addPurchaseOrderA()
+
+                activate REP
+
+                    REP -> PREP : addPurchaseOrderA()
+
+                    activate PREP
+
+                        PREP -> AREP : addPurchaseOrderA()
+
+                        activate AREP
+
+                            AREP --> PREP : addPurchaseOrderA
+
+                        deactivate AREP
+
+                        PREP --> REP : addPurchaseOrderA
+
+                    deactivate PREP
+
+                    REP --> CTRL : addPurchaseOrderA
+
+                deactivate REP
+
+                CTRL -> REP : removePurchaseOrder()
+
+                activate REP
+
+                    REP -> PREP : removePurchaseOrder()
+
+                    activate PREP
+
+                        PREP -> TBAREP : removePurchaseOrder()
+
+                        activate TBAREP
+
+                            TBAREP --> PREP : informing user
+
+                        deactivate TBAREP
+
+                        PREP --> REP : informing user
+
+                    deactivate PREP
+
+                    REP --> CTRL : informing user
+
+                deactivate REP
+
+                CTRL -> EMAIL : sendEmail()
+
+                activate EMAIL
+
+                    EMAIL --> CTRL : sendEmail
+
+                deactivate EMAIL
+
+                CTRL --> UI : sendEmail
+
+            deactivate CTRL
+
+            UI --> AGENT : informs agent of successful acceptance\n of purchase order and that the user has been informed
+
+        deactivate UI
+
+        end
+        end
+
+deactivate AGENT
+
+@enduml

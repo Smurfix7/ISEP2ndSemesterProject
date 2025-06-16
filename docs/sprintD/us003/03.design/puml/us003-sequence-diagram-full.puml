@@ -1,0 +1,151 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Administrator" as ADM
+participant ":RegisterEmployeeUI" as UI
+participant ":RegisterEmployeeController" as Controller
+participant ":Repositories" as Repository
+participant "repositories\n:Repositories" as Repositories
+participant "agencyRepository\n:AgencyRepository" as AgencyRepository
+participant "roleRepository\n:RoleRepository" as RoleRepository
+participant "personRespository\n:PersonRepository" as PersonRepository
+participant "agentRespository\n:AgentRepository" as AgentRepository
+
+
+
+activate ADM
+
+        ADM -> UI : asks to create a new employee
+
+        activate UI
+
+        UI -> Controller** : create
+
+            UI --> ADM : requests data
+        deactivate UI
+
+    ADM -> UI : types requested data
+    activate UI
+
+             UI --> UI : keepTypedData(name, passportNumber, emailAdress,\ntaxNumber, contactTelephoneNumber, street,\ncity, district, state, zipCode)
+                         deactivate Controller
+
+            UI -> Controller : getAgencyList()
+            activate Controller
+
+                Controller -> Repository : getInstance()
+                activate Repository
+
+                    Repository --> Controller: repositories
+                deactivate Repository
+
+                Controller -> Repositories : getAgencyRepository()
+                activate Repositories
+
+                    Repositories --> Controller: agencyRepository
+                deactivate Repositories
+
+                Controller -> AgencyRepository : getAgencyList()
+                activate AgencyRepository
+
+                    AgencyRepository --> Controller : agencyList
+                deactivate AgencyRepository
+
+                Controller --> UI : agencyList
+            deactivate Controller
+
+        UI --> ADM : shows agency list
+    deactivate UI
+
+    ADM -> UI : selects an agency
+    activate UI
+
+            UI --> UI : keepSelectedAgency(agency)
+                         deactivate Controller
+
+             UI -> Controller : getRoleList()
+             activate Controller
+
+                 Controller -> Repositories : getRoleRepository()
+                 activate Repositories
+
+                     Repositories --> Controller: roleRepository
+                 deactivate Repositories
+
+                 Controller -> RoleRepository : getRoleList()
+                 activate RoleRepository
+
+                     RoleRepository --> Controller : roleList
+                 deactivate RoleRepository
+
+                 Controller --> UI : roleList
+             deactivate Controller
+
+        UI --> ADM : shows role list
+    deactivate UI
+
+    ADM -> UI : selects a role
+    activate UI
+
+             UI --> UI : keepSelectedRole(role)
+             deactivate Controller
+
+     UI --> ADM : shows selected agency, selected role, requested data and asks to confirm
+        deactivate UI
+
+        ADM -> UI : submits data
+        activate UI
+
+        UI -> Controller : registerEmployee(name, passportNumber, emailAdress,\ntaxNumber, contactTelephoneNumber, street,\ncity, district, state, zipCode, role, agency)
+        activate Controller
+
+            Controller -> Controller : getAgencyByID(agencyID)
+            activate Controller
+
+                Controller -> AgencyRepository : getAgencyByID()
+                activate AgencyRepository
+
+                    AgencyRepository --> Controller : agency
+                deactivate AgencyRepository
+
+                    Controller --> Controller : agency
+            deactivate Controller
+
+            Controller -> Controller : getRoleByID(roleID)
+            activate Controller
+
+                Controller -> RoleRepository : getRoleByID()
+                activate RoleRepository
+
+                    RoleRepository --> Controller : role
+                deactivate RoleRepository
+
+                    Controller --> Controller : role
+            deactivate Controller
+
+            Controller -> PersonRepository : registerEmployee(name, passportNumber, emailAdress,\ntaxNumber, contactTelephoneNumber, adress,\nroleID)
+                        activate PersonRepository
+
+                PersonRepository --> Controller: employee
+                deactivate PersonRepository
+
+            Controller -> AgentRepository : registerEmployee(name, passportNumber, emailAdress,\ntaxNumber, contactTelephoneNumber, adress,\nroleID, agencyID)
+                        activate AgentRepository
+
+                AgentRepository --> Controller: employee
+                deactivate AgentRepository
+
+            Controller --> UI: employee
+            deactivate Controller
+            UI --> ADM: displays operation success
+
+    deactivate UI
+
+deactivate ADM
+
+@enduml

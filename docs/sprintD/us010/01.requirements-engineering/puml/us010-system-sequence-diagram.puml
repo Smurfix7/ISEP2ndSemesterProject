@@ -1,0 +1,36 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "User" as Person
+participant ":System" as System
+
+activate Person
+
+    Person -> System : asks to create a purchase order
+    activate System
+        loop if propertyID doesn't exist
+        System --> Person : requests property ID
+    deactivate System
+
+    Person -> System : selects the intended property
+    activate System
+    end loop
+        System --> Person : requests the order amount
+    deactivate System
+
+    Person -> System : writes the order amount
+    activate System
+        alt if orderAmount already exists
+        System --> Person : informs the order amount already exists\n for the same property.
+        end alt
+        System --> Person : shows opperation sucess
+    deactivate System
+
+deactivate Person
+@enduml

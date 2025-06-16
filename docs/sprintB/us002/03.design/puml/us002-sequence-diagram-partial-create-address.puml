@@ -1,0 +1,23 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant CreateAnnouncementController
+
+-> CreateAnnouncementController
+autonumber 1.1
+
+loop n times
+activate CreateAnnouncementController
+CreateAnnouncementController -> Photo : createPhoto(photoURI)
+activate Photo
+Photo -> Photo : addPhoto(photo)
+end
+Photo -> CreateAnnouncementController : photoList
+deactivate Photo
+
+
+
+
+@enduml

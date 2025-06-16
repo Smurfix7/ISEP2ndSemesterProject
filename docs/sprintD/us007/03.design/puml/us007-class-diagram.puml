@@ -1,0 +1,113 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class MainMenuUI {
+
+}
+
+class UserRegisterUI {
+
+}
+
+class UserRegisterController {
+    ---
+    +createPerson(name, taxNumber, emailAddress,\ntelephoneNumber, address, passport, role)
+    +createUser(name, emailAddress, password)
+}
+
+class Repositories {
+    ---
+    - Repositories()
+    +getInstance() : Repositories
+    +getPersonRepository()
+    +getAuthenticationRepository()
+}
+
+class PersonRepository {
+    +addPerson(Person)
+}
+
+class AuthenticationRepository {
+    ---
+    +addUser(User)
+    +validateUser(User)
+}
+
+class Person {
+    -String name
+'    citizensCardNumber
+    -int taxNumber
+    -String emailAddress
+    -int telephoneNumber
+    ---
+    +Person(name, taxNumber, emailAddress,\ntelephoneNumber, address, passport, role)
+    +getName
+    +getTaxNumber
+    +getEmailAddress
+    +getTelephoneNumber
+}
+
+class User {
+    -String name
+    -String emailAddress
+    -String password
+    ---
+    +User(name, emailAddress, password)
+    +getName
+    +getEmailAddress
+    +getPassword
+}
+
+class PassportCard {
+    -int passportNumber
+    ---
+    +PassportCard(passportNumber)
+    +getPassportNumber
+}
+
+class Role {
+    -String id
+    -String description
+    ---
+    +Role(id, description)
+    +getID
+    +getDescription
+}
+
+class Address{
+    -String street
+    -String city
+    -String district
+    -String state
+    -String zipCode
+    ---
+    +Address(street, city, district, state, zipCode)
+    +setAddressData
+}
+
+MainMenuUI .> UserRegisterUI
+UserRegisterUI .> UserRegisterController
+
+UserRegisterController .> Repositories :repositories
+UserRegisterController ..> Person
+UserRegisterController ..> User
+UserRegisterController ..> PersonRepository
+UserRegisterController ..> AuthenticationRepository
+
+Repositories -> Repositories : getInstance()
+Repositories --> AuthenticationRepository
+Repositories --> PersonRepository
+
+Person *.left Address : address
+Person *.. PassportCard : passport
+Person *.. Role : role
+
+@enduml

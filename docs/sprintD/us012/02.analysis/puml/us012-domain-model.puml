@@ -1,0 +1,59 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model - US012
+
+class Person {
+    name
+    taxNumber
+    emailAddress
+    telephoneNumber
+}
+
+class PassportCard {
+    passportNumber
+}
+
+class Employee {
+}
+
+class User {
+    name
+    emailAddress
+    password
+}
+
+
+class Address{
+    street
+    city
+    district
+    state
+    zipCode
+}
+
+class Role {
+    id
+    description
+}
+
+class Administrator {
+}
+
+Person "*" --left "1..*" Role : has a role >
+Person "*" --right "0..1" Address : has an address >
+Person "                        *" --up> "              1" PassportCard : has a passport card >
+Employee -left|> User
+Employee --up|> Person
+Administrator -left Employee : represented in >
+
+@enduml

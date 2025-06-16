@@ -1,0 +1,123 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "User" as Client
+participant ":CreatePurchaseOrderUI" as OrderUI
+participant ":CreatePurchaseOrderController" as OrderCTRL
+participant ":Repositories" as Repositories
+participant "repositories\n:Repositories" as repositories
+participant "announcementRepository:\nAnnouncementRepository" as AnnouncementRepository
+participant "user:\nAuthenticationRepository" as AuthenticationRepository
+participant ":PurchaseOrder" as PurchaseOrder
+participant "purchaseOrderTBARepository:\nPurchaseOrderTBARepository" as PurchaseOrderTBARepository
+'participant ":User" as User
+
+
+
+
+activate Client
+
+    Client -> OrderUI : asks to create a purchase order
+    activate OrderUI
+        OrderUI -> OrderCTRL** : create
+        OrderUI --> Client : shows CreatePurchaseOrderUI
+        OrderUI -> OrderCTRL : getCopyAnnouncementsList()
+        activate OrderCTRL
+        OrderCTRL -> Repositories : getInstance()
+                    activate Repositories
+                        Repositories --> OrderCTRL : repositories
+                    deactivate Repositories
+
+                    OrderCTRL -> repositories : getAnnouncementRepository()
+                    activate repositories
+                        repositories --> OrderCTRL : getAnnouncementRepository
+                    deactivate repositories
+        OrderCTRL --> OrderUI : getCopyAnnouncementsList
+        deactivate OrderCTRL
+        OrderUI --> Client : shows AnnouncementRepository
+        loop until checkAnnouncement(propertyID) == true
+        OrderUI --> Client : requests data
+    deactivate OrderUI
+
+    Client -> OrderUI : selects the intended property
+    activate OrderUI
+        OrderUI -> OrderCTRL : checkAnnouncement(propertyID)
+        activate OrderCTRL
+            OrderCTRL -> AnnouncementRepository : size()
+            activate AnnouncementRepository
+                AnnouncementRepository --> OrderCTRL : size
+            deactivate AnnouncementRepository
+            OrderCTRL --> OrderUI : checkAnnouncement
+        deactivate OrderCTRL
+        alt checks if he already submitted a purchase order
+        OrderUI -> OrderCTRL : checkUserPurchaseOrderExists(userEmail, id)
+            activate OrderCTRL
+                OrderCTRL -> PurchaseOrderTBARepository : checkUserPurchaseOrderExists(userEmail, id)
+                activate PurchaseOrderTBARepository
+                    PurchaseOrderTBARepository --> OrderCTRL : checkUserPurchaseOrderExists
+                deactivate PurchaseOrderTBARepository
+            OrderCTRL --> OrderUI : checkUserPurchaseOrderExists
+            deactivate OrderCTRL
+        OrderUI --> Client : informs that he already ordered a purchase \n for that property.
+        end alt
+        end loop
+        OrderUI --> Client : requests the order amount
+    deactivate OrderUI
+
+    Client -> OrderUI : writes the order amount
+    activate OrderUI
+        OrderUI -> OrderCTRL : createPurchaseOrder(userEmail, propertyID, orderAmount, acceptance)
+        activate OrderCTRL
+
+            OrderCTRL -> repositories : getAuthenticationRepository()
+            activate repositories
+                repositories --> OrderCTRL : getAuthenticationRepository
+            deactivate repositories
+
+            OrderCTRL -> AuthenticationRepository : getCurrentUserSession()
+            activate AuthenticationRepository
+                AuthenticationRepository --> OrderCTRL : getCurrentUserSession
+            deactivate AuthenticationRepository
+
+            OrderCTRL -> PurchaseOrder : PurchaseOrder(userEmail, propertyID, orderAmount, acceptance)
+            activate PurchaseOrder
+                PurchaseOrder --> OrderCTRL : purchaseOrder
+            deactivate PurchaseOrder
+
+            OrderCTRL -> repositories : getPurchaseOrderTBARepository()
+            activate repositories
+                repositories --> OrderCTRL : getPurchaseOrderTBARepository
+            deactivate repositories
+
+            OrderCTRL -> PurchaseOrderTBARepository : checkPurchaseOrderExists(purchaseOrder)
+            activate PurchaseOrderTBARepository
+                PurchaseOrderTBARepository --> OrderCTRL : checkPurchaseOrderExists
+            deactivate PurchaseOrderTBARepository
+
+            alt if checkPurchaseOrderExists == false
+            OrderCTRL --> OrderUI : checkPurchaseOrderExists
+            OrderUI --> Client : inform that already exists an equal offer \nwhich will take priority
+            end alt
+
+            OrderCTRL -> PurchaseOrderTBARepository : addPurchaseOrder(purchaseOrder)
+            activate PurchaseOrderTBARepository
+                PurchaseOrderTBARepository --> OrderCTRL : addPurchaseOrder
+            deactivate PurchaseOrderTBARepository
+
+            OrderCTRL --> OrderUI : createPurchaseOrder
+            deactivate OrderCTRL
+        deactivate OrderCTRL
+
+        OrderUI --> Client : shows opperation result (successful/unsuccessful)
+    deactivate OrderUI
+
+    deactivate OrderUI
+
+deactivate Client
+
+@enduml

@@ -1,0 +1,32 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "User" as Person
+participant ":System" as System
+
+activate Person
+
+    Person -> System : asks to create a purchase order
+    activate System
+        System --> Person : requests data
+    deactivate System
+
+    Person -> System : selects the intended property
+    activate System
+        System --> Person : requests the order amount
+    deactivate System
+
+    Person -> System : writes the order amount
+    activate System
+        System --> Person : sends request to the agent
+        System --> Person : shows opperation sucess
+    deactivate System
+
+deactivate Person
+@enduml

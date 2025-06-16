@@ -1,0 +1,55 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model US003
+
+class Role {
+    id
+    description
+}
+
+class Person {
+     name
+     emailAddress
+     taxNumber
+     contactTelephoneNumber
+}
+
+class Agency {
+     id
+     agencyName
+     emailAddress
+     contactTelephoneNumber
+}
+
+class Employee {
+
+}
+
+class Address {
+     street
+     city
+     district
+     state
+     zipCode
+}
+
+class PassportCard {
+    passportNumber
+}
+
+
+Person *-- Role
+Person *-- PassportCard
+Person *-- Address
+Person <|- Employee
+Employee *- Agency
+Agency *-- Address
+@enduml

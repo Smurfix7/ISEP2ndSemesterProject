@@ -1,0 +1,45 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model - US010
+
+'class Platform {
+'  -description
+'}
+
+class AnnouncementRepository {
+
+}
+
+class PurchaseOrderTBARepository{
+
+}
+
+class PurchaseOrder{
+    userEmail
+    propertyID
+    orderAmount
+    acceptance
+}
+
+class User {
+    name
+    emailAddress
+    password
+}
+
+AnnouncementRepository --left> User : shows list
+User --right> AnnouncementRepository : requests available properties list
+User --> PurchaseOrder : selects announcement and order amount
+PurchaseOrder --right> PurchaseOrderTBARepository
+
+@enduml

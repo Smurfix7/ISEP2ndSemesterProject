@@ -1,0 +1,30 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+'skinparam shadowing false
+
+
+'title Use Case Diagram Example
+
+left to right direction
+
+
+
+
+
+
+
+usecase "UC001 - Display listed properties"
+"Unregistered User" --> "UC001 - Display listed properties"
+
+usecase "UC002 -  Publish any sale announcement on the system"
+"Agent" --> "UC002 -  Publish any sale announcement on the system"
+
+usecase "UC003 - Register a new employee"
+"System Admin" --> "UC003 - Register a new employee"
+
+usecase "UC004 - Submit a properly listing request"
+"Owner" --> "UC004 - Submit a properly listing request"
+
+
+@enduml

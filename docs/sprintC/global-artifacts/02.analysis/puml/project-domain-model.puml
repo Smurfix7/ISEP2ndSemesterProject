@@ -1,0 +1,208 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing true
+skinparam classAttributeIconSize 20
+skinparam linetype ortho
+hide circle
+hide methods
+
+title Domain Model
+
+class Person {
+    name
+    taxNumber
+    emailAddress
+    telephoneNumber
+}
+
+class User {
+    name
+    emailAddress
+    password
+}
+
+class Apartment {
+
+}
+
+class PassportCard {
+    passportNumber
+}
+
+class Role {
+    id
+    description
+}
+
+class Owner {
+}
+
+class Agency {
+    id
+    agencyName
+    emailAddress
+    telephoneNumber
+}
+
+class Property {
+    areaOfProperty
+    distanceFromCentre
+    dateOfAcceptance
+    dateOfRequest
+
+}
+
+class TypeOfTransaction{
+    transactionType
+    monetaryValue
+}
+
+class Photo{
+    photoID
+    pathToPNG
+}
+
+class PropertyType {
+    designation
+}
+
+class Building {
+    bedrooms
+    bathrooms
+    parkingSpaces
+    availableEquipment
+}
+
+class House{
+    basement
+    loft
+    sunExposure
+}
+
+class Agent{
+    name
+    emailAddress
+    password
+}
+
+class VisitRequest{
+    name
+    telephoneNumber
+    date
+    timeSlot
+}
+
+class VisitsRequestRepository{
+
+}
+
+
+class Address{
+    street
+    city
+    district
+    state
+    zipCode
+}
+
+class AnnouncementRepository{
+}
+
+class Equipment{
+    name
+}
+
+class Employee{
+}
+
+class PropertyRequestRepository{}
+class PurchaseOrderTBARepository{
+}
+
+class Email {
+    emailAddress
+}
+class PurchaseOrderARepository{
+}
+
+
+class PurchaseOrder{
+    user
+    announcement
+    orderAmount
+}
+
+class LegacyFile {
+    filePath
+}
+
+class ImportedInformationRepository{
+}
+
+
+Employee --|> Person
+Employee --|> User
+Employee <|-- Agent
+Employee "1" ---down> "*" LegacyFile : wants to import
+
+
+Agency -* Employee
+
+User <|-left Owner
+User "1" ---> "1"VisitRequest : "creates"
+User --> AnnouncementRepository : requests available properties list
+User --> PurchaseOrder : selects announcement and order amount
+
+
+Owner ---up|> Person
+Owner ----> Property : > creates the property
+Owner "1 " --> "1 " PropertyRequestRepository : > sends owner information
+
+
+Person *--up Role
+Person *-right PassportCard
+Person *-down-- Address
+
+
+Property <|- Land
+Property *-down- PropertyType
+Property "1" ---> "1" PropertyRequestRepository : > wants to store the property request
+Property "1 " <-- "1" Agent : wants to input information
+Property <|--- Building
+
+
+PropertyRequestRepository "1 " <-- "1 " Agent : < sends agent information
+PropertyRequestRepository "1" ---> "1" AnnouncementRepository : > publishes announcement
+
+TypeOfTransaction  ----* Property
+
+Building <|-left House
+
+Equipment -left* Building
+
+Photo ----* Property
+
+Address ---* Property
+Address -* Agency
+
+Apartment -up|> Building
+
+VisitRequest "1" ----> "1" VisitsRequestRepository : "wants to store the visit request"
+
+AnnouncementRepository --> User : shows list
+
+PurchaseOrder ---> PurchaseOrderTBARepository : > wants to store the purchase order in
+
+Agent -> PurchaseOrderTBARepository : > approves/declines offers
+
+LegacyFile "1" ---> "1" ImportedInformationRepository :  > wants to store in
+
+PurchaseOrderTBARepository ----> PurchaseOrderARepository : > sends accepted offers to
+PurchaseOrderTBARepository ----> System : > gets updated order list
+PurchaseOrderTBARepository ----> PurchaseOrderTBARepository : > deletes denied purchase orders
+
+System ----> Email : > sends an email to the user that created the order
+
+PurchaseOrderARepository ----> System :> gets updated accepted order list
+@enduml

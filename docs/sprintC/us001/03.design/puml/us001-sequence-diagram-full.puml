@@ -1,0 +1,161 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Unregistered User" as Client
+participant ":PropertyListUI" as UI
+participant ":PropertyListController" as Controller
+participant ":Repositories" as Repositories
+participant "repositories\n:Repositories" as Repository
+participant "announcementsRepository\n:AnnouncementRepository" as AnnouncementRepository
+participant ":SelectedParameters" as SP
+
+activate Client
+
+        Client -> UI : initiates program
+        activate UI
+            UI -> Controller** : create
+            loop everytime that is required to displayAnnouncementList
+                UI -> Controller : displayAnnouncementList(SelectedParameters)
+                activate Controller
+                    Controller -> Repositories : getInstance()
+                    activate Repositories
+                                        Repositories --> Controller : repositories
+                    deactivate Repositories
+                    Controller -> Repository : getAnnouncementRepository()
+                    activate Repository
+                                        Repository --> Controller : AnnouncementRepository
+                    deactivate Repository
+                    Controller -> AnnouncementRepository : getListedLands()
+                    activate AnnouncementRepository
+                                        AnnouncementRepository --> Controller : getListedLands
+                    deactivate AnnouncementRepository
+                    Controller -> AnnouncementRepository : getListedApartments()
+                    activate AnnouncementRepository
+                                        AnnouncementRepository --> Controller : getListedApartments
+                    deactivate AnnouncementRepository
+                    Controller -> AnnouncementRepository : getListedHouses()
+                    activate AnnouncementRepository
+                                        AnnouncementRepository --> Controller : getListedHouses
+                    deactivate AnnouncementRepository
+                    Controller --> UI : displayAnnouncementList
+                deactivate Controller
+            end loop
+            UI --> Client : display list filtered by most recent
+        deactivate UI
+
+        Client -> UI : wants to select parameters
+        activate UI
+            UI -> Controller : createSelectedParameters()
+            activate Controller
+                Controller -> SP : SelectedParameters()
+                activate SP
+                    SP --> Controller : SelectedParameters
+                deactivate SP
+                Controller --> UI : createSelectedParameters
+            deactivate Controller
+
+
+
+            opt type of business
+                Client -> UI : selects type of business
+                activate UI
+                    UI -> Controller : setBusinessType()
+                    activate Controller
+                        Controller -> SP : setBusinessType()
+                        activate SP
+                            SP --> Controller : setBusinessType
+                        deactivate SP
+                        Controller --> UI : setBusinessType
+                    deactivate Controller
+                deactivate UI
+            end opt
+
+            opt type of property
+                Client -> UI : selects  type of property
+                activate UI
+                    UI -> Controller : setPropertyType()
+                    activate Controller
+                        Controller -> SP : setPropertyType()
+                        activate SP
+                            SP --> Controller : setPropertyType
+                        deactivate SP
+                        Controller --> UI : setPropertyType
+                    deactivate Controller
+                deactivate UI
+            end opt
+
+            alt propertyType != Land
+                opt number of rooms
+                    Client -> UI : selects number of rooms
+                    activate UI
+                        UI -> Controller : setNumberRooms()
+                        activate Controller
+                            Controller -> SP : setNumberRooms()
+                            activate SP
+                                SP --> Controller : setNumberRooms
+                            deactivate SP
+                            Controller --> UI : setNumberRooms
+                        deactivate Controller
+                    deactivate UI
+                end opt
+            end alt
+
+            UI -> UI : **loop: [**displayAnnouncementList(AnnouncementRepository, SelectedParameters)**]**
+
+            UI --> Client : shows requested list
+
+            UI --> Client : allows to sort by price or address
+        deactivate UI
+
+        alt sort by price
+            Client -> UI : selects price
+
+            activate UI
+                UI -> Controller : priceSorting()
+                activate Controller
+                    Controller -> SP : priceSorting()
+                    activate SP
+                        SP --> Controller : priceSorting
+                    deactivate SP
+                    Controller --> UI : priceSorting
+                deactivate Controller
+                UI -> UI : **loop: [**displayAnnouncementList(AnnouncementRepository, SelectedParameters)**]**
+
+                UI --> Client : shows requested list
+
+                UI --> Client : allows to sort by price or address
+            deactivate UI
+        end alt
+
+        alt sort by address
+            Client -> UI : selects address
+            activate UI
+                UI -> Controller : setAddress()
+                activate Controller
+                    Controller -> SP : setAddress()
+                    activate SP
+                        SP --> Controller : setAddress
+                    deactivate SP
+                    Controller --> UI : setAddress
+                deactivate Controller
+            UI -> UI : **loop: [**displayAnnouncementList(AnnouncementRepository, SelectedParameters)**]**
+
+            UI --> Client : shows requested list
+
+            UI --> Client : allows to sort by price or address
+            deactivate UI
+        end alt
+
+
+
+
+
+
+deactivate Client
+
+@enduml

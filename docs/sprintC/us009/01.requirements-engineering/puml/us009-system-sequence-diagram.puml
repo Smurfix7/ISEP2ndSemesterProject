@@ -1,0 +1,49 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "User" as Person
+participant ":System" as System
+
+activate Person
+
+    Person -> System : selects the option to schedule a visit to a property
+    activate System
+
+        System --> Person : shows list of properties and asks to choose
+
+    deactivate System
+
+    Person -> System: chooses a property
+
+    activate System
+
+        System --> Person : requests information
+
+    deactivate System
+
+    Person -> System: types requested information (name, phone number, date and prefered window of time)
+
+    activate System
+
+        System --> Person : checks if the request overlaps with previous ones
+        alt "if request overlaps with an existing one"
+
+        System --> Person : sends a message informing that the request already exists
+        end
+        alt "if request does not overlap with an existing one"
+
+        System --> Person : sends a message informing that the request has been succefully sent
+
+        end
+
+
+    deactivate System
+
+deactivate Person
+@enduml

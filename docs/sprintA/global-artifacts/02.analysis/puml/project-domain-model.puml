@@ -1,0 +1,191 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'skinparam linetype ortho
+'left to right direction
+skinparam classAttributeIconSize 20
+hide circle
+hide methods
+
+title Domain Model
+
+'class Platform {
+'  -description
+'}
+
+class OwnerSite {
+    name
+    citizensCardNumber
+    taxNumber
+    address
+    emailAddress
+    telephoneNumber
+    propertyType
+    agency
+    agent
+    typeOfTransaction
+    value
+}
+
+class Lease{
+    duration
+}
+
+class Property {
+    areaOfProperty
+    distanceFromCentre
+    propertyPrice
+}
+
+class Buildings {
+    bedrooms
+    bathrooms
+    parkingSpaces
+    availableEquipment
+}
+
+class House{
+    basement
+    loft
+    sunExposure
+}
+
+class Agent{
+    comissionType
+    comissionAmount
+    role
+}
+class OwnerCellphone {
+    name
+    propertyType
+    areaOfProperty
+    locationOfProperty
+    distanceFromCentre
+    propertyPrice
+    photoOfProperty
+
+}
+
+class Employee {
+    name
+    citizensCardNumber
+    taxNumber
+    address
+    emailAddress
+    telephoneNumber
+    agency
+}
+class Administrator {
+    role
+}
+
+
+
+class Location{
+    street
+    city
+    district
+    state
+    zipCode
+}
+
+class Equipment{
+    name
+}
+
+class Photos{
+    photoID
+    photoPNG
+}
+
+class TransactionRecords{
+    typeOfTransaction
+    Value
+}
+
+class TransactionRecordsLeases{
+    startDate
+    endDate
+
+}
+
+class TransactionRecordsSales{
+    date
+}
+
+class VisitReport{
+    date
+}
+
+class ListOfEmployees{
+}
+
+class ListOfUsers{
+}
+
+class Records{
+    typeOfRecord
+    endDate
+    startDate
+}
+
+class RecordsEmployees{
+}
+
+class RecordsContracts{
+}
+
+class RecordsLegalDocs{
+}
+
+class System{}
+
+Administrator ---|> Employee
+networkManager -|> Employee
+Agent -|> Employee
+Records "1" -- System: sends 3 types of information to be recorded >
+Records "3" --- RecordsContracts: if its a contract >
+Records "3" --- RecordsEmployees: if its an employee >
+Records "3" --- RecordsLegalDocs: if its a legal document >
+ListOfUsers "1" -- System: puts all registered users <
+ListOfEmployees "1" -- System: puts all employees <
+VisitReport "1" -- System: regiters if a visit happened <
+TransactionRecords "2" -- System: if a sale or lease is made <
+UnregisteredUser  --  System: requests list >
+ListOfProperties "1." -------- "1" System : shows >
+House "1" -------- "1" ListOfProperties : if House >
+Buildings "1" - "1" ListOfProperties: if Buildings >
+OwnerCellphone "1" --  Agent : provides attributes >
+ListOfProperties -------- System : change list accordingly <
+House "1" -  Agent : contains if House <
+Buildings "4" --------  Agent : contains if Buildings <
+Agency "1" - Agent: owns >
+Administrator "1" -------- "*" Employee : register >
+Property "1" -------- System : if Land >
+Property "1" -------- Buildings : if House or Buildings >
+Buildings "1" -------- System : if Buildings >
+Buildings "1" -------- House : if House >
+House "1" -------- System : if House
+OwnerSite "1" -------- System : provides attributes >
+Lease "5" -------- Property : provides attributes >
+OwnerSite - ListOfProperties : checks available properties >
+OwnerSite - System : requests visit >
+System -------- Agent : Sends visit request >
+Agent "*" -------- System : registers opinion on sale possibility >
+OwnerSite -------- Agent : requests to buy property >
+Agent -------- System : if property sale successful requests removal of property >
+Employee -- store : contained in >
+store -- network : is in >
+OwnerSite "4" -- Lease : if wants to lease >
+network -- networkManager : managed by >
+Equipment ---|> Property
+Photos ---|> Property
+Location ---|> Property
+Location ---|> Agency
+Location ---|> Employee
+TransactionRecords"2" --- TransactionRecordsLeases: if a sale is made >
+TransactionRecords"2" --- TransactionRecordsSales: if a lease is made >
+OwnerSite"5" -------- Property: if wants to sell >
+Property "1" -------- ListOfProperties: is registered in >
+@enduml

@@ -1,0 +1,183 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class Property{
+    -Double areaOfProperty
+    -Double distanceFromCentre
+    -String acceptanceDate
+    -String requestDate
+
+    -setAreaOfProperty()
+    -setDistanceFromCentre()
+    -setRequestDate()
+    -setAcceptanceDate()
+    +getRequestDate()
+    +getAcceptanceDate
+    +getAreaOfProperty()
+    +getDistanceFromCentre()
+
+}
+
+class TypeOfTransaction{
+    -String transactionType
+    -String monetaryValue
+
+    -setTransactionType()
+    -setMonetaryValue()
+    +getTransactionType()
+    +getMonetaryValue()
+}
+
+class Address{
+    -String street
+    -String city
+    -String district
+    -String state
+    -String zipCode
+
+    -setStreet()
+    -setCity()
+    -setDistrict()
+    -setState()
+    -setZipCode()
+    +getStreet()
+    +getCity()
+    +getDistrict()
+    +getState()
+    +getZipCode()
+}
+
+class PropertyTypeRepository{
+    +addProperty()
+    +getPropertyType()
+}
+
+class Photo{
+    -Integer photoID
+    -String photoURI
+
+    +setPhotoData()
+}
+
+class Building{
+    -Integer bedrooms
+    -Integer bathrooms
+    -Integer parkingSpaces
+
+    -setBedrooms()
+    -setBathrooms()
+    -setParkingSpaces()
+    +getBedrooms()
+    +getBathrooms()
+    +getParkingSpaces()
+}
+
+class Equipment{
+    -String name
+
+    -setEquipmentName()
+    +getEquipmentName()
+}
+
+class House{
+    -Boolean basement
+    -Boolean loft
+    -String sunExposure
+
+    -setBasement()
+    -setLoft()
+    -setSunExposure()
+    +getBasement()
+    +getLoft()
+    +getSunExposure()
+}
+class ComissionRepository{
+    +addComission()
+    +getComission()
+}
+
+class Owner{
+    -String name
+    -Integer taxNumber
+    -String emailAddress
+    -Integer telephoneNumber
+
+    +getTelephoneNumber()
+    +getEmailAddress()
+    +getTaxNumber()
+    +getName()
+    -setTelephoneNumber()
+
+    -setEmailAddress()
+    -setTaxNumber()
+    -setName()
+}
+
+class CreateAnnouncementController{
+    + createLand(owner, requestDate, acceptanceDate, area, distanceFromCentre, photoURI, street, city, district, state, zipCode, transactionType, monetaryValue)
+    + createApartment(owner, requestDate, acceptanceDate, area, distanceFromCentre, photoURI, street, city, district, state, zipCode, transactionType, monetaryValue,bedrooms, bathrooms, parkingSpaces)
+    + createHouse(owner, requestDate, acceptanceDate, area, distanceFromCentre, url of the photo, street, city, district, state, zipCode, type of transaction, value of transaction, bedrooms, bathrooms, parkingSpaces, basement, loft, sunExposure)
+
+}
+class AnnouncementRepository{
+    +getAnnouncement()
+    +addPropertyAnnouncement(property)
+}
+
+class Land{}
+
+class PassportCard{
+    passportNumber
+
+    +getPassportNumber()
+    -setPassportNumber()
+}
+
+class PropertyRepository{
+    +getProperty()
+    +addProperty(property)
+}
+class Apartment{}
+
+class Repositories {
+    - Repositories()
+    +getInstance() : Repositories
+    +getAnnouncementRepository()
+}
+class CreateAnnouncementUI{}
+
+CreateAnnouncementController ...-> Repositories
+Repositories "getInstance()" --> Repositories
+Repositories --> AnnouncementRepository
+Repositories --> PropertyTypeRepository
+Repositories --> PropertyRepository
+Repositories --> ComissionRepository
+CreateAnnouncementController "owner" <... Owner
+CreateAnnouncementController --> PropertyTypeRepository : propertyType
+Property "extends" --> Land
+CreateAnnouncementUI ..> CreateAnnouncementController
+CreateAnnouncementController --> Property
+TypeOfTransaction "typeOfTransaction" ..> Property
+Address ..> "address" Property
+Equipment ..> "equipmentList" Building
+Photo ..> "photoList" Property
+Owner "passportCard" <.. PassportCard
+Property "extends" --> Building
+Building "extends" --> House
+CreateAnnouncementController --> AnnouncementRepository
+Building "extends" --> Apartment
+CreateAnnouncementController "comission" --> ComissionRepository
+CreateAnnouncementController --> PropertyRepository
+
+
+
+
+@enduml

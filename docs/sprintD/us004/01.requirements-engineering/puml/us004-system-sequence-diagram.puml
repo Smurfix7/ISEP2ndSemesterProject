@@ -1,0 +1,79 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Owner" as Owner
+participant ":System" as System
+
+activate Owner
+
+    Owner -> System : asks to create a new are request listing
+    activate System
+
+        System --> Owner : shows property type list and asks to select one
+    deactivate System
+
+    Owner -> System : selects property type
+    activate System
+
+    System --> Owner : shows list of agents and asks to select one
+            deactivate System
+
+            Owner -> System : selects agent
+                activate System
+
+        System --> Owner : requests data(property size, distance from centre, street name, city name, state name, zip code)
+    deactivate System
+
+    Owner -> System : inputs requested data
+        activate System
+
+                loop while owner has photos to input
+
+
+                            System --> Owner : requests photoURI
+                        deactivate System
+                Owner -> System : inputs requested data
+                activate System
+        end
+
+
+            activate System
+
+alt if the property type is "Apartment" or "House"
+                System --> Owner : requests data(bedrooms, bathrooms, parking spaces, air conditioning, central heating)
+            deactivate System
+
+       Owner -> System : inputs requested data
+           activate System
+
+
+
+           alt if the property type is "House"
+
+           System --> Owner : requests data(basement, loft, sun exposure)
+                      deactivate System
+
+
+                  Owner -> System : inputs requested data
+                      activate System
+
+           end alt
+end alt
+
+               System --> Owner : requests data(transaction type, monetary value, commission data, commission value)
+           deactivate System
+
+       Owner -> System : inputs requested data
+           activate System
+
+
+       System --> Owner : display operation status message
+    deactivate System
+
+@enduml

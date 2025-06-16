@@ -1,0 +1,72 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+participant "ApprovePropertyController" as controller
+participant "requestRepository\n:RequestRepository" as agency
+participant "requestList \n: ArrayList<Request>" as requests
+participant "requestList \n: ArrayList<Request>" as list
+
+
+autonumber 5.1
+
+
+activate controller
+controller -> agency : sortRequestList(email)
+group Sort RequestList
+
+activate agency
+agency -> "listingRequests \n: ArrayList<Request>" : sort(requestDate)
+
+activate "listingRequests \n: ArrayList<Request>"
+"listingRequests \n: ArrayList<Request>" --> agency
+deactivate "listingRequests \n: ArrayList<Request>"
+agency -> requests** : create()
+
+
+agency -> agency : getNumberOfRequests()
+activate agency
+agency -> requests : getNumberOfRequests()
+activate requests
+requests --> agency : size
+deactivate requests
+agency --> agency
+deactivate agency
+agency --> controller : result
+deactivate agency
+
+controller -> agency : getRequestList()
+activate agency
+
+loop for each member of listingRequests
+    agency -> requests : announcementRequests.get(idx)
+    activate requests
+    requests --> agency : request
+    deactivate requests
+    agency -> "request\n:Request" : getAgentEmail()
+    activate "request\n:Request"
+
+    "request\n:Request" -> "employee\n:Employee" : getEmailAddress()
+        activate "employee\n:Employee"
+        "employee\n:Employee" --> "request\n:Request" : emailAddress
+        deactivate "employee\n:Employee"
+"request\n:Request" --> agency : agentEmail
+    deactivate "request\n:Request"
+
+    alt email == agentEmail
+        agency -> requests : requests.add((idx))
+        activate requests
+        deactivate requests
+    end
+end
+
+
+end
+agency --> controller : requestList
+deactivate agency
+
+
+
+
+
+@enduml

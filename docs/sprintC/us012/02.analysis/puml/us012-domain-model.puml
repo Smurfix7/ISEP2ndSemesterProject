@@ -1,0 +1,59 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model - US012
+
+class Person {
+    name
+    taxNumber
+    emailAddress
+    telephoneNumber
+}
+
+class PassportCard {
+    passportNumber
+}
+
+class Employee {
+}
+
+class User {
+    name
+    emailAddress
+    password
+}
+
+class LegacyFile {
+    filePath
+}
+
+class Address{
+    street
+    city
+    district
+    state
+    zipCode
+}
+
+class Role {
+    id
+    description
+}
+
+Person *--up Role
+Person *--up Address
+Person *--up PassportCard
+Employee -left|> User
+Employee --up|> Person
+Employee "1" -> "*" LegacyFile: wants to import
+
+@enduml

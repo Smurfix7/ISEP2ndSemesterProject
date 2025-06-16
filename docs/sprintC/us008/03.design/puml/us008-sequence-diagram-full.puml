@@ -1,0 +1,255 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Actor" as Agent
+participant "ApprovePropertyUI" as UI
+participant "ApprovePropertyController" as Controller
+participant "PropertyRequestRepository" as Repository
+participant "Property"
+participant "AnnouncementRepository"
+
+activate Agent
+
+Agent -> UI : asks to receive the list of announcement requests
+activate UI
+UI -> Controller** : create
+UI -> Controller : getLoggedUser()
+
+activate Controller
+ref over Controller, Controller
+    Get Logged User SendEmail
+end
+Controller --> UI : email
+deactivate Controller
+
+loop while input does not equal to "-1"
+UI -> Controller : sortRequests()
+activate Controller
+
+Controller -> Repository :  sortRequestList()
+    activate Repository
+
+
+    Repository -> Repository : sortRequestList()
+    activate Repository
+    deactivate Repository
+    deactivate Repository
+deactivate Controller
+UI -> Controller : displayRequestList(email)
+
+
+deactivate UI
+activate Controller
+ref over Controller, Controller
+    Get Request List
+end
+
+deactivate Repository
+Controller --> UI : requests
+deactivate Controller
+activate UI
+deactivate Controller
+
+
+
+UI --> Agent : shows the list of properties and asks to select one
+
+deactivate UI
+
+Agent -> UI : selects a property
+activate UI
+
+
+UI --> Agent : asks for acceptance
+
+deactivate UI
+
+
+Agent -> UI : inputs acceptance
+activate UI
+
+
+
+
+deactivate Controller
+alt if (acceptance) = "0"
+
+UI --> Agent : asks for justification
+deactivate UI
+Agent -> UI : inputs requested data
+activate UI
+UI -> Controller : rejectProperty(option)
+
+activate Controller
+
+Controller -> Repository : deleteProperty(option)
+deactivate Controller
+activate Repository
+    deactivate LandRepository
+    Repository -> Repository : remove(option)
+    activate Repository
+    deactivate Repository
+    deactivate Repository
+
+activate SendEmail
+UI -> SendEmail : sendEmail(justification)
+
+ref over SendEmail, SendEmail
+    Sends the email with justification
+end
+deactivate SendEmail
+
+
+
+deactivate Controller
+
+
+
+else if (acceptance) = "1"
+
+
+
+UI --> Agent : displays and asks for comission type
+deactivate UI
+Agent -> UI : inputs requested data
+activate UI
+UI --> Agent : displays and asks for comission value
+deactivate UI
+Agent -> UI : inputs requested data
+activate UI
+
+UI -> Controller : approveProperty(option, comissionType, comissionValue)
+deactivate UI
+activate Controller
+Controller -> Repository : getPropertyRequest(option)
+activate Repository
+Repository --> Controller : property
+deactivate Repository
+Controller -> Property : property.getPropertyType
+activate Property
+Property --> Controller : propertyType
+deactivate Property
+
+Controller -> Property : property.getPropertyID
+activate Property
+Property --> Controller : propertyID
+deactivate Property
+deactivate Repository
+Controller -> CommissionDetails : create(commissionType, commissionValue)
+activate CommissionDetails
+CommissionDetails --> Controller : commission
+deactivate CommissionDetails
+
+
+
+alt if propertyType = "Land"
+    Controller -> LandRepository : getLandByID(propertyID)
+    activate LandRepository
+    LandRepository --> Controller : land
+    deactivate LandRepository
+    Controller -> Property : land.setCommissionDetails(commission)
+    activate Property
+    Property --> Controller : land
+    deactivate Property
+
+    Controller -> AnnouncementRepository : addLand(land)
+    activate AnnouncementRepository
+                 deactivate HouseRepository
+                 AnnouncementRepository --> AnnouncementRepository : keep(land)
+                 activate AnnouncementRepository
+                     deactivate AnnouncementRepository
+                 deactivate AnnouncementRepository
+    deactivate Property
+
+
+    deactivate Property
+    deactivate AnnouncementRepository
+    deactivate LandRepository
+
+else if propertyType = "Apartment"
+    Controller -> ApartmentRepository : getApartment(propertyID)
+    activate ApartmentRepository
+    ApartmentRepository --> Controller : apartment
+    deactivate ApartmentRepository
+     Controller -> Property : apartment.setCommissionDetails(commission)
+        activate Property
+        Property --> Controller : apartment
+        deactivate Property
+
+
+     Controller -> AnnouncementRepository : addApartment(apartment)
+         deactivate Property
+         activate AnnouncementRepository
+            deactivate ApartmentRepository
+         AnnouncementRepository --> AnnouncementRepository : keep(apartment)
+         activate AnnouncementRepository
+             deactivate AnnouncementRepository
+         deactivate AnnouncementRepository
+
+
+
+else if propertyType = "House"
+     Controller -> HouseRepository : getHouseByID(propertyID)
+     activate HouseRepository
+     HouseRepository --> Controller : house
+     deactivate HouseRepository
+      Controller -> Property : house.setCommissionDetails(commission)
+      activate Property
+      Property --> Controller : house
+
+deactivate Property
+
+         Controller -> AnnouncementRepository : addHouse(house)
+             deactivate Property
+             activate AnnouncementRepository
+             deactivate HouseRepository
+             AnnouncementRepository --> AnnouncementRepository : keep(house)
+             activate AnnouncementRepository
+                 deactivate AnnouncementRepository
+             deactivate AnnouncementRepository
+
+end
+
+
+deactivate AnnouncementRepository
+
+
+
+Controller -> Repository : deleteProperty(option)
+activate Repository
+    deactivate LandRepository
+    Repository --> Repository : remove(option)
+    activate Repository
+   end alt
+    deactivate Repository
+    deactivate Repository
+
+    deactivate Repository
+    deactivate Repository
+deactivate Controller
+
+
+deactivate Repository
+deactivate Repository
+
+
+
+deactivate Repository
+deactivate Repository
+
+
+end loop
+deactivate Controller
+deactivate Repository
+
+
+
+
+deactivate Agent
+
+@enduml

@@ -1,0 +1,152 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor Agent as AGENT
+participant PurchaseOrderUI as UI
+participant PurchaseOrderController as CTRL
+participant Repositories as REP
+participant "repositories\n:Repositories" as repositories
+participant "purchaseOrderRepository\n:PurchaseOrderRepository" as purchaseOrderRepository
+participant SendEmail as EMAIL
+
+activate AGENT
+
+    AGENT -> UI : asks to display list of purchase requests
+
+    activate UI
+
+        UI -> CTRL** : create
+
+        activate CTRL
+
+        UI -> CTRL : getPurchaseOrdersTBA()
+
+            CTRL -> REP : getInstance()
+
+            activate REP
+
+                REP --> CTRL : repositories
+
+            deactivate REP
+
+            CTRL -> repositories : getPurchaseOrderRepository()
+
+            activate repositories
+
+                repositories --> CTRL : getPurchaseOrderRepository
+
+            deactivate repositories
+
+            CTRL -> purchaseOrderRepository : getPurchaseOrders()
+
+            activate purchaseOrderRepository
+
+                purchaseOrderRepository --> CTRL : getPurchaseOrders
+
+            deactivate purchaseOrderRepository
+
+
+            CTRL --> UI : purchaseOrderRepository
+
+        deactivate CTRL
+
+        UI --> AGENT : shows the agent the list of all purchase orders to be accepted
+
+    deactivate UI
+
+    AGENT -> UI : chooses a purchase order
+
+    activate UI
+
+        UI --> UI : keepPurchaseOrder()
+        UI --> AGENT : asks if they want to accept or decline
+
+    deactivate UI
+
+
+
+
+
+
+        AGENT -> UI : accepts a purchase order
+
+        activate UI
+            UI -> CTRL : getPurchaseOrdersTBA()
+
+                        activate CTRL
+
+                        CTRL -> REP : getInstance()
+
+                        activate REP
+
+                            REP --> CTRL : repositories
+
+                        deactivate REP
+
+                        CTRL -> repositories : getPurchaseOrderRepository()
+
+                        activate repositories
+
+                            repositories --> CTRL : getPurchaseOrderRepository
+
+                        deactivate repositories
+
+                        CTRL -> purchaseOrderRepository : addPurchaseOrder(purchaseOrder)
+
+                        activate purchaseOrderRepository
+
+                            purchaseOrderRepository --> CTRL : addPurchaseOrder
+
+                        deactivate purchaseOrderRepository
+
+
+
+
+                                                CTRL -> repositories : getPurchaseOrderRepository()
+
+                                                activate repositories
+
+                                                    repositories --> CTRL : getPurchaseOrderRepository
+
+                                                deactivate repositories
+
+                                                CTRL -> purchaseOrderRepository : removePurchaseOrders()
+
+                                                activate purchaseOrderRepository
+
+                                                    purchaseOrderRepository --> CTRL : removePurchaseOrders
+
+                                                deactivate purchaseOrderRepository
+
+
+
+
+
+                deactivate REP
+
+                CTRL -> EMAIL : sendEmail(user)
+
+                activate EMAIL
+
+                    EMAIL --> CTRL : sendEmail
+
+                deactivate EMAIL
+
+                CTRL --> UI : sendEmail
+
+            deactivate CTRL
+
+            UI --> AGENT : informs agent of successful acceptance\n of purchase order and that the user has been informed
+
+        deactivate UI
+
+
+
+deactivate AGENT
+
+@enduml

@@ -1,0 +1,160 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+actor User as USER
+participant DisplayPropertyUI as UI1
+participant VisitRequestUI as UI2
+participant VisitRequestController as CTRL
+participant VisitRequest as VR
+participant Repositories as REP
+participant "repositories\n:Repositories" as repositories
+participant "announcementRepository\n:AnnouncementRepository" as AREP
+participant "visitRepository\n:VisitRepository" as VREP
+
+
+
+
+
+activate USER
+
+USER -> UI1 : asks to create new visit request
+
+    activate UI1
+
+        UI1 -> CTRL** : create
+
+        activate CTRL
+
+        CTRL -> REP : getInstance()
+
+                    activate REP
+
+                        REP --> CTRL : repositories
+
+                    deactivate REP
+        CTRL -> repositories : getVisitRepository()
+
+        activate repositories
+
+        repositories --> CTRL : getVisitRepository
+
+        deactivate repositories
+
+        UI1 -> CTRL : getPropertyList()
+
+            CTRL -> AREP : getPropertyList()
+
+            activate AREP
+
+            AREP --> CTRL : getPropertyList
+
+            deactivate AREP
+
+
+
+        deactivate CTRL
+
+        UI1 --> USER : shows list of available properties to visit
+
+    deactivate UI1
+
+    USER -> UI2 : chooses one property from the list
+
+    activate UI2
+
+        UI2 --> UI2 : keepProperty()
+        UI2 --> USER : asks for required data (Prefered time frame and day)
+
+    deactivate UI2
+
+    USER -> UI2 : types requested data
+
+    activate UI2
+
+        UI2 -> CTRL : createVisitRequest(name of the user, telephone number, property id, time frame and date)
+
+        activate CTRL
+
+            CTRL -> VR : createVisitRequest(name, telephoneNumber, propertyID, timeFrame and date)
+
+            activate VR
+
+                VR --> VR : checkIfOverlaps()
+
+
+
+            alt if request does overlap with existing ones
+
+
+
+                                        VR --> CTRL : invalid request
+
+                                    deactivate VR
+
+                                    CTRL --> UI2 : invalid request
+
+
+
+                                    UI2 --> USER : informs user that the request is invalid
+                                end
+
+
+                alt if request doesn't overlap with existing ones
+
+
+                    CTRL -> REP : getInstance()
+
+                                        activate REP
+
+                                            REP --> CTRL : repositories
+
+                                        deactivate REP
+                            CTRL -> repositories : getVisitRepository()
+
+                            activate repositories
+
+                            repositories --> CTRL : getVisitRepository
+
+                            deactivate repositories
+
+                                CTRL -> VREP : addVisitRequest()
+
+                                activate VREP
+
+                                VREP --> CTRL : addVisitRequest
+
+                                deactivate VREP
+
+
+
+
+                            deactivate VREP
+
+                        deactivate VREP
+
+                    deactivate REP
+
+
+                    CTRL --> UI2 : succefull request
+
+                deactivate CTRL
+
+                UI2 --> USER : informs user of succefull request
+
+                end
+
+
+            deactivate VR
+
+        deactivate CTRL
+
+    deactivate UI2
+
+deactivate USER
+
+'hide footbox
+
+@enduml

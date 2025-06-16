@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.controllers.userstories.US015_US016Controller">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0">
+         <center>
+            <GridPane BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" percentHeight="16.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" percentHeight="14.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a1abff" height="78.0" stroke="BLACK" strokeType="INSIDE" width="363.0" />
+                        <TextArea fx:id="visitRequestsTextArea" editable="false" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Monospaced Regular" size="12.0" />
+                           </font></TextArea>
+                        <Label text="Visit Requests">
+                           <font>
+                              <Font name="Corbel Bold" size="20.0" />
+                           </font></Label>
+                        <GridPane GridPane.rowIndex="2">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" percentHeight="60.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <GridPane GridPane.rowIndex="1">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button fx:id="bubbleSortingButton" maxHeight="30.0" maxWidth="100.0" mnemonicParsing="false" onAction="#onBubbleSortingButton" text="Bubble">
+                                       <font>
+                                          <Font name="Corbel Bold" size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets right="20.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                    <Button fx:id="insertionSortingButton" maxWidth="100.0" mnemonicParsing="false" onAction="#onInsertionSortingButton" text="Insertion" GridPane.columnIndex="1">
+                                       <font>
+                                          <Font name="Corbel Bold" size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="20.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                 </children>
+                              </GridPane>
+                              <Label text="Select Sorting Algorithm:">
+                                 <font>
+                                    <Font name="Corbel Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </GridPane>
+                  <GridPane GridPane.columnIndex="1">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" percentHeight="32.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" percentHeight="42.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <GridPane GridPane.rowIndex="1">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbfcff" height="490.0" stroke="BLACK" strokeType="INSIDE" width="540.0" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets top="30.0" />
+                                 </GridPane.margin>
+                              </Rectangle>
+                              <Label fx:id="selectVisitLabel" disable="true" text="Select a Visit Request:">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font name="Corbel Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="selectVisitTextField" alignment="TOP_LEFT" disable="true" maxHeight="60.0" maxWidth="500.0" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </TextField>
+                              <Label fx:id="errorLabel" textFill="RED" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Corbel Bold" size="14.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="80.0" />
+                                 </GridPane.margin>
+                              </Label>
+                           </children>
+                        </GridPane>
+                        <GridPane GridPane.rowIndex="2">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" percentHeight="55.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label fx:id="acceptLabel" disable="true" text="Do you want to accept it?">
+                                 <font>
+                                    <Font name="Corbel Bold" size="18.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Label>
+                              <TextField fx:id="justificationTextField" alignment="TOP_LEFT" disable="true" maxHeight="80.0" maxWidth="500.0" promptText="If no, state the reasoning." GridPane.rowIndex="1" />
+                              <GridPane GridPane.rowIndex="2">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button fx:id="acceptButton" disable="true" maxHeight="30.0" maxWidth="100.0" mnemonicParsing="false" onAction="#onAcceptButton" text="YES">
+                                       <font>
+                                          <Font name="Corbel Bold" size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets right="20.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                    <Button fx:id="refuseButton" disable="true" maxHeight="30.0" maxWidth="100.0" mnemonicParsing="false" onAction="#onRefuseButton" text="NO" GridPane.columnIndex="1">
+                                       <font>
+                                          <Font name="Corbel Bold" size="16.0" />
+                                       </font>
+                                       <GridPane.margin>
+                                          <Insets left="20.0" />
+                                       </GridPane.margin>
+                                    </Button>
+                                 </children>
+                              </GridPane>
+                              <Label fx:id="errorJustificationLabel" textFill="RED" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets top="110.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font name="Corbel Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </GridPane>
+                        <GridPane>
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d1e9ff" height="158.0" stroke="BLACK" strokeType="INSIDE" width="540.0" GridPane.rowIndex="1" />
+                              <TextField fx:id="beginDateTextField" alignment="CENTER" maxWidth="150.0" promptText="##-##-####" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Corbel" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="endDateTextField" alignment="CENTER" maxWidth="150.0" promptText="##-##-####" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Corbel" size="12.0" />
+                                 </font>
+                              </TextField>
+                              <Label text="Begin Date:" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Corbel" size="15.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets right="240.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="End Date:" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Corbel" size="15.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets right="240.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="53.0" stroke="BLACK" strokeType="INSIDE" width="540.0" />
+                              <Label text="Set Begin/End Date:">
+                                 <font>
+                                    <Font name="Corbel Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="resetButton" maxWidth="120.0" mnemonicParsing="false" onAction="#onResetButton" text="Reset" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Corbel Bold" size="16.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="350.0" />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button fx:id="filterButton" maxWidth="120.0" mnemonicParsing="false" onAction="#onFilterButton" text="Filter by Date" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Corbel Bold" size="16.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="350.0" />
+                                 </GridPane.margin>
+                              </Button>
+                              <Label fx:id="errorBeginDateLabel" textFill="RED" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Corbel Bold" size="12.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="37.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label fx:id="errorEndDateLabel" textFill="RED" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Corbel Bold" size="12.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="37.0" />
+                                 </GridPane.margin>
+                              </Label>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </GridPane>
+               </children>
+            </GridPane>
+         </center>
+         <top>
+            <GridPane BorderPane.alignment="CENTER">
+               <children>
+                  <Label contentDisplay="CENTER" text="TechSupport Scammers - US015 &amp; US016" textAlignment="CENTER">
+                     <font>
+                        <Font name="Monospaced Bold" size="30.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <Button fx:id="returnButton" mnemonicParsing="false" onAction="#onReturnButtonClick" text="&lt;-">
+                     <font>
+                        <Font name="Monospaced Bold" size="15.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="60.0" right="850.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="100.0" valignment="CENTER" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>

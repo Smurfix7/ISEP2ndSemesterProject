@@ -1,0 +1,157 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class Employee {
+
+}
+
+class Role {
+    -String id
+    -String description
+    --
+    +Role(id, description)
+    +setID
+    +setDescription
+    +getID
+    +getDescription
+}
+
+class Address{
+    -String street
+    -String city
+    -String district
+    -String state
+    -String zipCode
+    --
+    +Address(street, city, district, state, zipCode)
+    +setStreet()
+    +setCity()
+    +setDistrict()
+    +setState()
+    +setZipCode()
+    +getStreet()
+    +getCity()
+    +getDistrict()
+    +getState()
+    +getZipCode()
+}
+
+class PassportCard{
+    -String passportNumber
+    --
+    +PassportCard(passportNumber)
+    +getPassportNumber()
+    +setPassportNumber()
+}
+
+class Person{
+    -String name
+    -String emailAddress
+    -String taxNumber
+    -String telephoneNumber
+    --
+    +Person(name, passportNumber, emailAdress,\ntaxNumber, contactTelephoneNumber,\naddress, role)
+    +setName()
+    +setEmailAddress()
+    +setTaxNumber()
+    +setTelephoneNumber()
+    +getName()
+    +getEmailAddress()
+    +getTaxNumber()
+    +getTelephoneNumber()
+}
+
+
+class ApproveVisitRequestController {
+    ---
+    +getLoggedAgent()
+    +toVisitRequestsListDTO()
+    +sendDates(beginDate, endDate, visitRequestsListDTO)
+    +sendAlgorithm(algorithm)
+    +sortVisitRequestsList(visitRequestsListDTO, algorithm)
+    +getVisitRequestedByID(valueOf)
+}
+
+class ApproveVisitRequestUI {
+    ---
+    +submitData()
+    +requestData()
+}
+
+class VisitRequest {
+    -String id;
+    -User user;
+    -Announcement announcement;
+    -String date;
+    -String timeFrame;
+    ---
+    +VisitRequest(name, emailAddress, password, telephoneNumber, announcement, date, timeFrame)
+    +setVisitRequestID()
+    +getVisitRequestID()
+    +setUser()
+    +getUser()
+    +setAnnouncement()
+    +getAnnouncement()
+    +setDate()
+    +getDate()
+    +setTimeFrame()
+    +getTimeFrame()
+    +toString()
+}
+
+class User {
+    -String name
+    -String emailAddress
+    -String password
+    -String contactTelephoneNumber
+    --
+    +User(name, emailAddress, password, contactTelephoneNumber)
+    +setName()
+    +setEmailAddress()
+    +setPassword()
+    +setContactTelephoneNumber()
+    +getName()
+    +getEmailAddress()
+    +getPassword()
+    +getContactTelephoneNumber()
+}
+
+class Agency {
+    -String agencyID
+    -String agencyName
+    -String emailAddress
+    -String contactTelephoneNumber
+    -String address
+    --
+    +Agency(agencyID, agencyName, emailAddress,\ncontactTelephoneNumber, address)
+    +setAgencyID()
+    +setAgencyName
+    +setEmailAddress
+    +setContactTelephoneNumber
+    +setAddress
+    +getAgencyID
+    +getAgencyName
+    +getEmailAddress
+    +getContactTelephoneNumber
+    +getAddress
+}
+
+Person <|-right Employee
+Person <.. Role : role
+Person <..left Address : address
+Person <.. PassportCard : passportNumber
+Employee -right.> ApproveVisitRequestUI
+ApproveVisitRequestUI .down> ApproveVisitRequestController
+User <|--up Employee
+Employee <..up Agency : agency
+ApproveVisitRequestController .> VisitRequest
+
+@enduml

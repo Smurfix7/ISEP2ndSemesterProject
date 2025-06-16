@@ -1,0 +1,101 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model - US004
+
+class Role{
+    id
+    description
+}
+class Property{
+    areaOfProperty
+    distanceFromCentre
+    dateOfAcceptance
+    dateOfRequest
+}
+
+class TypeOfTransaction{
+    transactionType
+    monetaryValue
+}
+
+class Address{
+    street
+    city
+    district
+    state
+    zipCode
+}
+
+
+class Photo{
+    photoID
+    pathToPNG
+}
+
+class Building{
+    bedrooms
+    bathrooms
+    parkingSpaces
+}
+
+class Equipment{
+    name
+}
+
+class House{
+    basement
+    loft
+    sunExposure
+}
+
+class Land{
+}
+
+class PassportCard {
+passportCardNumber
+}
+
+class Apartment{
+}
+
+class Owner{
+}
+class Person{
+    name
+    taxNumber
+    emailAddress
+    telephoneNumber
+}
+
+class PropertyType {
+    designation
+}
+
+PropertyType -* Property
+Property <|-- Land
+TypeOfTransaction  --* Property
+Owner -|> Person
+Owner -left* Property
+Address --* Person
+Role --* Person
+PassportCard --* Person
+Address --* Property
+Equipment -up* Building
+Photo --* Property
+Property <|-- Building
+Building <|-- House
+Building <|-- Apartment
+
+
+
+@enduml

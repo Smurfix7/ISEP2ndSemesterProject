@@ -1,0 +1,36 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Agent" as Agent
+participant ":System" as System
+
+activate Agent
+
+    Agent -> System : asks to list all visit requests managed by the agent
+    activate System
+
+    System --> Agent : displays the visit requests managed by the agent\nand requests the algorithm
+        deactivate System
+
+    Agent -> System : types the algorithm
+    activate System
+
+    System --> Agent : displays the visit requests list filtered by the algorithm\nand requests the begin and end date
+        deactivate System
+
+    Agent -> System : types requested data
+    activate System
+
+    System --> Agent : displays visit requests list filtered by begin and end date
+    System --> Agent : displays operation success
+        deactivate System
+
+deactivate Agent
+
+@enduml

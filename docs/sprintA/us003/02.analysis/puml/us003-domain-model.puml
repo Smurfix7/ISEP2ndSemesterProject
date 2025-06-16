@@ -1,0 +1,46 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model US003
+
+class Administrator {
+}
+
+class Employee {
+     name
+     citizensCardNumber
+     taxNumber
+     address
+     emailAddress
+     contactTelephoneNumber
+     role
+     password
+}
+
+class Agency {
+     id
+     designation
+     emailAdress
+     contactTelephoneNumber
+}
+
+class Location {
+     street
+     city
+     district
+     state
+     zipCode
+}
+Administrator --|> Employee
+Administrator "1" --- "*" Employee : register >
+Employee "*" - "1" Agency : works for >
+Employee "*" - "1  " Location : has >
+Agency "1  " -- "  1" Location : has >
+@enduml

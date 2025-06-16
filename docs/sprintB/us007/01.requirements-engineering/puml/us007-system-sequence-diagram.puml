@@ -1,0 +1,30 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Unregisted User" as Person
+participant ":System" as System
+
+activate Person
+
+    Person -> System : selects register button
+    activate System
+
+        System --> Person : shows UserRegisterUI
+        System --> Person : requests user information
+    deactivate System
+
+    Person -> System: provides their information (name, \ncitizen's card number, tax number, email address, \ncontact telephone number, address (optional))
+    activate System
+
+        System --> Person : registers information
+        System --> Person : shows opperation result (successful/unsuccessful)
+        System --> Person : returns to DisplayListUI
+    deactivate System
+deactivate Person
+@enduml

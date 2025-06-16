@@ -1,0 +1,209 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Actor" as Agent
+participant "ApproveRequestUI" as UI
+participant "ApproveRequestController" as controller
+participant "<<interface>>\n:Message" as Message
+participant "agency\n: Agency" as agency
+activate Agent
+
+Agent -> UI : asks to receive the list of announcement agency
+activate UI
+UI -> controller** : create()
+UI -> controller : getLoggedUser()
+
+activate controller
+ref over controller, controller
+    Get Logged User Email
+end
+controller --> UI : email
+deactivate controller
+
+loop while input does not equal to "0"
+UI -> controller : sortRequests(email)
+activate controller
+controller -> "repositories\n:Repositories" : getInstance()
+activate "repositories\n:Repositories"
+"repositories\n:Repositories" --> controller : repositories
+deactivate "repositories\n:Repositories"
+controller -> "repositories\n:Repositories" : getRequestRepository()
+activate "repositories\n:Repositories"
+"repositories\n:Repositories" --> controller : requestRepository()
+deactivate "repositories\n:Repositories"
+
+
+controller -> agency :  sortRequest(email)
+    activate agency
+
+
+
+    ref over agency, agency
+        Sort Request List
+    end
+
+    agency --> controller : requestList
+
+    deactivate agency
+
+
+
+
+
+
+
+deactivate agency
+controller -> controller : toDto(requestList)
+activate controller
+ref over controller, controller
+    Request List To Dto
+end
+controller --> controller : requestsDtoList
+deactivate controller
+controller --> UI : requestsDtoList
+deactivate controller
+
+
+
+
+UI --> Agent : shows the list of properties and asks to select one
+
+deactivate UI
+
+Agent -> UI : selects a request
+activate UI
+
+
+UI --> Agent : asks for acceptance
+
+deactivate UI
+
+
+Agent -> UI : inputs requested data(acceptance)
+activate UI
+
+
+
+
+deactivate agency
+alt if (acceptance) == "N"
+
+UI --> Agent : asks for justification
+deactivate UI
+Agent -> UI : inputs requested data(justificationMessage)
+activate UI
+
+else if (acceptance) == "Y"
+UI --> Agent : displays and asks for comission type
+deactivate UI
+Agent -> UI : inputs requested data(commissionType)
+activate UI
+UI --> Agent : displays and asks for comission value
+deactivate UI
+Agent -> UI : inputs requested data(commissionValue)
+activate UI
+end
+
+
+UI -> controller : controller(requestID, acceptance, justificationMessage, commissionType, commissionValue)
+activate controller
+
+
+controller -> agency : getRequestByID(requestID)
+activate agency
+agency --> controller : request
+deactivate agency
+
+alt if  acceptance == "N"
+
+deactivate "requestRepository\n:RequestRepository"
+deactivate "requestRepository\n:RequestRepository"
+
+
+
+
+
+controller -> Message : sendMessage(justification, request)
+
+activate Message
+
+Message --> controller : operationSuccess
+deactivate Message
+
+note right
+            Message implementation
+            will depend on message type
+        end note
+controller -> "requestRepository\n:RequestRepository" : removeRequest(request)
+activate "requestRepository\n:RequestRepository"
+"requestRepository\n:RequestRepository" --> "requestRepository\n:RequestRepository": checkExists(request)
+activate "requestRepository\n:RequestRepository"
+"requestRepository\n:RequestRepository" --> "requestRepository\n:RequestRepository"
+deactivate "requestRepository\n:RequestRepository"
+"requestRepository\n:RequestRepository" --> controller : operationSucess
+deactivate "requestRepository\n:RequestRepository"
+
+
+else if acceptance == "Y"
+
+controller -> agency : createAnnouncement(requestID, commissionValue, commissionType)
+activate agency
+agency -> "announcement\n:Announcement"** : create(request, commisionType, commissionValue)
+activate "announcement\n:Announcement"
+"announcement\n:Announcement" -> "commission\n:Commission"** : create(commissionType,commissionValue)
+"announcement\n:Announcement" --> agency : announcement
+deactivate "announcement\n:Announcement"
+
+
+
+
+
+ agency -> "announcementRepository\n:announcementRepository" : addAnnouncement(announcement)
+ activate "announcementRepository\n:announcementRepository"
+ "announcementRepository\n:announcementRepository" -> "announcementRepository\n:announcementRepository" : validateAnnouncement(announcement)
+ activate "announcementRepository\n:announcementRepository"
+ "announcementRepository\n:announcementRepository" --> agency : operationSuccess
+ deactivate "announcementRepository\n:announcementRepository"
+ deactivate "announcementRepository\n:announcementRepository"
+
+
+
+
+
+agency -> "requestRepository\n:RequestRepository" : removeRequest(request)
+activate "requestRepository\n:RequestRepository"
+"requestRepository\n:RequestRepository" -> "requestRepository\n:RequestRepository" : checkExists(request)
+activate "requestRepository\n:RequestRepository"
+"requestRepository\n:RequestRepository" --> agency : operationSuccess
+deactivate "requestRepository\n:RequestRepository"
+deactivate "requestRepository\n:RequestRepository"
+ agency --> controller : operationSuccess
+
+ deactivate agency
+end alt
+
+
+
+   controller --> UI : message
+   deactivate controller
+   UI --> Agent : display success message
+   deactivate UI
+
+deactivate agency
+
+
+
+end loop
+
+
+
+
+
+deactivate Agent
+
+@enduml

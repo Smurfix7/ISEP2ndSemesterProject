@@ -1,0 +1,58 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Agent" as Agent
+participant ":System" as System
+
+activate Agent
+
+    Agent -> System : asks to receive the list of purchase orders
+
+    activate System
+
+        System --> Agent : shows the list of purchase orders \nand asks to select one
+    deactivate System
+    loop until agent exits or until all orders and taken care off
+    alt offer is declined
+    Agent -> System : declines offer
+    activate System
+
+        System --> System : deletes offer from system
+        System --> System : sends email to inform the user responsible for the offer
+        System --> Agent : informs agent of successful deletion of \npurchase order and that the user has been informed
+        System --> Agent : asks agent if they want to continue or if they want to exit
+    deactivate System
+        Agent -> System : wants to continue
+        activate System
+             System --> Agent : shows the list of purchase orders for the selected property\nand asks to select one
+        deactivate System
+
+    end
+
+    alt offer is accepted
+    Agent -> System : accepts offer
+        activate System
+            System --> System : deletes offer from TBA repository and adds to the list of accepted ones
+            System --> System : sends email to inform the user responsible for the offer
+            System --> Agent : informs agent of successful acceptance of \npurchase order and that the user has been informed
+            System --> Agent : asks agent if they want to continue or if they want to exit
+        deactivate System
+            Agent -> System : wants to continue
+            activate System
+                 System --> Agent : shows the list of purchase orders for the selected property\nand asks to select one
+            deactivate System
+
+    end
+    end
+
+
+        System --> Agent : displays operation success
+    deactivate System
+
+@enduml

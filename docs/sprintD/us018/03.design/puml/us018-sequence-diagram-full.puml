@@ -1,0 +1,171 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title US018 - UI Sequence Diagram (SSD)
+
+
+participant "Store Manager" as actor
+participant "DealsAnalysisUI" as UI
+participant "DealsAnalysisController" as controller
+participant "RegressionAnalysis" as controller
+participant "purchaseOrderRepository\nPurchaseOrderRepository" as Agency
+participant "regressionMapper\n:RegressionMapper" as mapper
+participant "regressionDTO : RegressionDTO" as dto
+
+
+participant "regressionModel\n:RegressionModel" as regressionmodel
+
+autonumber
+
+activate actor
+
+actor -> UI : asks to analyse controller
+activate UI
+UI -> controller** : create()
+
+
+
+UI --> actor : shows available regression models \n  and asks to select one
+deactivate UI
+actor -> UI : selects a regression model
+activate UI
+
+alt if simple-linear regression is chosen
+UI --> actor : displays regression parameters \n and asks to select one
+deactivate UI
+actor -> UI : selects regression parameter
+activate UI
+end
+UI --> actor : requests significance level
+deactivate UI
+actor -> UI : inputs significance level
+activate UI
+UI -> controller : getRegressionModelStats(regressionModelOption, parameter, significance)
+activate controller
+controller -> controller : getRegressionModelParameters(regressionModelOption, parameter, significance)
+activate controller
+controller -> "repositories\n:Repositories" : getInstance()
+activate "repositories\n:Repositories"
+"repositories\n:Repositories" --> controller : repositories
+deactivate "repositories\n:Repositories"
+controller -> "repositories\n:Repositories" : getPurchaseOrderRepository()
+activate "repositories\n:Repositories"
+"repositories\n:Repositories" --> controller : purchaseOrderRepository
+deactivate "repositories\n:Repositories"
+
+alt if option == simple
+controller -> Agency : getParametersForSLR(parameter)
+activate Agency
+Agency --> controller : parameters
+deactivate Agency
+
+note right
+            parameterList is a bidimensional Array
+            containing the lists of parameters
+        end note
+
+
+
+else if option == multi
+
+
+
+
+controller -> Agency : getParametersForMLR()
+activate Agency
+
+
+
+
+Agency --> controller : parameters
+deactivate Agency
+
+end
+
+controller --> controller : parameters
+deactivate controller
+
+controller -> controller : getAnalysisReport(regressionModelOption, parameters, significance)
+activate controller
+controller -> regressionmodel** : create(parameters)
+
+controller -> regressionmodel : getRegressionModel(parameters, significance)
+
+
+activate regressionmodel
+regressionmodel --> controller : regressionModel
+note right
+            Regression Model implementation will depend
+            on the chosen regression model
+        end note
+deactivate regressionmodel
+
+
+
+controller -> mapper : toDTO(regressionModel)
+activate mapper
+mapper --> dto** : create(regressionModel.getEquationCoefs(), regressionModel.getAnalysisReport())
+
+mapper --> controller : regressionDto
+deactivate mapper
+
+deactivate "analysisReport : List<Object>"
+
+deactivate mapper
+controller --> controller : regressionDto
+
+
+
+deactivate controller
+controller --> UI : regressionDto
+deactivate controller
+
+
+
+UI --> actor : shows regression report and asks if user wants to predict a custom value
+deactivate UI
+actor --> UI : inputs requested data(option)
+activate UI
+alt if option == "Y"
+    alt if RegressionModelOption == "SimpleLinear"
+        UI --> actor : requests data
+        deactivate UI
+        actor -> UI : inputs requested data(parameter)
+        activate UI
+
+
+    else else if RegressionModelOption == "MultiLinear"
+
+        UI --> actor : requests data
+        deactivate UI
+        actor -> UI : inputs requested data(parameters)
+        activate UI
+    end
+
+    alt if RegressionModelOption == "MultiLinear"
+            UI -> controller : predictMulti(parameters)
+            activate controller
+            controller -> "multiLinear\nMultiLinear" : predictMulti(parameters)
+            activate "multiLinear\nMultiLinear"
+            "multiLinear\nMultiLinear" --> controller : prediction
+            deactivate "multiLinear\nMultiLinear"
+            controller --> UI : prediction
+            deactivate controller
+
+    else else if RegressionModelOption == "SimpleLinear"
+            UI -> controller : predictSimple(parameter)
+                        activate controller
+                        controller -> "simpleLinear\nSimpleLinear" : predictSimple(parameter)
+                        activate "simpleLinear\nSimpleLinear"
+                        "simpleLinear\nSimpleLinear" --> controller : prediction
+                        deactivate "simpleLinear\nSimpleLinear"
+                        controller --> UI : prediction
+                        deactivate controller
+    end
+    UI --> actor : prediction
+    deactivate UI
+end
+
+@enduml

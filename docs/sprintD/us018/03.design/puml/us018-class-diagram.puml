@@ -1,0 +1,137 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+'skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+title US018 - Class Diagram (CD))
+
+
+class DealsAnalysisUI {
+    +create()
+    +simpleLinearRegression(option)
+    +multiLinearRegression()
+    +showReport(valuesListDto, descriptiveStats)
+}
+
+class DealsAnalysisController {
+    +create()
+    +simpleLinearRegression(option)
+    +multiLinearRegression()
+    +receiveDescriptiveStats(descriptiveStats)
+    +receiveValuesListDto(valuesListDto)
+}
+
+class PurchaseOrderRepository {
+  + addPurchaseOrder(purchaseOrder: PurchaseOrder)
+  + AcceptPurchaseOrder(purchaseOrder: PurchaseOrder)
+  + removeAllPurchaseOrdersByPropertyID(propertyId: int)
+  + getPurchaseOrder(n: int, purchaseOrderList: List<PurchaseOrder>)
+  + numberOfPurchaseOrders(purchaseOrderList: List<PurchaseOrder>)
+  + checkPurchaseOrderExists(purchaseOrder: PurchaseOrder)
+  + checkUserPurchaseOrderExists(email: String, id: int)
+  + getPurchaseOrders(Orders : List)
+}
+
+
+class Announcements {
+    +getSimpleParameterList(option)
+    +getAllParameterList()
+    +getAnnouncementValues()
+}
+
+class RegressionMapper {
+    +toDTO(report, coefficients)
+}
+
+class RegressionDTO{
+    - report : String
+    - coefficients[] : double
+}
+
+class SimpleLinear {
+    - regression: SimpleRegression
+    - n: int
+    - Sxx: double
+    - Syy: double
+    - Sxy: double
+    - SE: double
+    - SR: double
+    - avgX: double
+    - avgY: double
+    - slope: double
+    - intercept: double
+    - squareR: double
+    + getCoefficients(): double[]
+    + toString(): String
+    + anovaSingificanceModel()
+    + calculateInterceptConfidenceInterval()
+    + calculateSlopeConfidenceInterval()
+    + calculateInterceptHyopthesisTest()
+    + calculateSlopeHyopthesisTest()
+    + generateAnalysisReport()
+}
+
+
+interface "<<Interface>>\n RegressionModel" {
+    +getRegressionModel(parameterList)
+}
+
+class SimpleLinearRegression implements "<<Interface>>\n RegressionModel"{
+    +getRegressionModel(parameterList)
+}
+
+class MultiLinearRegression implements "<<Interface>>\n RegressionModel"{
+    +getRegressionModel(parameterList)
+
+}
+class MultiLinear {
+    - regression: OLSMultipleLinearRegression
+    - parameters: double[][]
+    - n: int
+    - B: double[]
+    - k: int
+    - SE: double
+    - ST: double
+    - SR: double
+    - squareR: double
+    - squareRAdjusted: double
+    - parametersStdErr: double[]
+    + getB()
+--
+    + toString()
+    + anovaSingificanceModel()
+    + calculateCoefficientCondifenceIntervals()
+    + calculateHypothesisTests()
+    + generateAnalysisReport()
+}
+
+class Repositories {
+  - Repositories()
+  +getInstance() : Repositories
+  +getOwnerRepository()
+  +getEmployeeRepository()
+  +getPropertyTypeRepository()
+  +getPropertyRepository()
+  +getAnnouncementRepository()
+  +getRequestRepository()
+  +getPurchaseOrderRepository()
+}
+
+Repositories -> PurchaseOrderRepository : purchaseOrderRepository
+DealsAnalysisController .up.> Repositories : repositories
+Repositories -> Repositories : instance
+DealsAnalysisController ..> PurchaseOrderRepository : purchaseOrderRepository
+MultiLinearRegression ..> MultiLinear
+DealsAnalysisUI ..> DealsAnalysisController
+DealsAnalysisController ..> Announcements
+DealsAnalysisController ..> "<<Interface>>\n RegressionModel"
+DealsAnalysisController ..> RegressionMapper
+DealsAnalysisController ..> RegressionDTO
+DealsAnalysisUI ..> RegressionDTO
+RegressionMapper ..> RegressionDTO
+SimpleLinearRegression ..> SimpleLinear
+@enduml

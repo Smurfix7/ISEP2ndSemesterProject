@@ -1,0 +1,139 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+actor User as USER
+participant DisplayPropertyUI as UI1
+participant VisitRequestUI as UI2
+participant VisitRequestController as CTRL
+participant VisitRequest as VR
+participant Repositories as REP
+participant AnnouncementRepository as AREP
+participant VisitRepository as VREP
+participant VisitRequestRepository as VRREP
+
+
+
+
+activate USER
+
+USER -> UI1 : asks to create new visit request
+
+    activate UI1
+
+        UI1 -> CTRL : VisitRequestController()
+
+        activate CTRL
+
+        UI1 -> CTRL : getPropertyList()
+
+            CTRL -> REP : getPropertyList()
+
+            activate REP
+
+                REP -> AREP : getPropertyList()
+
+                activate AREP
+
+                    AREP --> REP : propertyList
+
+                deactivate AREP
+
+                REP --> CTRL : propertyList
+
+            deactivate REP
+
+            CTRL --> UI1 : propertyList
+
+        deactivate CTRL
+
+        UI1 --> USER : shows list of available properties to visit
+
+    deactivate UI1
+
+    USER -> UI2 : chooses one property from the list
+
+    activate UI2
+
+        UI2 --> UI2 : keepProperty()
+        UI2 --> USER : asks for required data (Prefered time frame and day)
+
+    deactivate UI2
+
+    USER -> UI2 : types requested data
+
+    activate UI2
+
+        UI2 -> CTRL : createVisitRequest(name of the user, telephone number, property id, time frame and date)
+
+        activate CTRL
+
+            CTRL -> VR : createVisitRequest(name, telephoneNumber, propertyID, timeFrame and date)
+
+            activate VR
+
+                VR --> VR : checkIfOverlaps()
+
+                alt if request does overlap with existing ones
+
+                                    activate VR
+
+                                        VR --> CTRL : invalid request
+
+                                    deactivate VR
+
+                                    CTRL --> UI2 : invalid request
+
+                                    deactivate CTRL
+
+                                    UI2 --> USER : informs user that the request is invalid
+                                end
+
+
+                alt if request doesn't overlap with existing ones
+
+                        VR --> CTRL : getVisitRequest()
+                    deactivate VR
+
+                    CTRL -> REP : visitRequest
+
+                    activate REP
+
+                        REP -> VREP : visitRequest
+
+                        activate VREP
+
+                            VREP -> VRREP : visitRequest
+
+                            activate VRREP
+
+                                VRREP --> CTRL : visitRequest
+
+                            deactivate VRREP
+
+                        deactivate VREP
+
+                    deactivate REP
+
+                    CTRL --> UI2 : succefull request
+
+                deactivate CTRL
+
+                UI2 --> USER : informs user of succefull request
+
+                end
+
+
+            deactivate VR
+
+        deactivate CTRL
+
+    deactivate UI2
+
+deactivate USER
+
+'hide footbox
+
+@enduml

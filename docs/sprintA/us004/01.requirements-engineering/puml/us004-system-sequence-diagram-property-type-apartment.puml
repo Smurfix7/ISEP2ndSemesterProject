@@ -1,0 +1,39 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - Property type: Apartment
+
+autonumber
+
+actor "Owner" as User
+participant ":System" as System
+
+activate User
+
+    User -> System : asks to create a new property listing
+    activate System
+
+        System --> User : requests the owner's information
+    deactivate System
+
+    User -> System : types requested data (the owner's name, the citizenship card of said owner, the owner's tax number, the owner's address, the owner's email address, the owner's telephone number)
+    activate System
+
+        System --> User : requests data regarding the type of property
+    deactivate System
+
+    User -> System : types requested data (apartment)
+    activate System
+
+        System --> User : requests data about the property (apartment)
+    deactivate System
+
+    User -> System : submits data (the area in m2, the location, the distance from the city centre, the requested price, one or more photographs,  the number of bedrooms, the number of bathrooms, the number of parking spaces, the available equipment (such as central heating and/or air conditioning).)
+    activate System
+
+        System --> User : displays sucess message
+    deactivate System
+
+@enduml

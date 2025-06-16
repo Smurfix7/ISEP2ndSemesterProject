@@ -1,0 +1,50 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Unregisted User" as Client
+participant ":System" as System
+
+activate Client
+
+    Client -> System : initiates program
+    activate System
+
+        System --> Client : displays list filtered by most recent
+    deactivate System
+
+    alt The user wishes to sort the list
+    Client -> System : selects type of business (wholesale or lease), \n the type of property, the number of rooms
+    activate System
+
+        System --> Client : shows the requested list
+
+        System --> Client : allows to sort by price or location
+    deactivate System
+
+    Client -> System : selects price or location
+    activate System
+
+        System --> Client : shows requested list
+    deactivate System
+    end alt
+
+    alt The user doesn't wish to sort the list
+    Client -> System : doesn't select any parameters
+    activate System
+
+        System --> Client : allows to sort by type of business (wholesale or lease)
+    deactivate System
+
+    Client -> System : selects type of business (wholesale or lease)
+    activate System
+
+        System --> Client : shows requested list
+    deactivate System
+    end alt
+@enduml

@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant ":ApprovePropertyController" as controller
+participant ":announcementRequestMapper" as mapper
+participant "requestList \n:ArrayList<Request>" as requests
+participant "announcementRequestDtoList : List<RequestDTO>" as listDto
+participant "announcementRequestDto:RequestDTO" as dto
+
+activate controller
+
+controller -> mapper : toDto(requests)
+group Request List To Dto
+activate mapper
+mapper --> listDto** : create()
+
+loop  for each object in requestList
+mapper -> requests : get(idx)
+activate requests
+requests --> mapper : request
+deactivate requests
+
+
+mapper -> mapper : requestDto = toDto(request)
+activate mapper
+mapper -> dto** : create()
+deactivate mapper
+mapper -> listDto : add(requestDto)
+activate listDto
+
+end
+
+
+end
+mapper --> controller : requestsDtoList
+
+
+@enduml

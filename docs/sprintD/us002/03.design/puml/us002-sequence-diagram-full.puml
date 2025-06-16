@@ -1,0 +1,264 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title UI Sequence Diagram (SSD)
+
+autonumber
+
+actor "Agent" as Agent
+participant ":CreateAnnouncementUI" as UI
+participant ":CreateAnnouncementController" as controller
+participant "agency\n:Agency" as Agency
+participant "repositories\n:Repositories" as Repositories
+participant "propertyTypeRepository\n:PropertyTypeRepository" as PropertyTypeRepository
+participant "employeeRepository\n:EmployeeRepository" as agentRepository
+participant "house\n:House" as house
+participant "building\n:Building" as building
+participant "property\n:Property" as property
+participant "request\n:Request" as request
+
+activate Agent
+
+    Agent -> UI : asks to create a new Announcement
+    activate UI
+    UI -> controller** : create()
+    UI -> controller : getPropertyTypeList()
+
+
+
+    activate controller
+    controller -> Repositories : getInstance()
+    activate Repositories
+    Repositories --> controller : repositories
+    deactivate Repositories
+
+
+        controller -> Repositories : getPropertyTypeRepository()
+        activate Repositories
+        Repositories --> controller : propertyTypeRepository
+        deactivate Repositories
+        controller -> "propertyTypeRepository\n:PropertyTypeRepository" : getPropertyTypeList()
+        activate "propertyTypeRepository\n:PropertyTypeRepository"
+        "propertyTypeRepository\n:PropertyTypeRepository" --> controller : propertyTypeList
+        deactivate "propertyTypeRepository\n:PropertyTypeRepository"
+        controller --> UI   : properyTypeList
+
+
+
+    deactivate controller
+        UI --> Agent : shows property types and asks to select one
+
+    Agent -> UI : selects property type
+    UI --> controller : getAgentList()
+    activate controller
+    controller -> Repositories : getInstance()
+        activate Repositories
+        Repositories --> controller : repositories
+        deactivate Repositories
+    controller -> Repositories : getEmployeeRepository()
+    activate Repositories
+    Repositories --> controller: employeeRepository
+    deactivate Repositories
+    controller -> agentRepository : getAgentList()
+    activate agentRepository
+    agentRepository --> controller : agentList()
+    deactivate agentRepository
+    controller --> UI : agentList
+    deactivate controller
+
+
+
+        UI --> Agent : shows list of agents and asks to select one
+                deactivate UI
+
+                Agent -> UI : selects agent
+                    activate UI
+
+    UI --> Agent : requests data(property size, distance from centre, street name, city name, state name, zip code)
+        deactivate UI
+
+        Agent -> UI : inputs requested data
+            activate UI
+
+
+                loop while agent has photos to input
+
+
+                                            UI --> Agent : requests photoURI
+                                        deactivate UI
+                                Agent -> UI : inputs requested data
+                                activate UI
+        end
+
+        alt if the property type is "Apartment" or "House"
+        loop
+            UI --> Agent : requests Equipment
+                                    deactivate UI
+                            Agent -> UI : inputs requested data(equipmentName)
+                            activate UI
+        end
+                        UI --> Agent : requests data(bedrooms, bathrooms, parking spaces)
+                    deactivate UI
+
+               Agent -> UI : inputs requested data
+                   activate UI
+
+
+
+                   alt if the property type is "House"
+
+                   UI --> Agent : requests data(basement, loft, sun exposure)
+                              deactivate UI
+
+
+                          Agent -> UI : inputs requested data
+                              activate UI
+
+                   end alt
+        end alt
+
+                       UI --> Agent : requests data(transaction type, monetary value, commission data, commission value)
+                   deactivate UI
+
+               Agent -> UI : inputs requested data
+                   activate UI
+UI --> controller : getOwnerList()
+activate controller
+    controller -> Repositories : getInstance()
+        activate Repositories
+        Repositories --> controller : repositories
+        deactivate Repositories
+    controller -> Repositories : getOwnerRepository()
+    activate Repositories
+    Repositories --> controller: ownerRepository
+    deactivate Repositories
+    controller -> "ownerRepository\n:OwnerRepository" : getOwnerList()
+    activate "ownerRepository\n:OwnerRepository"
+    "ownerRepository\n:OwnerRepository" --> controller : ownerList()
+    deactivate "ownerRepository\n:OwnerRepository"
+    controller --> UI : ownerList
+    deactivate controller
+
+                               UI --> Agent : shows owner list and asks to select one
+                               deactivate UI
+
+                               Agent -> UI  : selects owner
+                               activate UI
+
+
+
+
+
+        UI -> controller : createAnnouncement(propertyTypeOption, photos, ownerOption,agentOption, commissionType, commissionValue, equipment,\n areaOfProperty, distanceFromCentre, street, city, state, zipCode,equipmentList,\n bedrooms, bathrooms, parkingSpaces, basement, loft, sunExposure, transactionType, monetaryValue)
+        activate controller
+        controller -> Agency : createRequest(propertyTypeOption, photos, ownerOption, equipment,  agentOption,\n areaOfProperty, distanceFromCentre, street, city, state, zipCode,equipmentList,\n bedrooms, bathrooms, parkingSpaces, basement, loft, sunExposure, transactionType, monetaryValue)
+        activate Agency
+        alt if propertyType == "house"
+               Agency -> house** : create(propertyType, photos, ownerOption, equipment,  agentOption, areaOfProperty, distanceFromCentre, street, city, state, zipCode,\n equipmentList, bedrooms, bathrooms, parkingSpaces, basement, loft, sunExposure)
+               activate house
+               house -> "address\n:Address"** : create(street, city, state, zipCode)
+               house -> "photos\n:Photos"** : create(photos)
+               house -> "equipment\nEquipment"** : create(equipmentList)
+               house --> Agency : property
+               deactivate house
+        else if propertyType == "apartment"
+
+                Agency -> building** : create(propertyType, photos, owner, equipment,  agent, areaOfProperty, distanceFromCentre, street, city, state, zipCode,\n equipmentList, bathrooms, parkingSpaces)
+                activate building
+                building -> "address\n:Address"** : create(street, city, state, zipCode)
+                building -> "photos\n:Photos"** : create(photos)
+                building -> "equipment\nEquipment"** : create(equipmentList)
+                building --> Agency : property
+                deactivate building
+
+        else if propertyType == "land"
+                Agency -> property** : create(propertyType, photos, owner, equipment,  agent, areaOfProperty, distanceFromCentre, street, city, state, zipCode)
+                activate property
+                property -> "address\n:Address"** : create(street, city, state, zipCode)
+                property -> "photos\n:Photos"** : create(photos)
+                property --> Agency : property
+                deactivate property
+        end
+Agency -> Repositories: getInstance()
+activate Repositories
+Repositories --> Agency : repositories
+deactivate Repositories
+Agency -> Repositories : getPropertyRepository()
+activate Repositories
+Repositories --> Agency : propertyRepository
+deactivate Repositories
+Agency -> "propertyRepository\n:PropertyRepository" : addProperty(property)
+activate "propertyRepository\n:PropertyRepository"
+"propertyRepository\n:PropertyRepository" -> "propertyRepository\n:PropertyRepository" : validateProperty()
+activate "propertyRepository\n:PropertyRepository"
+"propertyRepository\n:PropertyRepository" --> Agency : operationSuccess
+deactivate "propertyRepository\n:PropertyRepository"
+deactivate "propertyRepository\n:PropertyRepository"
+
+
+
+            Agency -> request** : create(property,agent,owner, commissionType, commissionValue)
+                    activate request
+                    request -> "transacionType\n:TransactionType"** : create(property, transactionType, transactionDetails)
+                    request --> Agency : request
+
+                    deactivate request
+
+
+Agency -> Repositories : getRequestRepository()
+activate Repositories
+Repositories --> Agency : requestRepository
+deactivate Repositories
+Agency -> "requestRepository\n:RequestRepository" : addRequest(request)
+activate "requestRepository\n:RequestRepository"
+"requestRepository\n:RequestRepository" -> "requestRepository\n:RequestRepository" : validateRequest()
+activate "requestRepository\n:RequestRepository"
+"requestRepository\n:RequestRepository" --> Agency :operationSuccess
+deactivate "requestRepository\n:RequestRepository"
+deactivate "requestRepository\n:RequestRepository"
+Agency --> controller: request
+deactivate Agency
+controller -> Agency : createAnnouncement(requqest, commissionType, commissionValue)
+activate Agency
+
+
+            Agency -> "announcement\n:Announcement"** : create(request, commissionType, commissionValue)
+            activate "announcement\n:Announcement"
+            "announcement\n:Announcement" -> "commission\n:Commission"** : create(commissionType, commissionValue)
+            "announcement\n:Announcement" --> Agency : announcement
+            deactivate "announcement\n:Announcement"
+            Agency -> Repositories : getRequestRepository()
+            activate Repositories
+            Repositories --> Agency : requestRepository
+            deactivate Repositories
+            Agency -> "announcementRepository\n:AnnouncementRepository" : addAnnouncement(announcement)
+            activate "announcementRepository\n:AnnouncementRepository"
+            "announcementRepository\n:AnnouncementRepository" -> "announcementRepository\n:AnnouncementRepository" : validateRequest()
+            activate "announcementRepository\n:AnnouncementRepository"
+            "announcementRepository\n:AnnouncementRepository" --> Agency :operationSuccess
+            deactivate "announcementRepository\n:AnnouncementRepository"
+            deactivate "announcementRepository\n:AnnouncementRepository"
+
+
+
+
+    Agency --> controller : announcement
+    deactivate Agency
+    controller -> "<<interface>>\n:Message" : sendMessage(request, owner, agent)
+    deactivate Agency
+    activate "<<interface>>\n:Message"
+    "<<interface>>\n:Message" --> controller : operationResult
+    deactivate "<<interface>>\n:Message"
+    note right
+                Message implementation will depend
+                on message type
+            end note
+    controller --> UI : announcement
+    deactivate controller
+    UI --> Agent : displays operation status message
+
+    deactivate UI
+
+@enduml

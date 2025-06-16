@@ -1,0 +1,80 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class DisplayPropertyListUI {
+
+}
+
+class PropertyListController {
+    ---
+    + createSelectedParameters(businessType, propertyType, numberRooms, priceSorting, location)
+'    + getCopyLandList()
+'    + getCopyHouseList()
+'    + getCopyApartmantList()
+    + sortPriceAscending()
+    + sortPriceDescending()
+}
+
+class Repositories {
+    - Repositories()
+    +getInstance() : Repositories
+    +getAnnouncementRepository()
+}
+
+class AnnouncementRepository{
+---
+    + getAnnouncement()
+    + getListedLands()
+    + getListedApartments()
+    + getListedHouses()
+    + addPropertyAnnouncement(property)
+}
+
+class SelectedParameters {
+    -String businessType
+    -String propertyType
+    -int numberRooms
+    -String priceSorting
+    ----
+    + SelectedParameters(businessType,propertyType, numberRooms, priceSorting, address)
+'    + SelectedParameters()
+    + setPropertyPrice()
+    + setBusinessType()
+    + setNumberRooms()
+    + setAddress()
+    + getAdress()
+    + getBusinessType
+    + getPropertyType
+    + getNumberRooms
+    + getPropertyPrice
+}
+
+
+class Address{
+    -String street
+    -String city
+    -String district
+    -String state
+    -String zipCode
+---
+    +Address(street, city, district, state, zipCode)
+    +setAddressData()
+}
+
+DisplayPropertyListUI .> PropertyListController
+PropertyListController ..> SelectedParameters
+PropertyListController .> Repositories : repositories
+PropertyListController .> AnnouncementRepository : AnnouncementRepository
+Repositories --> AnnouncementRepository
+Repositories -> Repositories : getInstance()
+SelectedParameters *..left Address : address
+
+@enduml

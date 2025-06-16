@@ -1,0 +1,99 @@
+@startuml
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title UI Sequence Diagram (SSD)
+
+autonumber
+
+actor "Agent" as Agent
+participant ":ApproveVisitRequestsUI" as UI
+participant ":ApproveVisitRequestsController" as CONTROLLER
+participant "visitRequestsRepository: VisitRequestsRepository" as VISIT_REPOSITORY
+participant ":JudgeVisitRequest" as JUDGE
+participant "sendEmail\n:SendEmail" as SEND
+
+
+activate Agent
+
+    Agent -> UI : asks to judge visit requests
+    activate UI
+
+loop while (again == true)
+
+    UI --> Agent : asks to select a visit request
+        deactivate UI
+
+    Agent -> UI : selects requested data
+    activate UI
+
+        UI -> CONTROLLER : getVisitRequestedByID(String valueOf)
+        activate CONTROLLER
+
+            CONTROLLER -> VISIT_REPOSITORY : getVisitRequestedByID(visitRequestID)
+            activate VISIT_REPOSITORY
+
+            VISIT_REPOSITORY --> CONTROLLER : visitRequest
+            deactivate VISIT_REPOSITORY
+
+        CONTROLLER --> UI : visitRequest
+        deactivate CONTROLLER
+
+    UI --> Agent : asks to accept or decline the visit request
+        deactivate UI
+
+    Agent -> UI : types requested data
+    activate UI
+
+        UI -> CONTROLLER : judgeVisitRequest(agentName, visitRequest, acceptance, justification)
+        activate CONTROLLER
+
+           alt if (acceptance)
+           CONTROLLER -> JUDGE :
+           activate JUDGE
+                                        JUDGE -> VISIT_REPOSITORY : addVisitRequestAccepted(visitRequest)
+                                        activate VISIT_REPOSITORY
+                                        deactivate VISIT_REPOSITORY
+
+                                       JUDGE -> VISIT_REPOSITORY : removeVisitRequest(visitRequest)
+                                       activate VISIT_REPOSITORY
+                                       deactivate VISIT_REPOSITORY
+                                                               JUDGE -> SEND : sendEmail(justification)
+                                                               activate SEND
+                                                               deactivate SEND
+
+           deactivate JUDGE
+           else
+                      CONTROLLER -> JUDGE :
+                      activate JUDGE
+
+
+                        JUDGE -> VISIT_REPOSITORY : removeVisitRequest(visitRequest)
+                        activate VISIT_REPOSITORY
+                        JUDGE -> SEND : sendEmail(justification)
+                        activate SEND
+                        deactivate SEND
+                        deactivate JUDGE
+                        deactivate VISIT_REPOSITORY
+
+
+           end
+
+        CONTROLLER --> UI :
+        deactivate CONTROLLER
+
+    UI --> Agent : asks to confirm
+        deactivate UI
+
+    Agent -> UI : submits data
+    activate UI
+
+end loop
+
+    UI --> Agent : displays operation success
+        deactivate UI
+
+deactivate Agent
+@enduml

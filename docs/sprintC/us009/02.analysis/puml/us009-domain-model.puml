@@ -1,0 +1,68 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam groupInheritance 2
+skinparam linetype ortho
+
+'left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model - US009
+
+'class Platform {
+'  -description
+'}
+
+class User {
+    name
+    emailAddress
+    password
+    telephoneNumber
+}
+
+
+
+class AnnouncementRepository{
+
+}
+
+class VisitsRepository{
+
+}
+
+class VisitsRequestRepository{
+
+}
+
+class VisitRequest{
+    name
+    telephoneNumber
+    date
+    timeSlot
+}
+
+class Repositories{
+
+}
+
+
+'class Password{
+'    password
+'}
+
+Repositories <|--down AnnouncementRepository
+Repositories <|--down VisitsRepository
+VisitsRepository <|--down VisitsRequestRepository
+VisitsRequestRepository "is stored in"<--left VisitRequest
+VisitRequest <--up User
+User --> AnnouncementRepository
+VisitsRepository <|--down VisitsAcceptedRepository
+VisitsRequestRepository -> VisitsAcceptedRepository
+
+
+@enduml

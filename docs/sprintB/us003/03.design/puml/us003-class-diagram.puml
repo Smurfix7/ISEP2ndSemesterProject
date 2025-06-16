@@ -1,0 +1,118 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class Employee {
+
+}
+
+class Role {
+    -String id
+    -String description
+    --
+    +Role(id, description)
+    -setID
+    -setDescription
+    +getID
+    +getDescription
+}
+
+class Address{
+    -String street
+    -String city
+    -String district
+    -String state
+    -String zipCode
+    --
+    +Address(street, city, district, state, zipCode)
+    -setStreet()
+    -setCity()
+    -setDistrict()
+    -setState()
+    -setZipCode()
+    +getStreet()
+    +getCity()
+    +getDistrict()
+    +getState()
+    +getZipCode()
+}
+
+class PassportCard{
+    -Integer passportNumber
+    --
+    +PassportCard(passportNumber)
+    +getPassportNumber()
+    -setPassportNumber()
+}
+
+class Person{
+    -String name
+    -String emailAddress
+    -Integer taxNumber
+    -Integer telephoneNumber
+    --
+    +Person(name, passportNumber, emailAdress,\ntaxNumber, contactTelephoneNumber, adress,\nrole, agency)
+    -setName()
+    -setEmailAddress()
+    -setTaxNumber()
+    -setTelephoneNumber()
+    +getName()
+    +getEmailAddress()
+    +getTaxNumber()
+    +getTelephoneNumber()
+}
+
+class RoleRepository {
+    + getRoleByID(agencyID)
+}
+
+class AgencyRepository {
+    + getAgencyByID(agencyID)
+}
+
+class Repositories {
+    - Repositories()
+    --
+    + getInstance() : Repositories
+    + getAgencyRepository()
+    + getRoleRepository()
+}
+
+class AgentRepository {
+    +addEmployee(name, passportNumber, emailAdress,\ntaxNumber, contactTelephoneNumber, street,\ncity, district, state, zipCode, roleID, agencyID)
+}
+
+class PersonRepository {
+    +addEmployee(name, passportNumber, emailAdress,\ntaxNumber, contactTelephoneNumber, street,\ncity, district, state, zipCode, roleID)
+}
+
+class RegisterEmployeeController {
+    -registerEmployee(name, passportNumber, emailAdress,\ntaxNumber, contactTelephoneNumber, street,\ncity, district, state, zipCode, role, agency)
+}
+
+class RegisterEmployeeUI {
++keepTypedData(name, passportNumber, emailAdress,\ntaxNumber, contactTelephoneNumber, street,\ncity, district, state, zipCode)
++keepSelectedAgency(agency)
++keepSelectedRole(role)
+}
+
+Person <|-right Employee
+Person *.-- Role : role
+Person *.-up Address : address
+Person *.-- PassportCard : passportNumber
+Employee -right.> RegisterEmployeeController
+RegisterEmployeeUI -down.> RegisterEmployeeController
+RegisterEmployeeController --down.> Repositories
+Repositories --down.> AgencyRepository
+Repositories --down.> AgentRepository
+Repositories --down.> PersonRepository
+Repositories --down.> RoleRepository
+
+@enduml

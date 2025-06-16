@@ -1,0 +1,23 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD)
+
+autonumber
+
+actor "Network Manager" as Person
+participant ":System" as System
+
+activate Person
+
+    Person -> System : asks to divide the set into two
+
+    activate System
+
+        System --> Person : shows the new 2 sub sets and their difference
+
+    deactivate System
+deactivate Person
+@enduml

@@ -1,0 +1,190 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+actor "Agent" as Agent
+participant ":ApproveVisitRequestUI" as UI
+participant ":ApproveVisitRequestController" as CONTROLLER
+participant ":ConfigReaderSortingAlgorithms" as CONFIG_READER
+participant ":SortingAlgorithms" as SORT
+participant ":Repositories" as INSTANCE
+participant "repositories\n:Repositories" as REPOSITORIES
+participant "authenticationRepository\n:AuthenticationRepository" as AUTHENTICATION_REPOSITORY
+participant "visitRequestsRepository\n:VisitRequestsRepository" as VISIT_REQUESTS_REPOSITORY
+participant ":VisitRequestsListMapper" as MAPPER
+participant "visitRequestsList : List<VisitRequest>" as VISIT_REQUESTS_LIST
+participant "visitRequestsListDTO : List<VisitRequestsListDTO>" as LIST_DTO
+participant "objDTO : VisitRequestsListDTO" as DTO
+participant ":Announcement" as ANNOUNCEMENTS
+participant ":Request" as REQUEST
+participant ":Agent" as EMPLOYEE
+participant ":EmailAddress" as EMAIL_ADDRESS
+
+activate Agent
+
+    Agent -> UI : asks to list all visit visit requests managed by the agent
+    activate UI
+
+        UI -> CONTROLLER** : create()
+        activate CONTROLLER
+
+                        CONTROLLER -> INSTANCE : getInstance()
+                        activate INSTANCE
+
+                        INSTANCE --> CONTROLLER: repositories
+                            deactivate INSTANCE
+
+                        CONTROLLER -> REPOSITORIES : getAuthenticationRepository()
+                        activate REPOSITORIES
+
+                        REPOSITORIES --> CONTROLLER: authenticationRepository
+                            deactivate REPOSITORIES
+
+                        CONTROLLER -> REPOSITORIES : getVisitRequestsRepository()
+                        activate REPOSITORIES
+
+                        REPOSITORIES --> CONTROLLER : visitRequestsRepository
+                            deactivate REPOSITORIES
+
+                        deactivate CONTROLLER
+
+        UI -> CONTROLLER : getLoggedUser
+        activate CONTROLLER
+
+                        CONTROLLER -> AUTHENTICATION_REPOSITORY : getCurrentUserSession().getUserName()
+                        activate AUTHENTICATION_REPOSITORY
+
+                        AUTHENTICATION_REPOSITORY --> CONTROLLER : userName
+                            deactivate AUTHENTICATION_REPOSITORY
+
+        CONTROLLER --> UI : userName
+            deactivate CONTROLLER
+
+        UI -> CONTROLLER : toVisitRequestsListDTO()
+        activate CONTROLLER
+
+                        CONTROLLER -> VISIT_REQUESTS_REPOSITORY : getVisitRequests()
+                        activate VISIT_REQUESTS_REPOSITORY
+
+                            VISIT_REQUESTS_REPOSITORY -> VISIT_REQUESTS_LIST**
+
+                        VISIT_REQUESTS_REPOSITORY --> CONTROLLER : visitRequestList
+                            deactivate VISIT_REQUESTS_REPOSITORY
+
+        CONTROLLER -> MAPPER : createVisitRequestsListDTO()
+        activate MAPPER
+
+                        MAPPER --> LIST_DTO** : create()
+
+                        MAPPER -> ANNOUNCEMENTS : getAnnouncement()
+                        activate ANNOUNCEMENTS
+
+                        ANNOUNCEMENTS -> EMPLOYEE : getAgent()
+                            deactivate ANNOUNCEMENTS
+                        activate EMPLOYEE
+
+                        EMPLOYEE -> EMAIL_ADDRESS : getEmailAddress()
+                            deactivate EMPLOYEE
+                        activate EMAIL_ADDRESS
+
+                        EMAIL_ADDRESS --> MAPPER : emailAddress
+                            deactivate EMAIL_ADDRESS
+
+                loop for each object in visitRequestList
+
+                    alt if (obj.getAnnouncement().getRequest().getAgent().getEmailAddress().equalsIgnoreCase(email)
+
+                        MAPPER -> VISIT_REQUESTS_LIST : obj = get(i)
+                        activate VISIT_REQUESTS_LIST
+                            deactivate VISIT_REQUESTS_LIST
+
+                        MAPPER -> DTO** : create(obj.getVisitRequestID(), obj.getUser(), obj.getAnnouncement(), obj.getDate(), obj.getTimeFrame())
+
+                        MAPPER -> LIST_DTO : add(objDTO)
+                        activate LIST_DTO
+                            deactivate LIST_DTO
+
+                end
+
+        MAPPER --> CONTROLLER : visitRequestListDTO
+            deactivate MAPPER
+
+        CONTROLLER --> UI : visitRequestsListDTO
+            deactivate CONTROLLER
+
+
+    UI --> Agent : displays the visit requests managed by the agent\nand and requests the algorithm
+        deactivate UI
+
+    Agent -> UI : types the algorithm
+    activate UI
+
+        UI -> CONTROLLER : sendAlgorithm(algorithm)
+        activate CONTROLLER
+
+            CONTROLLER -> CONFIG_READER : getSortingAlgorithm(configFile, algorithm)
+            activate CONFIG_READER
+
+            CONFIG_READER --> CONTROLLER : algorithm
+                deactivate CONFIG_READER
+
+        CONTROLLER --> UI : algorithm
+            deactivate CONTROLLER
+
+        UI -> CONTROLLER : sortVisitRequestsList(visitRequestsListDTO, algorithm)
+        activate CONTROLLER
+
+            alt if (sendAlgorithm(algorithm).equalsIgnoreCase("bubble_algorithm"))
+
+            CONTROLLER -> SORT : bubbleSort(visitRequestsListDTO)
+            activate SORT
+
+            SORT --> CONTROLLER : visitRequestsListDTOS
+            deactivate SORT
+
+            else
+
+            CONTROLLER -> SORT : insertionSort(visitRequestsListDTOS)
+            activate SORT
+
+            SORT --> CONTROLLER : visitRequestsListDTO
+            deactivate SORT
+
+            end
+
+        CONTROLLER --> UI : visitRequestsListDTOS
+            deactivate CONTROLLER
+
+    UI --> Agent : displays the visit requests list filtered by the algorithm\nand visit requests the begin and end date
+        deactivate UI
+
+    Agent -> UI : types requested data
+    activate UI
+
+                   UI -> UI : requestsBeginDate()
+
+                   UI -> UI : requestsEndDate()
+
+                    UI -> CONTROLLER : sendDates(beginDate, endDate, visitRequestsListDTO)
+                    activate CONTROLLER
+
+                        CONTROLLER -> VISIT_REQUESTS_REPOSITORY : filterVisitRequestsListDTO(beginDate,endDate, visitRequestsListDTO)
+                        activate VISIT_REQUESTS_REPOSITORY
+
+                        VISIT_REQUESTS_REPOSITORY -> CONTROLLER : filteredList
+                            deactivate VISIT_REQUESTS_REPOSITORY
+                    CONTROLLER --> UI : filteredList
+                        deactivate CONTROLLER
+
+
+    UI --> Agent : displays visit requests list filtered by begin and end date
+
+    UI --> Agent : displays operation success
+        deactivate UI
+
+
+deactivate Agent
+@enduml

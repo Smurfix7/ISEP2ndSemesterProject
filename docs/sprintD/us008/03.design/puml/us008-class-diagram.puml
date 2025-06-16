@@ -1,0 +1,169 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+skinparam nodesep 50
+
+class AnnouncementRepository {
+  - announcements: ArrayList<Announcement>
+  --
+  + addAnnouncement(announcement: Announcement): void
+  + validateAnnouncement(announcement: Announcement): boolean
+  + getAnnouncements(): ArrayList<Announcement>
+  + getAnnouncementWithID(ID: int): Announcement
+  + checkAnnouncementExists(announcementID: int): boolean
+}
+
+class Employee extends Person{
+
+email: Email
+name: String
+position: String
+phone: String
+}
+class Person {
+
+name: String
+taxNumber: String
+emailAddress: String
+telephoneNumber: String
+address: Address
+role: Role
+passportCard: PassportCard
++ getName()
+}
+
+class ApproveRequestController {
+  - repositories: Repositories
+  --
+  + getLoggedUser(): String
+  + sortRequests(email: String): ArrayList<RequestDto>
+  + judgePropertyRequest(propertyID: int, acceptance: String, commissionType: String, commissionValue: double, justificationMessage: String): String
+}
+
+interface Message{
+    +sendMessage()
+}
+
+class Agency {
+    - agencyID: String
+    - agencyName: String
+    - emailAddress: String
+    - contactTelephoneNumber: String
+    - address: Address
+    + getAgencyID()
+    + setAgencyID(agencyID: String)
+    + getAgencyName()
+    + setAgencyName(agencyName: String)
+    + getEmailAddress()
+    + setEmailAddress(emailAddress: String)
+    + getContactTelephoneNumber()
+    + setContactTelephoneNumber(contactTelephoneNumber: String)
+    + getAddress()
+    + setAddress(address: Address)
+    + toString()
+}
+
+class Announcement {
+  - cont: int
+  - request: Request
+  - announcementID: int
+  - acceptanceDate: String
+  - commission: CommissionDetails
+  --
+  + getRequest()
+  + setRequest(request: Request)
+  + getAnnouncementID()
+  + setAnnouncementID(announcementID: int)
+  + getAcceptanceDate()
+  + setAcceptanceDate(acceptanceDate: String)
+  + getCommission()
+  + setCommission(commission: CommissionDetails)
+  + toString()
+}
+
+class SendNotification implements Message{
+    +sendMessage()
+}
+class Commission {
+  - commissionType: String
+  - commissionValue: Double
+  --
+  + toString()
+  + getCommissionValue()
+  + getCommissionType()
+}
+
+class Request {
+  - cont: int
+  - property: Property
+  - owner: Person
+  - requestDate: String
+  - agent: Employee
+  - transaction: Transaction
+  - requestID: int
+  --
+  + getOwner()
+  + setOwner(owner: Person)
+  + getAgent()
+  + setAgent(agent: Employee)
+  + getProperty()
+  + setProperty(property: Property)
+  + getRequestDate()
+  + setRequestDate(requestDate: String)
+  + getTypeOfTransaction()
+  + setTypeOfTransaction(transaction: Transaction)
+  + getRequestID()
+  + setRequestID(requestID: int)
+  + toString()
+}
+class RequestsRepository {
+  - listingRequests: List<Request>
+  --
+  + getListingRequests(): ArrayList<Request>
+  + validateRequest(request: Request): boolean
+  + getRequestWithID(n: int): Request
+  + getNumberOfRequests(): int
+  + containsProperty(property: Property): boolean
+  + checkRequestExists(propertyID: int): boolean
+  + sortRequestList(): boolean
+  + swapRequests(n1: int, n2: int): void
+  + getRequestListByEmail(email: String): ArrayList<Request>
+  + deleteRequest(request: Request): void
+  + getRequest(request: Request): Request
+  + addRequest(request: Request): boolean
+}
+
+class Repositories {
+  - Repositories()
+  +getInstance() : Repositories
+  +getOwnerRepository()
+  +getEmployeeRepository()
+  +getPropertyTypeRepository()
+  +getPropertyRepository()
+  +getAnnouncementRepository()
+  +getRequestRepository()
+  +getPurchaseOrderRepository()
+}
+
+Employee --> Request : accepts
+CreateAnnouncementController ..> Repositories : "Repositories"
+Repositories --> Repositories : instance
+Repositories ..> "1" AnnouncementRepository : announcementRepository
+AnnouncementRepository "1" --> "*" Announcement : announcement
+Repositories ..> "1" RequestsRepository : requestRepository
+RequestsRepository "1" --> "*" Request : request
+
+
+ApproveRequestUI ..> ApproveRequestController
+ApproveRequestController ..> Agency
+Agency --> Announcement :  lists announcements
+Agency --> Request :  manages requests
+Announcement -- Commission : > has commission
+ApproveRequestController ..> Message
+
+@enduml

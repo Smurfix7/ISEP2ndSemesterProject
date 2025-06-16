@@ -1,0 +1,190 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam groupInheritance 2
+skinparam linetype ortho
+
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class User {
+    -String name
+    -String emailAddress
+    -String password
+    -String telephoneNumber
+    ---
+    +User(name, emailAddress, password)
+    +getName
+    +getEmailAddress
+    +getPassword
+    +getTelephoneNumber
+}
+
+
+class AnnouncementRepository{
+    +getAnnouncement()
+    +addPropertyAnnouncement(property)
+}
+
+class VisitsRepository{
+    -VisitsRepository()
+    +getInstance()
+    +getVisitsRequestRepository()
+    +getVisitsAcceptedRepository()
+}
+
+class VisitsRequestRepository{
+    +getVisitRequest()
+    +addVisitRequest(visitRequest)
+}
+
+class VisitsAcceptedRepository{
+    +getVisitAccepted()
+    +addVisitAccepted(visitRequest)
+}
+
+
+class VisitRequest{
+    -User user
+    -Property property
+    -String date
+    -String timeFrame
+}
+
+class Property{
+    -Double areaOfProperty
+    -Double distanceFromCentre
+    -String acceptanceDate
+    -String requestDate
+
+    -setAreaOfProperty()
+    -setDistanceFromCentre()
+    -setRequestDate()
+    -setAcceptanceDate()
+    +getRequestDate()
+    +getAcceptanceDate
+    +getAreaOfProperty()
+    +getDistanceFromCentre()
+
+}
+
+class UserID{}
+class TypeOfTransaction{
+    -String transactionType
+    -String monetaryValue
+
+    -setTransactionType()
+    -setMonetaryValue()
+    +getTransactionType()
+    +getMonetaryValue()
+}
+
+class Address{
+    -String street
+    -String city
+    -String district
+    -String state
+    -String zipCode
+
+    -setStreet()
+    -setCity()
+    -setDistrict()
+    -setState()
+    -setZipCode()
+    +getStreet()
+    +getCity()
+    +getDistrict()
+    +getState()
+    +getZipCode()
+}
+
+class PropertyTypeRepository{
+    +addProperty()
+    +getPropertyType()
+}
+
+class Photo{
+    -Integer photoID
+    -String photoURI
+
+    +setPhotoData()
+}
+
+class Building{
+    -Integer bedrooms
+    -Integer bathrooms
+    -Integer parkingSpaces
+
+    -setBedrooms()
+    -setBathrooms()
+    -setParkingSpaces()
+    +getBedrooms()
+    +getBathrooms()
+    +getParkingSpaces()
+}
+
+class Equipment{
+    -String name
+
+    -setEquipmentName()
+    +getEquipmentName()
+}
+
+class House{
+    -Boolean basement
+    -Boolean loft
+    -String sunExposure
+
+    -setBasement()
+    -setLoft()
+    -setSunExposure()
+    +getBasement()
+    +getLoft()
+    +getSunExposure()
+}
+
+
+class Repositories {
+    -Repositories()
+    +getInstance()
+    +getAgentRepository()
+    +getPropertyTypeRepository()
+    +getPropertyRepository()
+}
+class VisitRequestUI{
+    +keepProperty()
+}
+
+class VisitRequestController{
+    +createVisitRequest(name, telephoneNumber, date, timeFrame, propertyID)
+}
+
+'class Password{
+'    password
+'}
+User ..> VisitRequestUI
+VisitRequestUI ..> VisitRequestController
+Repositories <|--down AnnouncementRepository
+Repositories <|--down VisitsRepository
+VisitsRepository <|--down VisitsRequestRepository
+VisitsRequestRepository "is stored in"<--left VisitRequest
+VisitRequestController ..> Repositories
+VisitRequestController ..> VisitRequest
+VisitsRepository <|--down VisitsAcceptedRepository
+VisitsRequestRepository .> VisitsAcceptedRepository
+Property - PropertyTypeRepository : propertyType
+Address ..> "address" Property
+Equipment .up.> "equipmentList" Building
+Photo ..> "photoList" Property
+Property "extends" --> Building
+Building "extends" -right-> House
+Controller  --|> Email
+TypeOfTransaction "typeOfTransaction" ..> Property
+Controller --|> PropertRequestRepository
+Land -up-> Property : extends
+Property *-- VisitRequest
+PropertyTypeRepository -|> Repositories
+
+@enduml

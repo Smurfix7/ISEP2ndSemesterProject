@@ -1,0 +1,62 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+'skinparam shadowing false
+
+
+'title Use Case Diagram Example
+
+left to right direction
+
+
+
+
+
+
+
+usecase "UC001 - Display listed properties"
+"Unregistered User" --> "UC001 - Display listed properties"
+
+usecase "UC002 -  Publish any sale announcement on the system"
+"Agent" --> "UC002 -  Publish any sale announcement on the system"
+
+usecase "UC003 - Register a new employee"
+"System Admin" --> "UC003 - Register a new employee"
+
+usecase "UC004 - Submit a properly listing request"
+"User" --> "UC004 - Submit a properly listing request"
+
+usecase "UC007 - To register in the system"
+"Unregistered User" --> "UC007 - To register in the system"
+
+usecase "UC008 - Displaying and accepting announcement requests"
+"Agent" --> "UC008 - Displaying and accepting announcement requests"
+
+usecase "UC009 - Messaging for a visit"
+"User" --> "UC009 - Messaging for a visit"
+
+usecase "UC010 - To buy a property"
+"User" --> "UC010 - To buy a property"
+
+usecase "UC011 - Accepting or denying a property sale/lease"
+"Agent" --> "UC011 - Accepting or denying a property sale/lease"
+
+usecase "UC012 - Importing information from a legacy system that has been in use in several agencies."
+"System Admin" --> "UC012 - Importing information from a legacy system that has been in use in several agencies."
+
+usecase "UC015 - Listing booking requests managed by me"
+"Agent" --> "UC015 - Listing booking requests managed by me"
+
+usecase "UC016 - Responding to a booking requests"
+"Agent" --> "UC016 - Responding to a booking requests"
+
+usecase "UC017 - Listing all deals made"
+"Network Manager" --> "UC017 - Listing all deals made"
+
+usecase "UC018 - Analysing, comparing and predicting deals"
+"Store Manager" --> "UC018 - Analysing, comparing and predicting deals"
+
+usecase "UC019 - Diving a set of stores into two"
+"Network Manager" --> "UC019 - Diving sets of all stores"
+
+@enduml

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="us-ascii" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css"
+     height="447px" preserveAspectRatio="none" style="width:466px;height:447px;background:#FFFFFF;" version="1.1"
+     viewBox="0 0 466 447" width="466px" zoomAndPan="magnify">
+    <defs/>
+    <g>
+        <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+              textLength="228" x="120.75" y="30.1074">System Sequence Diagram (SSD)
+        </text>
+        <rect fill="#FFFFFF" height="213.0371" style="stroke:#181818;stroke-width:1.0;" width="10" x="36.5"
+              y="133.2422"/>
+        <rect fill="#FFFFFF" height="57.582" style="stroke:#181818;stroke-width:1.0;" width="10" x="413.5"
+              y="156.5332"/>
+        <rect fill="#FFFFFF" height="31.291" style="stroke:#181818;stroke-width:1.0;" width="10" x="413.5"
+              y="245.4063"/>
+        <rect fill="#FFFFFF" height="38.291" style="stroke:#181818;stroke-width:1.0;" width="10" x="413.5"
+              y="307.9883"/>
+        <rect fill="none" height="144.4551" style="stroke:#000000;stroke-width:1.5;" width="450.5" x="10" y="171.5332"/>
+        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="41" x2="41" y1="123.2422"
+              y2="364.2793"/>
+        <line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="418.5" x2="418.5" y1="123.2422"
+              y2="364.2793"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="37" x="20"
+              y="119.7285">Agent
+        </text>
+        <ellipse cx="41.5" cy="53.1211" fill="#E3E3E3" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+        <path d="M41.5,61.1211 L41.5,88.1211 M28.5,69.1211 L54.5,69.1211 M41.5,88.1211 L28.5,103.1211 M41.5,88.1211 L54.5,103.1211 "
+              fill="none" style="stroke:#181818;stroke-width:0.5;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="37" x="20"
+              y="378.3867">Agent
+        </text>
+        <ellipse cx="41.5" cy="390.4004" fill="#E3E3E3" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/>
+        <path d="M41.5,398.4004 L41.5,425.4004 M28.5,406.4004 L54.5,406.4004 M41.5,425.4004 L28.5,440.4004 M41.5,425.4004 L54.5,440.4004 "
+              fill="none" style="stroke:#181818;stroke-width:0.5;"/>
+        <rect fill="#E3E3E3" height="32.6211" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="64"
+              x="386.5" y="89.6211"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="393.5"
+              y="111.7285">:System
+        </text>
+        <rect fill="#E3E3E3" height="32.6211" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="64"
+              x="386.5" y="363.2793"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="50" x="393.5"
+              y="385.3867">:System
+        </text>
+        <rect fill="#FFFFFF" height="213.0371" style="stroke:#181818;stroke-width:1.0;" width="10" x="36.5"
+              y="133.2422"/>
+        <rect fill="#FFFFFF" height="57.582" style="stroke:#181818;stroke-width:1.0;" width="10" x="413.5"
+              y="156.5332"/>
+        <rect fill="#FFFFFF" height="31.291" style="stroke:#181818;stroke-width:1.0;" width="10" x="413.5"
+              y="245.4063"/>
+        <rect fill="#FFFFFF" height="38.291" style="stroke:#181818;stroke-width:1.0;" width="10" x="413.5"
+              y="307.9883"/>
+        <polygon fill="#181818" points="401.5,152.5332,411.5,156.5332,401.5,160.5332,405.5,156.5332"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="46.5" x2="407.5" y1="156.5332" y2="156.5332"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="7" x="53.5" y="151.2705">1
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="337" x="64.5"
+              y="151.2705">asks to list all visit requests for properties managed by me
+        </text>
+        <path d="M10,171.5332 L83,171.5332 L83,180.8242 L73,190.8242 L10,190.8242 L10,171.5332 " fill="#EEEEEE"
+              style="stroke:#000000;stroke-width:1.5;"/>
+        <rect fill="none" height="144.4551" style="stroke:#000000;stroke-width:1.5;" width="450.5" x="10" y="171.5332"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="28" x="25" y="186.5615">loop
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing"
+              textLength="260" x="98" y="185.4033">[while the agent wants to judge a visit request]
+        </text>
+        <polygon fill="#181818" points="57.5,210.1152,47.5,214.1152,57.5,218.1152,53.5,214.1152"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="51.5" x2="417.5" y1="214.1152"
+              y2="214.1152"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="7" x="63.5" y="208.8525">2
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="241" x="74.5"
+              y="208.8525">asks to accept or decline the visit request
+        </text>
+        <polygon fill="#181818" points="401.5,241.4063,411.5,245.4063,401.5,249.4063,405.5,245.4063"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="46.5" x2="407.5" y1="245.4063" y2="245.4063"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="7" x="53.5" y="240.1436">3
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="122" x="64.5"
+              y="240.1436">types requested data
+        </text>
+        <polygon fill="#181818" points="57.5,272.6973,47.5,276.6973,57.5,280.6973,53.5,276.6973"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="51.5" x2="417.5" y1="276.6973"
+              y2="276.6973"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="7" x="63.5" y="271.4346">4
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="89" x="74.5"
+              y="271.4346">asks to confirm
+        </text>
+        <polygon fill="#181818" points="401.5,303.9883,411.5,307.9883,401.5,311.9883,405.5,307.9883"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;" x1="46.5" x2="407.5" y1="307.9883" y2="307.9883"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="7" x="53.5" y="302.7256">5
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="75" x="64.5"
+              y="302.7256">submits data
+        </text>
+        <polygon fill="#181818" points="52.5,342.2793,42.5,346.2793,52.5,350.2793,48.5,346.2793"
+                 style="stroke:#181818;stroke-width:1.0;"/>
+        <line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="46.5" x2="417.5" y1="346.2793"
+              y2="346.2793"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing"
+              textLength="7" x="58.5" y="341.0166">6
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="158" x="69.5"
+              y="341.0166">displays operation success
+        </text><!--SRC=[bP9DRi9038NtSmgBLRlW0YmgLU86EO6PcCHb_ZfsGBbzJH8egD2gix9cxFU-vqGEd0fMZ11pohwlEH9e7SZ9zQMWFs17ZOw1e99NJ5suRP0UstpYrC4UWv1pocgjpIXA4Hhw72XvWYrZTsv_QPhjgtCuQ4v3t56rsckki7hlAEaAK62gdCahUowO55QRMMzwdait3V8HbPO11tQc4jPl5u2DJHm4D4DWKS0GuCZ2QbcCJ5HWR-Qbva9cHm8Ha-LjOJT2f4doQdCn3ZaNEFLiCRKdmCdoP9oJpyVGTdPvRpF3BKnhmvivl-dGUoeAnjAI3vncwNiDM4vBFv0UHzUnMA9bt3ArgFWuqXzqFgSzr_X_0XbsaMqlpvqfjN1Uw5E6bgK470NEdmYLSp9LsvR8RpWtL_FVyGK0]-->
+    </g>
+</svg>

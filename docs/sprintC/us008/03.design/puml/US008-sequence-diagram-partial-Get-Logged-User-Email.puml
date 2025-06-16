@@ -1,0 +1,42 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber 3.1
+
+participant "ApprovePropertyController" as controller
+participant ":Repositories" as Repositories
+participant "repositories\n:Repositories"
+participant "AuthorizationRepository"
+group Get Logged User Email
+
+
+
+-> controller : getLoggedUser()
+activate controller
+
+controller -> Repositories : getInstance()
+activate Repositories
+Repositories --> controller : repositories
+deactivate Repositories
+controller -> "AuthorizationRepository" : getAuthorizationRepository()
+activate "AuthorizationRepository"
+"AuthorizationRepository" --> controller : authorizationRepository
+deactivate "AuthorizationRepository"
+controller -> UserSession : getCurrentUserSession()
+activate UserSession
+UserSession --> controller : userSession
+deactivate UserSession
+controller -> UserSession : getUserID()
+activate UserSession
+UserSession --> controller : Email
+deactivate UserSession
+controller -> Email : getEmail()
+Email --> controller : email
+deactivate UserSession
+
+end
+<-- controller : email
+deactivate controller
+@enduml

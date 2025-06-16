@@ -1,0 +1,211 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Agent" as Agent
+participant "CreateAnnouncementUI" as UI
+participant ":CreateAnnouncementController" as Controller
+participant ":propertyTypeRepository"
+participant ":comissionRepository"
+participant ":Property" as Property
+participant ":Land" as Land
+participant ":Building" as Building
+participant ":Apartment" as Apartment
+participant ":House" as House
+
+participant ":AnnouncementRepository" as Announcement
+
+
+activate Agent
+
+
+                activate UI
+                Agent -> UI : asks to create new announcement
+                UI -> Controller : CreateAnnouncementController()
+
+                activate Controller
+                    Controller -> ":propertyTypeRepository" : getPropertyTypes()
+                activate ":propertyTypeRepository"
+                    ":propertyTypeRepository" -> Controller : propertyTypes
+                deactivate ":propertyTypeRepository"
+
+                Controller -> ":comissionRepository" : getComissionTypes()
+                activate ":comissionRepository"
+                ":comissionRepository" -> Controller : comissionTypes
+                deactivate ":comissionRepository"
+
+
+                Controller -> UI : propertyTypes
+                Controller -> UI : comissionTypes
+
+
+                deactivate Controller
+
+                UI -> Agent : shows property types
+                Agent -> UI : selects a property type
+                UI -> UI : keepPropertyType()
+
+                UI -> Agent : shows comission types
+                Agent -> UI : selects a comission type
+                UI -> UI : keepComission()
+                UI -> Agent : requests Data
+                deactivate UI
+
+deactivate Agent
+
+        alt if propertyType is Land
+            Agent -> UI : inputs requested data(area, distanceFromCentre, photoURI, street, city, comission)
+            activate Agent
+            deactivate Agent
+            activate UI
+            UI -> Controller : createLand(area, distanceFromCentre, photoURI, street, city, \n district, state, zipCode, comission)
+            deactivate UI
+            activate Controller
+
+            ref over Controller, Controller
+                get photos
+            end
+
+            ref over Controller
+                get address
+            end
+                Controller -> Land :createLand(photoList, area, distanceFromCentre,address,comission)
+            deactivate Controller
+            deactivate UI
+
+
+            activate Land
+            Land -> Property :super
+            deactivate Land
+            activate Property
+
+
+            deactivate Property
+            Property -> Controller : getPropertyDetails(property)
+
+            deactivate Property
+            activate Controller
+
+
+            Controller -> Announcement : propertyDetails
+            deactivate Controller
+
+
+        end
+
+        alt if propertyType is Apartment
+             Agent -> UI : inputs requested data(area, distanceFromCentre, equipmentList,typeOfTransaction, photoURI, street, city, \n district, state, zipCode, type of transaction, value of transaction, comission)
+             activate Agent
+             deactivate Agent
+
+             activate UI
+             UI -> Controller : createApartment(area, distanceFromCentre, equipmentList, photoURI, street, city, \n district, state, zipCode, transactionType, monetaryValue, \n comissionType, comissionValue, bedrooms, bathrooms, parkingSpaces)
+
+             deactivate UI
+             ref over Controller, Controller
+                             get photos
+                         end
+
+                         ref over Controller
+                             get address
+                         end
+             ref over Controller, Controller
+                getEquipmentList
+             end
+             activate Controller
+             Controller -> Apartment :createApartment(area, distanceFromCentre, equipmentList, photoList, address, type of transaction, value of transaction, \n type of comission, comission amount, propertyType, bedrooms, bathrooms, parkingSpaces)
+             deactivate Controller
+             deactivate UI
+
+
+             activate Apartment
+             Apartment -> Building :super
+             deactivate Apartment
+             activate Building
+
+             Building -> Property : super
+             deactivate Building
+
+             activate Property
+
+
+             deactivate Property
+             Property -> Controller : getPropertyDetails(property)
+
+             deactivate Property
+             activate Controller
+
+
+             Controller -> Announcement : propertyDetails
+
+             deactivate Controller
+        end
+
+        alt if propertyType is House
+                     Agent -> UI : inputs requested data(area, distanceFromCentre, equipmentList, photoURI, street, city, \n district, state, zipCode, type of transaction, value of transaction, comission)
+                     activate Agent
+                     deactivate Agent
+
+                     activate UI
+                     UI -> Controller : createHouse(area, distanceFromCentre, equipmentList, photoURI, street, city, \n district, state, zipCode, type of transaction, value of transaction, comission)
+                     deactivate UI
+                     ref over Controller, Controller
+                                     get photos
+                                 end
+
+                                 ref over Controller
+                                     get address
+                                 end
+                     ref over Controller, Controller
+                                     getEquipmentList
+                                  end
+                     activate Controller
+                     Controller -> House :createHouse(area, distanceFromCentre, equipmentList, photoList, address,comission, \n propertyType, bedrooms, bathrooms, parkingSpaces, \n basement, loft, sunExposure)
+                     deactivate Controller
+                     deactivate UI
+
+
+                     activate House
+                     House -> Building :super
+                     deactivate House
+                     activate Building
+                     Building -> Property : super
+                     deactivate Building
+
+                     activate Property
+
+
+                     deactivate Property
+                     Property -> Controller : getPropertyDetails(property)
+
+                     deactivate Property
+                     activate Controller
+
+
+                     Controller -> Announcement : propertyDetails
+
+                     deactivate Controller
+                end
+
+                activate Controller
+                            Controller -> PropertyRepository : displayPropertyDetails(property)
+                        deactivate Controller
+                        activate PropertyRepository
+                            PropertyRepository --> Controller : propertyDetails
+                        deactivate PropertyRepository
+                        activate Controller
+                            Controller --> UI : ropertyDetails
+                        deactivate Controller
+                        activate UI
+                            UI --> Agent : displays success message
+
+
+
+
+
+
+@enduml

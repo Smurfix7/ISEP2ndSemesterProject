@@ -1,0 +1,122 @@
+@startuml
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam groupInheritance 2
+skinparam linetype ortho
+
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+class Person{
+    -String name
+    -Integer taxNumber
+    -String emailAddress
+    -Integer telephoneNumber
+
+    +getTelephoneNumber()
+    +getEmailAddress()
+    +getTaxNumber()
+    +getName()
+    -setTelephoneNumber()
+    -setEmailAddress()
+    -setTaxNumber()
+    -setName()
+}
+
+class Role {
+    -String id
+    -String description
+    ---
+    +Role(id, description)
+    +getID
+    +getDescription
+}
+
+class Agent {
+    -Agency agency
+    ---
+    +getAgency()
+    -setAgency()
+}
+
+class Email {
+}
+
+
+class AcceptPurchaseOrderUI{
+    +keepPurchaseOrder()
+}
+
+
+class AcceptPurchaseOrderController{
+    +sendEmail(Email)
+}
+
+class Repositories {
+    ---
+    - Repositories()
+    +getInstance() : Repositories
+    +getPurchaseOrderRepository()
+    +getAnnouncementRepository()
+    +getAuthenticationRepository()
+}
+
+class PurchaseRepository{
+    - PurchaseRepository()
+    +getInstance() : PurchaseRepository
+    +getPurchaseOrderTBARepository()
+    +getPurchaseOrderARepository()
+    +getAnnouncementRepository()
+    +getAuthenticationRepository()
+}
+
+class PurchaseOrderTBARepository {
+    ---
+    +addPurchaseOrder(purchaseOrder)
+    +checkExistingOrder(purchaseOrder)
+    +getPurchaseOrders()
+    +removePurchaseOrder()
+}
+
+class PurchaseOrderARepository{
+    ---
+    +addPurchaseOrder(purchaseOrder)
+    +checkExistingOrder(purchaseOrder)
+    +getPurchaseOrders()
+    +removePurchaseOrder()
+}
+class Address{
+    -String street
+    -String city
+    -String district
+    -String state
+    -String zipCode
+
+    -setStreet()
+    -setCity()
+    -setDistrict()
+    -setState()
+    -setZipCode()
+    +getStreet()
+    +getCity()
+    +getDistrict()
+    +getState()
+    +getZipCode()
+}
+
+'class Password{
+'    password
+'}
+Agent <..up AcceptPurchaseOrderUI
+AcceptPurchaseOrderUI <..up AcceptPurchaseOrderController
+Role *-- Agent
+Agent ---> PurchaseOrderTBARepository : > approves/declines offers
+Email <--- AcceptPurchaseOrderController : > sends update email to owner
+AcceptPurchaseOrderController ..> Repositories
+PurchaseRepository <|--down PurchaseOrderARepository
+PurchaseRepository <|--down PurchaseOrderTBARepository
+Repositories <|--down PurchaseRepository
+Person <|-Agent
+Address *-- Agent
+@enduml
