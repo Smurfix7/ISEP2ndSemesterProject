@@ -1,6 +1,26 @@
 # Integrating Project for the 2nd Semester of LEI-ISEP 2021-22
 
-# 1. Team Members
+## 1. Project Description
+
+This project creates a functional program for a Real State Agency, with the following implemented functionalities:
+
+- Listed Properties
+-	Publish a sales announcement
+-	To register a new employee
+-	Creating a property listing
+-	To register in the system
+-	Displaying and accepting announcement requests
+-	Messaging for a visit
+-	To buy a property
+- Accepting or denying a property sale/lease
+-	Importing information from a legacy system that has been in use in several agencies
+-	Listing booking requests managed by me
+-	Responding to a booking requests
+-	Listing all deals made
+-	Analysing, comparing and predicting deals
+-	Dividing sets of all stores
+
+## 2. Team Members
 
 The team consists of students identified in the following table.
 
@@ -11,12 +31,10 @@ The team consists of students identified in the following table.
 | **1220738**    | Afonso Santos [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white&style=flat-square)](https://github.com/Fonners)    |
 | **1221190**    | Rodrigo Oliveira [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white&style=flat-square)](https://github.com/rodrigom-oliveira) |
 
-# 2. Task Distribution ###
+## 3. Task Distribution ###
 
 Throughout the project's development period, the distribution of _tasks / requirements / features_ by the team members
 was carried out as described in the following table.
-
-**Keep this table must always up-to-date.**
 
 | Task                        | [Sprint A](sprintA/Readme.md)                                                              | [Sprint B](sprintB/Readme.md)                                                              | [Sprint C](sprintC/Readme.md)                                                              | [Sprint D](sprintD/Readme.md)                                                              |
 |-----------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
