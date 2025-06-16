@@ -6,10 +6,10 @@ The team consists of students identified in the following table.
 
 | Student Number | Name             |
 |----------------|------------------|
-| **1220976**    | Ricardo Dias     |
-| **1220962**    | Alfredo Ferreira |
-| **1220738**    | Afonso Santos    |
-| **1221190**    | Rodrigo Oliveira |
+| **1220976**    | Ricardo Dias [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white&style=flat-square)](https://github.com/Smurfix7)|
+| **1220962**    | Alfredo Ferreira [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white&style=flat-square)](https://github.com/AlfredoFerreira04) |
+| **1220738**    | Afonso Santos [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white&style=flat-square)](https://github.com/Fonners)    |
+| **1221190**    | Rodrigo Oliveira [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white&style=flat-square)](https://github.com/rodrigom-oliveira) |
 
 # 2. Task Distribution ###
 
